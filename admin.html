@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>杭州办工作台 · 填报数据后台</title>
+<style>
+body{font-family:"Microsoft YaHei",sans-serif;background:#0f172a;color:#e2e8f0;padding:20px;max-width:1100px;margin:auto}
+h1{color:#38bdf8;border-bottom:2px solid #1e3a5f;padding-bottom:10px}
+h2{color:#fbbf24;margin-top:28px}
+.pill{display:inline-block;background:#1e293b;padding:2px 10px;border-radius:12px;font-size:13px;color:#94a3b8;margin-left:8px}
+.card{background:#1e293b;border-radius:10px;padding:12px 16px;margin:10px 0;border-left:4px solid #38bdf8;overflow:auto}
+.card small{color:#64748b;display:block;margin-top:6px}
+pre{margin:0;white-space:pre-wrap;word-break:break-all;font-size:13px}
+#refresh{cursor:pointer;background:#2563eb;color:#fff;border:0;padding:8px 16px;border-radius:8px;font-size:14px}
+.count{color:#4ade80;font-weight:bold}
+.req{background:#1e293b;border-radius:10px;padding:12px 16px;margin:10px 0;border-left:4px solid #fbbf24;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.req .info{flex:1;min-width:280px;line-height:1.7}
+.req .btns{display:flex;gap:8px}
+.btn-ok{cursor:pointer;background:#16a34a;color:#fff;border:0;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:700}
+.btn-no{cursor:pointer;background:#dc2626;color:#fff;border:0;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:700}
+.done{color:#64748b;font-size:12px}
+.tag{display:inline-block;padding:1px 8px;border-radius:8px;font-size:12px;font-weight:700;margin-left:6px}
+.tag-pend{background:#fbbf2433;color:#fbbf24}
+.tag-ok{background:#16a34a33;color:#4ade80}
+.tag-no{background:#dc262633;color:#f87171}
+</style>
+</head>
+<body>
+<h1>杭州办工作台 · 填报数据后台</h1>
+<p><button id="refresh">刷新数据</button> <span id="total"></span></p>
+<h2>📥 报表导出审批 <span class="pill" id="reqCount"></span></h2>
+<div id="reqArea">加载中...</div>
+<h2>📦 填报记录</h2>
+<div id="app">加载中...</div>
+<script>
+function approve(reqId, ok){
+  fetch('/.netlify/functions/save-data',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({type:'export_approve',payload:{reqId:reqId, approved:ok, at:new Date().toISOString()}})})
+  .then(function(r){return r.json();}).then(function(){load();})
+  .catch(function(e){alert('提交失败：'+e);});
+}
+function load(){
+  document.getElementById("app").innerHTML="加载中...";
+  document.getElementById("reqArea").innerHTML="加载中...";
+  fetch("/.netlify/functions/get-data").then(function(r){return r.json();}).then(function(d){
+    var html="";
+    document.getElementById("total").innerHTML="共 <span class=\"count\">"+d.count+"</span> 条填报记录";
+    // 审批区
+    var reqs=(d.byType&&d.byType["export_req"])||[];
+    reqs=reqs.slice().reverse();
+    var apps=(d.byType&&d.byType["export_approve"])||[];
+    var doneMap={};
+    apps.forEach(function(a){ if(a.payload&&a.payload.reqId) doneMap[a.payload.reqId]=a.payload.approved; });
+    document.getElementById("reqCount").innerHTML=reqs.length+" 条申请";
+    if(!reqs.length){ document.getElementById("reqArea").innerHTML="<p>暂无导出申请</p>"; }
+    else{
+      var rhtml=reqs.map(function(rec){
+        var p=rec.payload||{};
+        var st=doneMap[p.reqId];
+        var tag=st===true?'<span class="tag tag-ok">已同意</span>':st===false?'<span class="tag tag-no">已拒绝</span>':'<span class="tag tag-pend">待审批</span>';
+        var btns=(st===undefined)?'<div class="btns"><button class="btn-ok" onclick="approve(\''+p.reqId+'\',true)">✓ 同意下载</button><button class="btn-no" onclick="approve(\''+p.reqId+'\',false)">✕ 拒绝</button></div>':'<span class="done">已处理</span>';
+        return '<div class="req"><div class="info"><b style="color:#e0e7ff">'+p.type+' 报表</b> · 区域：<b style="color:#7dd3fc">'+(p.zone||'全部')+'</b> · '+((p.rows||0)+' 行数据')+'<br><small>申请单号：'+p.reqId+' · 提交时间：'+(p.at||rec.at||'').replace('T',' ').slice(0,19)+' · 数据日期：'+(p.date||'')+'</small>'+tag+'</div>'+btns+'</div>';
+      }).join('');
+      document.getElementById("reqArea").innerHTML=rhtml;
+    }
+    // 普通记录
+    var types=Object.keys(d.byType||{}).filter(function(t){return t!=="export_req"&&t!=="export_approve";});
+    if(types.length===0){html="<p>暂无填报数据</p>";}
+    types.forEach(function(type){
+      var arr=d.byType[type];
+      html+="<h2>"+type+"<span class=\"pill\">"+arr.length+" 条</span></h2>";
+      arr.slice().reverse().forEach(function(rec){
+        html+="<div class=\"card\"><pre>"+JSON.stringify(rec.payload,null,2)+"</pre><small>"+rec.at+"</small></div>";
+      });
+    });
+    document.getElementById("app").innerHTML=html;
+  }).catch(function(e){document.getElementById("app").innerHTML="加载失败："+e;});
+}
+document.getElementById("refresh").onclick=load;
+load();
+</script>
+</body>
+</html>
