@@ -79,27 +79,27 @@
     .shell{display:flex;height:100vh;position:relative;z-index:1}
     
     /* ===== V4 团队赋能增强版 ===== */
-    .ai-panel .ai-ctrl{background:none;border:none;color:var(--tx3);font-size:12px;cursor:pointer;padding:2px 5px;border-radius:5px;line-height:1}
-    .ai-panel .ai-ctrl:hover{color:var(--cyan);background:rgba(129,140,248,.18)}
-    .ai-panel .ai-ctrl-group{margin-left:auto;display:flex;align-items:center;gap:2px}
-    .ai-panel.zoom{position:fixed;left:152px;bottom:12px;width:340px;z-index:9999;max-height:calc(100vh - 40px);overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.5)}
-    .ai-panel.zoom textarea{height:82px}
-    .ai-panel.zoom #aiResult{max-height:420px}
-    #aiFab{position:fixed;left:14px;bottom:14px;z-index:9999;padding:11px 15px;border-radius:999px;border:1px solid rgba(129,140,248,.55);background:linear-gradient(150deg,rgba(34,211,238,.88),rgba(129,140,248,.88));color:#fff;font-weight:800;font-size:12.5px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.45)}
-    #aiFab:hover{transform:scale(1.05)}
-    .ai-panel{margin:auto 12px 14px;padding:12px;border-radius:14px;background:linear-gradient(150deg,rgba(34,211,238,.14),rgba(129,140,248,.10));border:1px solid rgba(129,140,248,.35)}
-    .ai-panel .ai-title{font-size:12.5px;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:6px;margin-bottom:8px}
-    .ai-panel .ai-ico{font-size:15px}
-    .ai-panel textarea{width:100%;height:56px;border-radius:9px;border:1px solid rgba(255,255,255,.18);background:rgba(5,7,24,.7);color:var(--tx);font-size:12px;padding:7px;resize:none;font-family:inherit}
-    .ai-panel textarea:focus{outline:none;border-color:var(--cyan)}
-    .ai-panel .ai-go{width:100%;margin-top:7px;padding:7px 0;border-radius:9px;border:none;background:var(--grad);color:#fff;font-weight:800;font-size:12.5px;cursor:pointer}
-    .ai-panel .ai-q{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-    .ai-panel .ai-q button{font-size:10.5px;padding:3px 7px;border-radius:7px;border:1px solid rgba(129,140,248,.4);background:rgba(129,140,248,.12);color:var(--tx2);cursor:pointer}
-    .ai-panel .ai-q button:hover{border-color:var(--cyan);color:var(--cyan)}
-    #aiResult{max-height:180px;overflow-y:auto;margin-top:8px;font-size:11.5px;color:var(--tx2);line-height:1.55}
-    #aiResult .ai-item{cursor:pointer;padding:3px 6px;border-radius:6px;border-bottom:1px dashed rgba(255,255,255,.07)}
-    #aiResult .ai-item:hover{background:rgba(129,140,248,.18)}
-    #aiResult .ai-add{font-size:10px;padding:1px 7px;border-radius:6px;border:1px solid rgba(52,211,153,.5);background:rgba(52,211,153,.12);color:#34d399;cursor:pointer}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     .issue-card{background:linear-gradient(150deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
     .issue-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
     .issue-badge{font-size:11px;padding:2px 9px;border-radius:8px;font-weight:800}
@@ -315,7 +315,7 @@
     .rank-item .vl{font-weight:800;font-size:13px;color:#eef2ff;text-shadow:0 0 14px rgba(165,243,252,.35)}
 
     /* ===== 表格 ===== */
-    table.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+    table.tbl{width:auto;min-width:100%;border-collapse:collapse;font-size:12.5px}
     .tbl th{text-align:left;padding:9px 10px;color:var(--tx3);font-weight:700;font-size:11.5px;border-bottom:1px solid rgba(129,140,248,.22);white-space:nowrap;letter-spacing:.3px;background:linear-gradient(180deg,rgba(129,140,248,.08),transparent)}
     .tbl td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--tx2);white-space:nowrap}
     .tbl tr{transition:.14s}
@@ -822,6 +822,16 @@
     .m-body{padding:14px 12px 22px}
     .m-body .tbl{font-size:12px}
   }
+
+.tier-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:4px}
+.tier{cursor:pointer;border-radius:14px;padding:16px 10px;text-align:center;background:linear-gradient(160deg,rgba(129,140,248,.13),rgba(34,211,238,.06));border:1px solid rgba(129,140,248,.28);transition:.16s}
+.tier:hover{transform:translateY(-2px);border-color:#22d3ee;box-shadow:0 6px 18px rgba(34,211,238,.15)}
+.tier-ico{font-size:24px;line-height:1}
+.tier-n{font-size:30px;font-weight:900;margin:5px 0 2px;background:linear-gradient(135deg,#7dd3fc,#a5b4fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tier-u{font-size:12px;color:var(--tx3);font-weight:600;margin-left:2px}
+.tier-t{font-size:13.5px;font-weight:800;color:var(--tx)}
+.tier-d{font-size:11px;color:var(--tx3);margin-top:2px}
+@media(max-width:820px){.tier-grid{grid-template-columns:repeat(2,1fr)}.tier-n{font-size:26px}}
 </style>
 
 
@@ -848,8 +858,6 @@
         <div class="nav-item" data-page="report"><span class="ic">📋</span>工作报表</div>
         <div class="nav-item" data-page="issues"><span class="ic">🚩</span>问题清单<small id="ism">0</small></div>
       </nav>
-      🤖 AI 问询</button>
-
     </aside>
 
     <main class="main">
@@ -950,6 +958,14 @@
               <div class="rank" id="boardTop5"></div>
             </div>
           </div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="chead">
+              <div><div class="ch-t"><span class="dot"></span>🏅 门店分级看板（2026年1-9月）</div>
+              <div class="ch-s" style="margin-top:3px">按2026年净进货盒数分档 · 含退货净量 · 点击档位查看门店明细</div></div>
+              <span class="badge-date">数据口径=2026年1月-9月</span>
+            </div>
+            <div class="tier-grid" id="storeTier"></div>
+          </div>
           </div>
         </div>
 
@@ -973,7 +989,7 @@
                 <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('qty')">净进货(盒) <span id="sQty"></span></th>
                 <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('amount')">净金额(元) <span id="sAmt"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('orders')">订单 <span id="sOrd"></span></th>
-                <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('dong')" title="近两月盒数均值">动销(盒) <span id="sDong"></span></th>
+                <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('dong')" title="前两完整月均值（不含本月）">动销(盒) <span id="sDong"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('eff')" title="当月有出货的天数=有效拜访">有效拜访 <span id="sEff"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('pc')">动销品种 <span id="sPc"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('months')">覆盖月数 <span id="sMon"></span></th>
@@ -1470,7 +1486,7 @@ function lastFullMonthKey(){
   return mk;
 }
 function lastDataDate(){ return (DATA.daily&&DATA.daily.length)?DATA.daily[DATA.daily.length-1].d:'-'; }
-function dongxiao(s){ return Math.round(((s.monthQty[CUR_M]||0)+(s.monthQty[prevMonthOf(CUR_M)]||0))/2); }
+function dongxiao(s){ const m1=prevMonthOf(CUR_M), m2=prevMonthOf(m1); return Math.round(((s.monthQty[m1]||0)+(s.monthQty[m2]||0))/2); } // 动销=本月之前的两个完整月÷2（本月不参与）
 // ===== V4 团队赋能增强版：动销分档 / VIP / 有效拜访 / 环比预警 / 人效 / 问题清单 / AI 问询 / KPI目标 =====
 const DT_C={1:'#fb7185',2:'#fbbf24',3:'#34d399',4:'#6ee7b7'};
 const DT_NAME={1:'<20 不达标',2:'20-50 刚起步',3:'50-100 达标',4:'≥100 优秀'};
@@ -1864,7 +1880,41 @@ function renderZone(){
   // 销售门店前五（2026）
   const top5=Object.values(IDX.store26).filter(s=>s.qty>0).sort((a,b)=>b.qty-a.qty).slice(0,20);
   $('#boardTop5').innerHTML=top5.map((s,i)=>`<div class="rank-item" onclick="openStore('${esc(s.name)}','${esc(s.zone)}')" style="font-size:14px"><span class="no">${i+1}</span><div><div class="nm" style="font-size:14.5px">${esc(s.name)}</div><div class="sub" style="font-size:12px">${s.zone} · 2026进${fmtN(s.qty)}盒</div></div><div class="vl" style="font-size:14px">${fmtN(s.qty)}盒</div></div>`).join('')||'<div class="empty">暂无2026数据</div>';
-  renderTeamEff();
+  renderTeamEff(); renderStoreTier();
+}
+
+
+// ===== 门店分级看板（2026年1-9月净进货分档）=====
+let TIER_LIST=[];
+function renderStoreTier(){
+  const el=$('#storeTier'); if(!el) return;
+  const all=Object.values(IDX.store26).filter(s=>s.qty>0);
+  const defs=[
+    {ico:'💯',t:'千盒门店',d:'≥1000 盒',min:1000},
+    {ico:'🥇',t:'500~1000 盒',d:'500-999 盒',min:500,max:999},
+    {ico:'🥈',t:'300~500 盒',d:'300-499 盒',min:300,max:499},
+    {ico:'🥉',t:'100~300 盒',d:'100-299 盒',min:100,max:299},
+    {ico:'🔻',t:'100 盒以下',d:'<100 盒',min:0,max:99}
+  ];
+  TIER_LIST=defs.map(d=>all.filter(s=>s.qty>=d.min&&(d.max===undefined||s.qty<=d.max)).sort((a,b)=>b.qty-a.qty));
+  el.innerHTML=defs.map((d,i)=>{
+    const n=TIER_LIST[i].length;
+    return `<div class="tier" onclick="openTierStores(${i})">
+      <div class="tier-ico">${d.ico}</div>
+      <div class="tier-n">${n}<span class="tier-u">家</span></div>
+      <div class="tier-t">${d.t}</div>
+      <div class="tier-d">${d.d}</div>
+    </div>`;
+  }).join('');
+}
+function openTierStores(i){
+  const list=TIER_LIST[i]||[];
+  const defs=['💯 千盒门店','🥇 500~1000 盒','🥈 300~500 盒','🥉 100~300 盒','🔻 100 盒以下'];
+  const head='<tr><th>#</th><th>门店</th><th>区域</th><th>负责人</th><th style="text-align:right">2026净进货(盒)</th><th>详情</th></tr>';
+  const body=list.map((s,k)=>`<tr><td>${k+1}</td><td class="hl">${esc(s.name)}</td><td>${s.zone}</td><td>${s.manager||'-'}</td><td style="text-align:right">${fmtN(s.qty)}</td><td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="closeModal('tierModal');openStore('${esc(s.name)}','${esc(s.zone)}')">看板</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty" style="text-align:center">该档暂无门店</td></tr>';
+  $('#tierModalTitle').textContent=defs[i]+' · '+list.length+' 家门店（2026年1-9月）';
+  $('#tierModalBody').innerHTML='<table class="tbl">'+head+body+'</table>';
+  $('#tierModal').classList.add('show');
 }
 
 function openZone(zone){
@@ -1900,7 +1950,7 @@ function zoneTab(t,btn){
     const dval=s=> sk==='dong'?dongxiao(s):s.qty;
     const s=[...z.stores].sort((a,b)=>{ const va=dval(a), vb=dval(b); if(va===vb) return 0; return (va>vb?1:-1)*sd; });
     const aQ=sk==='qty'?(sd<0?'▼':'▲'):'', aD=sk==='dong'?(sd<0?'▼':'▲'):'';
-    B.innerHTML=`<table class="tbl"><thead><tr><th>#</th><th>门店</th><th style="text-align:right;cursor:pointer" onclick="zoneSortBy('qty')">2026盒数 ${aQ}</th><th style="text-align:right;cursor:pointer" onclick="zoneSortBy('dong')" title="近两个月进货之和÷2">动销 ${aD}</th><th style="text-align:right">2026金额</th><th style="text-align:center">订单</th><th style="text-align:center">品种</th><th style="text-align:center">8月</th><th>最近</th><th>详情</th></tr></thead><tbody>`+
+    B.innerHTML=`<table class="tbl"><thead><tr><th>#</th><th>门店</th><th style="text-align:right;cursor:pointer" onclick="zoneSortBy('qty')">2026盒数 ${aQ}</th><th style="text-align:right;cursor:pointer" onclick="zoneSortBy('dong')" title="前两个完整月进货÷2（不含本月）">动销 ${aD}</th><th style="text-align:right">2026金额</th><th style="text-align:center">订单</th><th style="text-align:center">品种</th><th style="text-align:center">8月</th><th>最近</th><th>详情</th></tr></thead><tbody>`+
       s.map((st,i)=>{ const dx=dongxiao(st); return `<tr><td>${i+1}</td><td class="hl">${esc(st.name)}</td><td class="num" style="text-align:right">${fmtN(st.qty)}</td><td class="num" style="text-align:right;color:${DT_C[dongTier(dx)]};font-weight:700">${fmtN(dx)}</td><td style="text-align:right">${fmtM(st.amount)}</td><td style="text-align:center">${st.orders}</td><td style="text-align:center">${st.prodCount}款</td><td style="text-align:center">${st.isAugActive?'<span class="pill g">活跃</span>':'<span class="pill o">待激活</span>'}</td><td>${st.lastDate||'-'}</td><td><button class="btn" style="padding:4px 12px;font-size:11px" onclick="openStore('${esc(st.name)}','${esc(z.zone)}')">查看</button></td></tr>`; }).join('')+`</tbody></table>`;
   } else if(t==='trend'){
     B.innerHTML=`<div class="bchart" style="height:200px">${DATA.meta.months.map(m=>{
@@ -1977,7 +2027,7 @@ function renderCrm(){
     <td class="num" style="text-align:right">${fmtN(s.qty)}</td>
     <td style="text-align:right">${fmtM(s.amount)}</td>
     <td style="text-align:center">${s.orders}</td>
-    <td class="num" style="text-align:right;color:${DT_C[dt]}" title="近两月均值 · ${DT_NAME[dt]}">${fmtN(dong)}</td>
+    <td class="num" style="text-align:right;color:${DT_C[dt]}" title="前两完整月均值（不含本月） · ${DT_NAME[dt]}">${fmtN(dong)}</td>
     <td style="text-align:center" title="当月有出货天数">${eff}</td>
     <td style="text-align:center"><span style="color:${s.prodCount>=8?'var(--green)':s.prodCount>=4?'#fcd34d':'#fda4af'}">${s.prodCount}款</span></td>
     <td style="text-align:center">${s.activeMonths}月</td>
@@ -2594,6 +2644,12 @@ function toast(msg){
       <div class="modal-box" style="max-width:1000px">
         <div class="modal-head"><b id="gradeModalTitle">门店名单</b><button class="x" onclick="closeModal('gradeModal')">✕</button></div>
         <div class="modal-body" style="max-height:72vh;overflow:auto" id="gradeModalBody"></div>
+      </div>
+    </div>
+    <div class="modal" id="tierModal">
+      <div class="modal-box" style="max-width:1000px">
+        <div class="modal-head"><b id="tierModalTitle">门店明细</b><button class="x" onclick="closeModal('tierModal')">✕</button></div>
+        <div class="modal-body" style="max-height:72vh;overflow:auto" id="tierModalBody"></div>
       </div>
     </div>
     <div class="modal" id="boardTopModal">
