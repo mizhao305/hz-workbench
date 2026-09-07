@@ -1123,7 +1123,7 @@
 
         <!-- ═══════════ 促销管理 ═══════════ -->
         <div class="page" id="page-promo">
-          <div class="cloudbar"><span>☁️ 云同步</span><span id="cloudSyncTag">启动中…</span><button class="btn" style="padding:4px 12px;font-size:12px;margin-left:auto" onclick="cloudSyncBtn()">⟳ 立即同步</button></div>
+          <div class="cloudbar"><span>☁️ 云同步</span><span id="cloudSyncTag">启动中…</span><button id="cloudConnBtn" class="btn" style="padding:4px 12px;font-size:12px;margin-left:auto;display:none;background:linear-gradient(135deg,#f59e0b,#ef4444);border:none" onclick="deviceConnect()">🔑 连接云端</button><button class="btn" style="padding:4px 12px;font-size:12px;margin-left:8px" onclick="cloudSyncBtn()">⟳ 立即同步</button></div>
           <div class="grid r32" style="grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
             <!-- 团队框架 -->
             <div class="card promo-org">
@@ -2418,7 +2418,7 @@ function setCurMonth(mk){
 const GH_REPO='mizhao305/hz-workbench';
 const GH_TOKEN_B64=''; // 部署时由脚本注入（base64）
 const CLOUD_MAP={ 'hz_promo_rec':'promo_rec.json','hz_target_stores':'target_stores.json','hz_vip_stores':'vip_stores.json','hz_promo_inv':'promo_inv.json' };
-function cloudToken(){ try{ return GH_TOKEN_B64?atob(GH_TOKEN_B64):''; }catch(e){ return ''; } }
+function cloudToken(){ try{ if(GH_TOKEN_B64) return atob(GH_TOKEN_B64); }catch(e){} try{ return localStorage.getItem('hz_gh_oauth_token')||''; }catch(e){ return ''; } }
 async function cloudGet(file){
   try{
     const tkn=cloudToken();
@@ -2458,7 +2458,9 @@ async function cloudSyncAll(){
     }catch(e){}
   }
   try{ renderPromoRecords(); renderPromoInv(); renderTargetList(); renderCrm(); renderIssues(); }catch(e){}
-  _cldUi(GH_TOKEN_B64?'✅ 云端已同步':'本地保存（未配置云端）');
+  const _hasTok=!!cloudToken();
+  _cldUi(_hasTok?'✅ 云端已同步':'未连接云端');
+  const _cb=document.getElementById('cloudConnBtn'); if(_cb) _cb.style.display=_hasTok?'none':'inline-block';
 }
 // 保存后推送：合并远程+本地 → 写远程 → 更新本地
 async function cloudSave(key){
@@ -2476,6 +2478,67 @@ let CLOUD_STATE='';
 function cloudSyncBtn(){ if(CLOUD_STATE==='同步中…') return; CLOUD_STATE='同步中…'; _cldUi('⏳ 同步中…'); cloudSaveAll().then(()=>{ CLOUD_STATE=''; _cldUi('✅ 已同步 '+new Date().toLocaleTimeString('zh-CN').slice(0,5)); }); }
 async function cloudSaveAll(){ const keys=Object.keys(CLOUD_MAP); for(const k of keys){ await cloudSave(k); } try{ renderPromoRecords(); renderPromoInv(); renderTargetList(); renderCrm(); renderIssues(); }catch(e){} }
 function _cldUi(txt){ const el=document.getElementById('cloudSyncTag'); if(el) el.textContent=txt; }
+// ===== GitHub OAuth 设备授权流（线上版连接云端用，token 仅存本机 localStorage） =====
+const GH_CLIENT_ID='Ov23li0UsnlrPsEpf574';
+async function deviceStart(){
+  const r=await fetch('https://github.com/login/device/code',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({client_id:GH_CLIENT_ID,scope:'repo'})});
+  const d=await r.json();
+  if(!d.device_code) throw new Error(d.error_description||'获取授权码失败');
+  localStorage.setItem('hz_gh_device',JSON.stringify({dc:d.device_code,int:d.interval||5,exp:Date.now()+(d.expires_in||900)*1000}));
+  return d;
+}
+async function devicePoll(){
+  const s=JSON.parse(localStorage.getItem('hz_gh_device')||'null');
+  if(!s) return {error:'no_device'};
+  if(Date.now()>s.exp){ localStorage.removeItem('hz_gh_device'); return {error:'expired'}; }
+  const r=await fetch('https://github.com/login/oauth/access_token',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({client_id:GH_CLIENT_ID,device_code:s.dc,grant_type:'urn:ietf:params:oauth:grant-type:device_code'})});
+  const d=await r.json();
+  if(d.access_token){
+    localStorage.setItem('hz_gh_oauth_token',d.access_token);
+    if(d.refresh_token) localStorage.setItem('hz_gh_oauth_refresh',d.refresh_token);
+    localStorage.removeItem('hz_gh_device');
+    return {ok:true};
+  }
+  return d;
+}
+let DEV_TIMER=null;
+async function deviceConnect(){
+  const box=document.getElementById('devModal'); const body=document.getElementById('devModalBody');
+  if(!box||!body) return;
+  box.style.display='flex';
+  body.innerHTML='<p style="margin:6px 0 10px;color:var(--tx3);font-size:13px">正在获取授权码…</p>';
+  try{
+    const d=await deviceStart();
+    body.innerHTML='<div style="text-align:center;padding:6px 0 10px">'+
+      '<p style="color:var(--tx3);font-size:13px;margin-bottom:10px">请在你已登录 GitHub 的手机或电脑浏览器打开下面地址，输入授权码：</p>'+
+      '<a href="https://github.com/login/device" target="_blank" style="font-size:15px;color:#7dd3fc;font-weight:800">https://github.com/login/device</a>'+
+      '<div style="font-size:32px;font-weight:900;letter-spacing:5px;color:#22d3ee;margin:14px 0;background:rgba(34,211,238,.08);border:1px dashed rgba(34,211,238,.45);border-radius:12px;padding:10px">'+d.user_code+'</div>'+
+      '<p id="devStat" style="font-size:12.5px;color:#fbbf24">⏳ 等待授权…（'+(d.expires_in||900)+'秒内有效，本页面会自动刷新状态）</p></div>';
+    let cnt=0;
+    clearInterval(DEV_TIMER);
+    const iv=(d.interval||5)*1000;
+    DEV_TIMER=setInterval(async()=>{
+      const r2=await devicePoll();
+      if(r2&&r2.ok){
+        clearInterval(DEV_TIMER);
+        const st=document.getElementById('devStat'); if(st) st.textContent='✅ 连接成功，正在同步…';
+        setTimeout(()=>{ const bx=document.getElementById('devModal'); if(bx) bx.style.display='none'; },900);
+        _cldUi('✅ 云端已同步');
+        const cb=document.getElementById('cloudConnBtn'); if(cb) cb.style.display='none';
+        cloudSyncAll();
+      } else if(r2&&(r2.error==='expired'||r2.error==='no_device')){
+        clearInterval(DEV_TIMER);
+        const st=document.getElementById('devStat'); if(st) st.textContent='❌ 授权码已过期，请关闭重试';
+      } else if(r2&&r2.error&&r2.error!=='authorization_pending'&&r2.error!=='slow_down'){
+        clearInterval(DEV_TIMER);
+        const st=document.getElementById('devStat'); if(st) st.textContent='❌ 授权失败：'+r2.error;
+      }
+      if(cnt++ > (d.expires_in||900)/Math.max(iv/1000,1)+2){ clearInterval(DEV_TIMER); }
+    }, iv);
+  }catch(e){
+    body.innerHTML='<p style="color:#fb7185;margin:8px 0">⚠️ '+e.message+'</p>';
+  }
+}
 // ===== 驻店目标门店填写 =====
 function targetStores(){ try{ return JSON.parse(localStorage.getItem('hz_target_stores')||'[]'); }catch(e){ return []; } }
 function renderTargetInv(){
@@ -2718,6 +2781,12 @@ function toast(msg){
       <div class="modal-box" style="max-width:1000px">
         <div class="modal-head"><b id="gradeModalTitle">门店名单</b><button class="x" onclick="closeModal('gradeModal')">✕</button></div>
         <div class="modal-body" style="max-height:72vh;overflow:auto" id="gradeModalBody"></div>
+      </div>
+    </div>
+    <div class="modal" id="devModal">
+      <div class="modal-box" style="max-width:520px">
+        <div class="modal-head"><b>🔑 连接云端（一次性授权）</b><button class="x" onclick="closeModal('devModal')">✕</button></div>
+        <div class="modal-body" id="devModalBody"></div>
       </div>
     </div>
     <div class="modal" id="tierModal">
