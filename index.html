@@ -2420,6 +2420,14 @@ const GH_TOKEN_B64=''; // 部署时由脚本注入（base64）
 const CLOUD_MAP={ 'hz_promo_rec':'promo_rec.json','hz_target_stores':'target_stores.json','hz_vip_stores':'vip_stores.json','hz_promo_inv':'promo_inv.json' };
 function cloudToken(){ try{ if(GH_TOKEN_B64) return atob(GH_TOKEN_B64); }catch(e){} try{ return localStorage.getItem('hz_gh_oauth_token')||''; }catch(e){ return ''; } }
 async function cloudGet(file){
+  if(VERCEL_API){
+    try{
+      const r=await fetch(VERCEL_API+'/api/get?file='+encodeURIComponent(file),{headers:{Accept:'application/json'},cache:'no-store'});
+      if(!r.ok) return null;
+      const d=await r.json();
+      return d&&d.ok?d.data:null;
+    }catch(e){ return null; }
+  }
   try{
     const tkn=cloudToken();
     const h={'Accept':'application/vnd.github+json'};
@@ -2432,6 +2440,13 @@ async function cloudGet(file){
   }catch(e){ return null; }
 }
 async function cloudPut(file,obj){
+  if(VERCEL_API){
+    try{
+      const r=await fetch(VERCEL_API+'/api/put',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({file:file,data:obj})});
+      const d=await r.json();
+      return !!(d&&d.ok);
+    }catch(e){ return false; }
+  }
   const tkn=cloudToken();
   if(!tkn) return false;
   try{
@@ -2480,6 +2495,7 @@ async function cloudSaveAll(){ const keys=Object.keys(CLOUD_MAP); for(const k of
 function _cldUi(txt){ const el=document.getElementById('cloudSyncTag'); if(el) el.textContent=txt; }
 // ===== GitHub OAuth 设备授权流（线上版连接云端用，token 仅存本机 localStorage） =====
 const GH_CLIENT_ID='Ov23li0UsnlrPsEpf574';
+const VERCEL_API=''; // 线上填报后端（Vercel 就绪后注入，如 https://hz-workbench.vercel.app）
 async function deviceStart(){
   const r=await fetch('https://github.com/login/device/code',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({client_id:GH_CLIENT_ID,scope:'repo'})});
   const d=await r.json();
