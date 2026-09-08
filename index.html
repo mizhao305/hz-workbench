@@ -2857,5 +2857,42 @@ function exportReportDirect(type, zone){
 }
 </script><script>
 function pushReport(type,data){try{if(!data)return;fetch('/.netlify/functions/save-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,payload:data})}).catch(()=>{});}catch(e){}}
+</script><script>function cloudViewInit(){
+  var target=document.getElementById('page-promo'); if(!target) return;
+  if(document.getElementById('cloudViewCard')) return;
+  var card=document.createElement('div'); card.className='card'; card.id='cloudViewCard';
+  card.style.cssText='margin-top:16px';
+  card.innerHTML='<div class="chead"><div class="ch-t"><span class="dot"></span>团队填报汇总 · 云端同步（电脑端填报自动同步至此）</div><div class="ch-s" id="cloudViewSum">同步中…</div></div><div id="cloudViewBody" style="padding:12px;font-size:12px;color:#cbd5e1">正在读取云端数据…</div>';
+  target.appendChild(card);
+  var map={'promo_rec':'促销驻店记录','target_stores':'驻店目标门店','promo_inv':'铺货库存填报','vip_stores':'VIP门店标记'};
+  var done=0,total=4,sums=[];
+  Object.keys(map).forEach(function(k){
+    fetch('https://api.github.com/repos/mizhao305/hz-workbench/contents/data/'+k+'.json',{headers:{'Accept':'application/vnd.github+json'}})
+    .then(function(r){return r.json();}).then(function(d){
+      var txt='[]';
+      if(d&&d.content){ try{ txt=decodeURIComponent(escape(atob(d.content))); }catch(e){} }
+      var arr=[]; try{ arr=JSON.parse(txt); }catch(e){ arr=[]; }
+      var body=document.getElementById('cloudViewBody'); if(!body) return;
+      var block=document.createElement('div'); block.style.cssText='margin-bottom:12px;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px';
+      block.innerHTML='<div style="color:#fbbf24;font-weight:600;margin-bottom:6px">'+map[k]+'（'+(arr.length||0)+'条）</div>'+cloudTable(k,arr);
+      body.appendChild(block);
+      if(arr.length) sums.push(map[k]+' '+arr.length+'条');
+      done++;
+      if(done>=total){ var s=document.getElementById('cloudViewSum'); if(s) s.innerHTML=sums.length?sums.join(' · '):'暂无云端数据'; }
+    }).catch(function(){ done++; if(done>=total){ var s=document.getElementById('cloudViewSum'); if(s) s.innerHTML='云端连接失败'; } });
+  });
+}
+function cloudTable(k,arr){
+  if(!Array.isArray(arr)||!arr.length) return '<div style="color:#64748b">暂无记录（团队在电脑端填报后自动同步）</div>';
+  var sample=arr[arr.length-1]; var cols=Object.keys(sample||{}).slice(0,6);
+  if(!cols.length) cols=['value'];
+  var head='<tr style="color:#fbbf24">'+cols.map(function(c){return '<th style="padding:5px;text-align:left;font-weight:600">'+c+'</th>';}).join('')+'</tr>';
+  var rows=arr.slice(-20).map(function(x){
+    if(typeof x==='string') return '<tr><td style="padding:5px;color:#e2e8f0">'+x+'</td></tr>';
+    return '<tr>'+cols.map(function(c){var v=x[c]; return '<td style="padding:5px;color:#e2e8f0">'+String(v==null?'':v).slice(0,40)+'</td>';}).join('')+'</tr>';
+  }).join('');
+  return '<div style="max-height:220px;overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+head+rows+'</table></div>';
+}
+setTimeout(cloudViewInit, 1500);
 </script></body>
 </html>
