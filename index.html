@@ -1043,6 +1043,16 @@
               <div class="rank" id="weekZones"></div>
             </div>
           </div>
+          <!-- 本月每日进货情况 -->
+          <div class="card" style="margin-bottom:16px">
+            <div class="chead">
+              <div>
+                <div class="ch-t"><span class="dot"></span>📊 本月每日进货情况 <span id="monthDailyTitle" class="ch-s" style="margin-left:6px"></span></div>
+                <div class="ch-s" style="margin-top:3px">点击日期柱可切换查看当天明细 · 含退货净量 · 数据实时更新</div>
+              </div>
+            </div>
+            <div id="monthDailyChart" style="padding:8px 4px 4px"></div>
+          </div>
           <div class="card" style="margin-bottom:16px">
             <div class="chead">
               <div>
@@ -2196,8 +2206,45 @@ function initBoardDate(){
 function renderBoard(){
   initBoardDate();
   renderTodayWeek();
+  // 本月每日进货情况
+  renderMonthDaily();
   // 今日日进货门店明细表
   renderBoardToday();
+}
+function renderMonthDaily(){
+  const daily=DATA.daily||[]; if(!daily.length) return;
+  const last=daily[daily.length-1].d;
+  const curMonth=last.slice(0,7);
+  const monthDays=daily.filter(x=>x.d.startsWith(curMonth));
+  if(!monthDays.length){ $('#monthDailyChart').innerHTML='<div class="empty">本月暂无数据</div>'; return; }
+  const maxQ=Math.max.apply(null,monthDays.map(function(x){return x.q||0;}).concat([1]));
+  $('#monthDailyTitle').textContent=curMonth+' · 共'+monthDays.length+'天 · 累计'+fmtN(monthDays.reduce(function(a,x){return a+(x.q||0);},0))+'盒';
+  const selDate=BOARD_DATE||last;
+  let h='<div style="display:flex;align-items:flex-end;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;min-height:180px">';
+  monthDays.forEach(function(d){
+    const pct=Math.max(4,((d.q||0)/maxQ)*100);
+    const isSel=d.d===selDate;
+    const isWeekend=(new Date(d.d+'T00:00:00').getDay()%6===0);
+    const barColor=isSel?'linear-gradient(180deg,#fbbf24,#f59e0b)':isWeekend?'linear-gradient(180deg,#64748b,#475569)':'linear-gradient(180deg,#22d3ee,#0891b2)';
+    const qtyColor=isSel?'#fbbf24':'#e2e8f0';
+    h+='<div style="flex:1;min-width:42px;display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:all .2s" onclick="BOARD_DATE=\''+d.d+'\';document.getElementById(\'todayDatePick\').value=\''+d.d+'\';renderTodayWeek();renderBoardToday();renderMonthDaily();" onmouseover="this.style.transform=\'translateY(-3px)\'" onmouseout="this.style.transform=\'translateY(0)\'">'+
+      '<div style="font-size:12px;font-weight:800;color:'+qtyColor+';margin-bottom:3px;white-space:nowrap">'+fmtN(d.q||0)+'</div>'+
+      '<div style="width:100%;max-width:36px;background:'+barColor+';border-radius:6px 6px 2px 2px;height:'+pct+'%;min-height:6px;box-shadow:'+(isSel?'0 0 12px rgba(251,191,36,.5)':'0 2px 8px rgba(0,0,0,.3)')+';transition:all .2s"></div>'+
+      '<div style="font-size:11px;color:'+(isSel?'#fbbf24':'#94a3b8')+';margin-top:5px;font-weight:'+(isSel?'800':'600')+'">'+(+d.d.slice(8))+'日</div>'+
+      '<div style="font-size:10px;color:#64748b;margin-top:1px">'+(d.s||0)+'店</div>'+
+    '</div>';
+  });
+  h+='</div>';
+  const totalQ=monthDays.reduce(function(a,x){return a+(x.q||0);},0);
+  const totalS=monthDays.reduce(function(a,x){return a+(x.s||0);},0);
+  const avgQ=Math.trunc(totalQ/monthDays.length);
+  h+='<div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap">'+
+    '<div style="flex:1;min-width:120px;text-align:center;padding:8px;background:rgba(34,211,238,.08);border-radius:8px;border:1px solid rgba(34,211,238,.2)"><div style="font-size:11px;color:#94a3b8">本月累计</div><div style="font-size:22px;font-weight:800;color:#22d3ee">'+fmtN(totalQ)+'<span style="font-size:12px">盒</span></div></div>'+
+    '<div style="flex:1;min-width:120px;text-align:center;padding:8px;background:rgba(167,139,250,.08);border-radius:8px;border:1px solid rgba(167,139,250,.2)"><div style="font-size:11px;color:#94a3b8">累计门店次</div><div style="font-size:22px;font-weight:800;color:#a78bfa">'+totalS+'<span style="font-size:12px">次</span></div></div>'+
+    '<div style="flex:1;min-width:120px;text-align:center;padding:8px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid rgba(52,211,153,.2)"><div style="font-size:11px;color:#94a3b8">日均进货</div><div style="font-size:22px;font-weight:800;color:#34d399">'+fmtN(avgQ)+'<span style="font-size:12px">盒</span></div></div>'+
+    '<div style="flex:1;min-width:120px;text-align:center;padding:8px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid rgba(251,191,36,.2)"><div style="font-size:11px;color:#94a3b8">最高单日</div><div style="font-size:22px;font-weight:800;color:#fbbf24">'+fmtN(maxQ)+'<span style="font-size:12px">盒</span></div></div>'+
+  '</div>';
+  $('#monthDailyChart').innerHTML=h;
 }
 function renderBoardToday(){
   const daily=DATA.daily||[];
