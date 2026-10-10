@@ -755,6 +755,7 @@
     .nav-item,.card,.zone,.rank-item,.pill,.btn,.mtab button,.month-cards button,.bar-col,.m-close,.m-expand,.kpi,.seg-btn,button.x,.seg button{cursor:pointer;transition:transform .16s cubic-bezier(.22,.9,.3,1),box-shadow .16s,background .16s,border-color .16s}
     .nav-item:active,.card:active,.zone:active,.rank-item:active,.btn:active,.mtab button:active,.month-cards button:active,.m-close:active,.m-expand:active,.kpi:active,button.x:active{transform:scale(.965);filter:brightness(1.06)}
     .zone:active,.card:active{box-shadow:0 0 0 1px rgba(99,102,241,.25),0 0 30px rgba(99,102,241,.35)}
+    .nav-item,.card,.zone,.rank-item,.btn,.tier,.mtab button,.month-cards button,.m-close,.m-expand,.kpi,.stat,.bar-col,.seg-btn,.cbtn{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
     .bar-col:active .bar{transform:scaleY(1.08);filter:brightness(1.18)}
     .ripple{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,255,255,.8),rgba(129,140,248,.4) 60%,transparent);transform:scale(0);animation:rippleAnim .55s ease-out forwards;z-index:9}
     @keyframes rippleAnim{to{transform:scale(2.6);opacity:0}}
@@ -924,6 +925,7 @@
       <div class="topbar">
         <div><h1 id="ptitle">工作台总览 <span class="sub" id="psub">全杭州 · 单体药店 · 2026年1-8月</span></h1></div>
         <div class="right">
+          <span class="badge-date" style="border-color:rgba(236,72,153,.45);background:linear-gradient(120deg,rgba(236,72,153,.16),rgba(14,165,233,.12))" title="当前线上版本">v4.5 · 2026-10-11 修复版</span>
           <button class="btn" onclick="shotPage()" title="截取当前整个界面保存为图片" style="padding:6px 14px;font-size:13px;margin-right:6px">📷 一键截图</button>
           <span class="badge-date"><span class="live-dot"></span><span id="updateDate"></span></span>
         </div>
