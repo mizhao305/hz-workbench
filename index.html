@@ -2907,7 +2907,21 @@ function toast(msg){
         <div class="modal-body" style="max-height:72vh;overflow:auto"><table class="tbl" id="boardTopBody"></table></div>
       </div>
     </div>
-<script>function exportReport(type){
+<script>(function(){
+  function renderAudit(){
+    var page=document.getElementById('page-report'); if(!page) return;
+    var pend=localStorage.getItem('hz_export_pending');
+    var box=document.getElementById('hzAuditBox');
+    if(!pend){ if(box) box.style.display='none'; return; }
+    if(!box){ box=document.createElement('div'); box.id='hzAuditBox'; box.style.cssText='margin:10px 0;padding:12px;border:1px solid #fbbf24;border-radius:10px;background:rgba(251,191,36,.08)'; page.insertBefore(box,page.firstChild); }
+    var p={}; try{ p=JSON.parse(pend); }catch(e){}
+    box.style.display='block';
+    box.innerHTML='<div style="font-weight:700;color:#b45309;font-size:13px">🔔 导出审批待办（'+String(p.type||'')+' · '+String(p.zone||'全部')+' · 共'+(p.rows||0)+'行 · 提交于 '+String(p.at||'').slice(0,10)+'）</div><div style="margin:8px 0 4px"><button onclick="auditExport(1)" style="background:linear-gradient(135deg,#34d399,#10b981);border:none;color:#fff;padding:6px 16px;border-radius:8px;font-size:12px;cursor:pointer;margin-right:8px">✅ 同意下载</button><button onclick="auditExport(0)" style="background:linear-gradient(135deg,#fb7185,#f43f5e);border:none;color:#fff;padding:6px 16px;border-radius:8px;font-size:12px;cursor:pointer">❌ 拒绝</button></div><div style="color:#94a3b8;font-size:11px">审批结果会同步给提交方（同一浏览器内生效）</div>';
+  }
+  window.auditExport=function(ok){ var pend={}; try{ pend=JSON.parse(localStorage.getItem('hz_export_pending')||'{}'); }catch(e){} localStorage.setItem('hz_export_decision',JSON.stringify({reqId:pend.reqId,approved:!!ok})); localStorage.removeItem('hz_export_pending'); renderAudit(); };
+  setTimeout(renderAudit,800); setInterval(renderAudit,3000);
+})();
+</script><script>function exportReport(type){
   const zone=document.getElementById('reportZone')?document.getElementById('reportZone').value:'';
   const rows=exportReportRows(type, zone);
   if(!rows||rows.length<=1){ showExportStatus('⚠️ 暂无可导出的数据','#fb7185'); return; }
@@ -2924,21 +2938,13 @@ function showExportStatus(msg,color){
   el.style.background='rgba(255,255,255,.04)'; el.style.border='1px solid '+color+'44';
 }
 function pollExport(reqId){
-  fetch('/.netlify/functions/get-data').then(function(r){return r.json();}).then(function(d){
-    const arr=(d.byType&&d.byType['export_approve'])||[]; let rec=null;
-    for(let i=arr.length-1;i>=0;i--){ if(arr[i].payload&&arr[i].payload.reqId===reqId){ rec=arr[i].payload; break; } }
-    if(rec){
-      if(rec.approved){
-        const pend=JSON.parse(localStorage.getItem('hz_export_pending')||'{}');
-        try{ exportReportDirect(pend.type, pend.zone); }catch(e){}
-        localStorage.removeItem('hz_export_pending');
-        showExportStatus('✅ 后台已授权，报表已开始下载','#34d399');
-      } else {
-        localStorage.removeItem('hz_export_pending');
-        showExportStatus('❌ 后台已拒绝本次下载申请，如需下载请联系负责人','#fb7185');
-      }
-    } else { setTimeout(function(){pollExport(reqId);},6000); }
-  }).catch(function(){ setTimeout(function(){pollExport(reqId);},8000); });
+  var dec=localStorage.getItem('hz_export_decision');
+  if(dec){ try{ var d=JSON.parse(dec); if(d.reqId===reqId){ localStorage.removeItem('hz_export_decision');
+      if(d.approved){ var pend=JSON.parse(localStorage.getItem('hz_export_pending')||'{}'); try{ exportReportDirect(pend.type, pend.zone); }catch(e){} localStorage.removeItem('hz_export_pending'); showExportStatus('✅ 后台已授权，报表已开始下载','#34d399'); }
+      else { localStorage.removeItem('hz_export_pending'); showExportStatus('❌ 后台已拒绝本次下载申请，如需下载请联系负责人','#fb7185'); }
+      return; } }catch(e){}
+  }
+  setTimeout(function(){pollExport(reqId);},6000);
 }
 function exportReportDirect(type, zone){
   const rows=exportReportRows(type, zone);
@@ -2946,34 +2952,27 @@ function exportReportDirect(type, zone){
   const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='杭州办'+(zone?'_'+zone:'')+'_'+type+'_报表.csv';a.click();
 }
 </script><script>
-function pushReport(type,data){try{if(!data)return;fetch('/.netlify/functions/save-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,payload:data})}).catch(()=>{});}catch(e){}}
+function pushReport(type,data){try{if(!data)return;var key='hz_cloud_'+type;var arr=[];try{arr=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){}arr.push(data);if(arr.length>200)arr=arr.slice(-200);localStorage.setItem(key,JSON.stringify(arr));}catch(e){}}
 </script><script>function cloudViewInit(){
   var target=document.getElementById('page-promo'); if(!target) return;
   if(document.getElementById('cloudViewCard')) return;
   var card=document.createElement('div'); card.className='card'; card.id='cloudViewCard';
   card.style.cssText='margin-top:16px';
-  card.innerHTML='<div class="chead"><div class="ch-t"><span class="dot"></span>团队填报汇总 · 云端同步（电脑端填报自动同步至此）</div><div class="ch-s" id="cloudViewSum">同步中…</div></div><div id="cloudViewBody" style="padding:12px;font-size:12px;color:#cbd5e1">正在读取云端数据…</div>';
+  card.innerHTML='<div class="chead"><div class="ch-t"><span class="dot"></span>团队填报汇总 · 本机自动记录</div><div class="ch-s" id="cloudViewSum"></div></div><div id="cloudViewBody" style="padding:12px;font-size:12px;color:#cbd5e1"></div>';
   target.appendChild(card);
-  var map={'promo_rec':'促销驻店记录','target_stores':'驻店目标门店','promo_inv':'铺货库存填报','vip_stores':'VIP门店标记'};
-  var done=0,total=4,sums=[];
+  var map={'promo_rec':'促销驻店记录','target_stores':'驻店目标门店','promo_inv':'铺货库存填报','vip_stores':'VIP门店标记','kpi_targets':'区域目标'};
+  var sums=[];
+  var body=document.getElementById('cloudViewBody');
+  var html='';
   Object.keys(map).forEach(function(k){
-    fetch('https://api.github.com/repos/mizhao305/hz-workbench/contents/data/'+k+'.json',{headers:{'Accept':'application/vnd.github+json'}})
-    .then(function(r){return r.json();}).then(function(d){
-      var txt='[]';
-      if(d&&d.content){ try{ txt=decodeURIComponent(escape(atob(d.content))); }catch(e){} }
-      var arr=[]; try{ arr=JSON.parse(txt); }catch(e){ arr=[]; }
-      var body=document.getElementById('cloudViewBody'); if(!body) return;
-      var block=document.createElement('div'); block.style.cssText='margin-bottom:12px;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px';
-      block.innerHTML='<div style="color:#fbbf24;font-weight:600;margin-bottom:6px">'+map[k]+'（'+(arr.length||0)+'条）</div>'+cloudTable(k,arr);
-      body.appendChild(block);
-      if(arr.length) sums.push(map[k]+' '+arr.length+'条');
-      done++;
-      if(done>=total){ var s=document.getElementById('cloudViewSum'); if(s) s.innerHTML=sums.length?sums.join(' · '):'暂无云端数据'; }
-    }).catch(function(){ done++; if(done>=total){ var s=document.getElementById('cloudViewSum'); if(s) s.innerHTML='云端连接失败'; } });
+    var arr=[]; try{ arr=JSON.parse(localStorage.getItem('hz_cloud_'+k)||'[]'); }catch(e){}
+    if(arr.length){ sums.push(map[k]+' '+arr.length+'条'); html+='<div style="margin-bottom:12px;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px"><div style="color:#fbbf24;font-weight:600;margin-bottom:6px">'+map[k]+'（'+arr.length+'条）</div>'+cloudTable(k,arr)+'</div>'; }
   });
+  body.innerHTML=html||'<div style="color:#64748b">暂无填报记录（在电脑端/本机填报后自动汇总至此）</div>';
+  var s=document.getElementById('cloudViewSum'); if(s) s.innerHTML=sums.length?sums.join(' · '):'';
 }
 function cloudTable(k,arr){
-  if(!Array.isArray(arr)||!arr.length) return '<div style="color:#64748b">暂无记录（团队在电脑端填报后自动同步）</div>';
+  if(!Array.isArray(arr)||!arr.length) return '<div style="color:#64748b">暂无记录</div>';
   var sample=arr[arr.length-1]; var cols=Object.keys(sample||{}).slice(0,6);
   if(!cols.length) cols=['value'];
   var head='<tr style="color:#fbbf24">'+cols.map(function(c){return '<th style="padding:5px;text-align:left;font-weight:600">'+c+'</th>';}).join('')+'</tr>';
@@ -2983,6 +2982,6 @@ function cloudTable(k,arr){
   }).join('');
   return '<div style="max-height:220px;overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+head+rows+'</table></div>';
 }
-setTimeout(cloudViewInit, 1500);
+setTimeout(cloudViewInit, 600);
 </script></body>
 </html>
