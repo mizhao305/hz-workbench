@@ -2475,6 +2475,7 @@ const GH_TOKEN_B64=''; // 部署时由脚本注入（base64）
 const CLOUD_MAP={ 'hz_promo_rec':'promo_rec.json','hz_target_stores':'target_stores.json','hz_vip_stores':'vip_stores.json','hz_promo_inv':'promo_inv.json' };
 function cloudToken(){ try{ if(GH_TOKEN_B64) return atob(GH_TOKEN_B64); }catch(e){} try{ return localStorage.getItem('hz_gh_oauth_token')||''; }catch(e){ return ''; } }
 async function cloudGet(file){
+  if(!cloudToken()) return null; // 无云端凭证时纯本地，不发网络请求
   if(VERCEL_API){
     try{
       const r=await fetch(VERCEL_API+'/api/get?file='+encodeURIComponent(file),{headers:{Accept:'application/json'},cache:'no-store'});
