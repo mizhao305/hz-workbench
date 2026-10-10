@@ -520,6 +520,11 @@
     .modal.full{width:100vw;height:100vh;max-width:none;max-height:none;border-radius:0;border:1px solid rgba(99,102,241,.2);background:linear-gradient(165deg,rgba(255,255,255,.95),rgba(244,246,255,.97))}
     .modal.full .m-head{background:rgba(255,255,255,.85)}
     .modal.full .m-body{padding:20px 28px 34px}
+    .modal .modal-box{background:linear-gradient(165deg,rgba(255,255,255,.96),rgba(244,246,255,.98));border:1px solid rgba(99,102,241,.28);border-radius:18px;overflow:hidden}
+    .modal .modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 18px;border-bottom:1px solid rgba(99,102,241,.22);background:rgba(255,255,255,.9)}
+    .modal .modal-head b{font-size:15px;color:#1e2440;display:flex;align-items:center;gap:8px}
+    .modal .modal-head .x{width:32px;height:32px;border-radius:9px;border:1px solid rgba(148,163,184,.26);background:rgba(255,255,255,.62);color:var(--tx2);font-size:15px;cursor:pointer;flex:0 0 auto}
+    .modal .modal-body{padding:18px;color:var(--tx)}
     .m-body{padding:20px 22px 28px;color:var(--tx)}
 
     .mtab{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
@@ -696,22 +701,23 @@
       .brand b{font-size:14px}
       .brand small{font-size:10px}
       .nav{flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:6px 8px 10px;gap:6px;-webkit-overflow-scrolling:touch}
-      .nav-item{flex:0 0 auto;padding:8px 12px;font-size:12.5px;border-radius:10px;white-space:nowrap}
+      .nav-item{flex:0 0 auto;padding:10px 14px;font-size:13px;border-radius:10px;white-space:nowrap;min-height:44px;display:flex;align-items:center}
       .nav-item .ic{font-size:14px}
       .nav-item small{font-size:10px;margin-left:6px}
       .main{flex:1}
       .topbar{height:52px;flex:0 0 52px;padding:0 12px}
       .topbar h1{font-size:14px}
       .topbar .sub{display:none}
-      .badge-date{font-size:11px;padding:5px 10px}
+      .badge-date{font-size:12px;padding:6px 12px}
       .content{padding:14px 12px 30px;overflow:visible}
       .card{padding:14px;border-radius:15px}
       .grid{grid-template-columns:1fr !important;gap:12px}
       .r3,.r32,.r22{grid-template-columns:1fr !important}
       .kpis{grid-template-columns:repeat(2,1fr) !important}
-      .kpi .v{font-size:23px}
-      .kpi .t{font-size:12px}
-      .kpi .d{font-size:11px}
+      .kpi{padding:15px 14px 14px}
+      .kpi .v{font-size:24px}
+      .kpi .t{font-size:13px}
+      .kpi .d{font-size:12px}
       .zone-grid{grid-template-columns:repeat(2,1fr);gap:10px}
       .zone{padding:12px}
       .card-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -721,6 +727,8 @@
       .donut{width:122px;height:122px}
       .donut::after{inset:16px}
       .modal{width:96vw;max-height:94vh}
+      .modal .modal-head{padding:13px 15px}
+      .modal .modal-body{padding:14px}
       .m-head{padding:12px 14px}
       .m-body{padding:14px}
       .kpi-mini{grid-template-columns:repeat(2,1fr);gap:8px}
@@ -759,10 +767,11 @@
     .zoom-bar b{font-size:11.5px;color:#1e2440;min-width:42px;text-align:center;font-weight:800;letter-spacing:.2px}
     @media (max-width:768px){
       .zoom-bar{border-radius:18px;padding:2px 5px}
-      .zoom-bar button{width:24px;height:24px;font-size:13px}
-      .zoom-bar b{min-width:36px;font-size:10.5px}
+      .zoom-bar button{width:32px;height:32px;font-size:15px}
+      .zoom-bar b{min-width:36px;font-size:11.5px}
       .topbar .badge-date{display:none}
-      .mtab button,.month-cards button,.btn{min-height:44px}
+      .mtab button,.month-cards button,.btn,.tabs button,.seg button{min-height:44px}
+      .tabs button,.seg button{padding:9px 15px}
       .m-close,.m-expand{width:44px;height:44px}
       .mtab button,.month-cards button{padding:9px 14px}
     }
