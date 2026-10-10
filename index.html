@@ -5,10 +5,10 @@
 <title>健兴医药 · 杭州办工作台 团队赋能增强版 V4</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#eef1ff">
+    <meta name="theme-color" content="#d7e3ff">
     <style>
     :root{
-      --bg0:#f2f5ff; --bg1:#eef1ff; --bg2:#e8ecff;
+      --bg0:#e3ecff; --bg1:#d7e3ff; --bg2:#d4d9ff;
       --card:rgba(255,255,255,.68); --card-bd:rgba(255,255,255,.9);
       --tx:#1e2440; --tx2:#3d4a66; --tx3:#64748b;
       --cyan:#0ea5e9; --violet:#7c3aed; --pink:#db2777; --amber:#f59e0b;
@@ -17,7 +17,7 @@
       --grad-hot:linear-gradient(135deg,#ec4899,#f59e0b);
       --grad-hero:linear-gradient(135deg,#0ea5e9,#3b82f6 40%,#8b5cf6 75%,#ec4899);
       --ring:rgba(99,102,241,.3);
-      --shadow:0 18px 50px rgba(80,100,180,.16);
+      --shadow:0 20px 52px rgba(70,100,210,.24);
       --glow:0 0 26px rgba(99,102,241,.18);
     }
     *{margin:0;padding:0;box-sizing:border-box}
@@ -27,9 +27,9 @@
       color:var(--tx); overflow:hidden; font-size:14px;
       -webkit-font-smoothing:antialiased;
       background:
-        radial-gradient(1200px 720px at 82% -12%, rgba(147,167,255,.4) 0%, transparent 55%),
-        radial-gradient(1000px 620px at -8% 108%, rgba(125,211,252,.34) 0%, transparent 55%),
-        radial-gradient(900px 560px at 55% 118%, rgba(249,168,212,.28) 0%, transparent 60%),
+        radial-gradient(1200px 720px at 82% -12%, rgba(129,150,255,.58) 0%, transparent 55%),
+        radial-gradient(1000px 620px at -8% 108%, rgba(96,196,255,.5) 0%, transparent 55%),
+        radial-gradient(900px 560px at 55% 118%, rgba(251,180,220,.46) 0%, transparent 60%),
         linear-gradient(158deg, var(--bg0), var(--bg1) 48%, var(--bg2));
       background-attachment:fixed;
     }
@@ -38,10 +38,10 @@
       content:""; position:fixed; inset:-20%;
       z-index:-2; pointer-events:none;
       background:
-        radial-gradient(42% 42% at 22% 28%, rgba(14,165,233,.16) 0%, transparent 66%),
-        radial-gradient(46% 46% at 76% 22%, rgba(99,102,241,.2) 0%, transparent 66%),
-        radial-gradient(40% 44% at 66% 78%, rgba(236,72,153,.14) 0%, transparent 66%),
-        radial-gradient(38% 40% at 26% 82%, rgba(245,158,11,.1) 0%, transparent 66%);
+        radial-gradient(42% 42% at 22% 28%, rgba(14,165,233,.28) 0%, transparent 66%),
+        radial-gradient(46% 46% at 76% 22%, rgba(99,102,241,.34) 0%, transparent 66%),
+        radial-gradient(40% 44% at 66% 78%, rgba(236,72,153,.24) 0%, transparent 66%),
+        radial-gradient(38% 40% at 26% 82%, rgba(245,158,11,.18) 0%, transparent 66%);
       filter: blur(12px);
       animation: aurora 36s ease-in-out infinite alternate;
       will-change:transform;
@@ -61,10 +61,10 @@
     }
     /* 漂浮光球 */
     .orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;opacity:.55;will-change:transform;transform:translateZ(0)}
-    .o1{width:480px;height:480px;left:-140px;top:-120px;background:radial-gradient(circle,rgba(56,189,248,.32),transparent 66%);animation:drift1 36s ease-in-out infinite alternate}
-    .o2{width:560px;height:560px;right:-180px;top:14%;background:radial-gradient(circle,rgba(129,140,248,.3),transparent 66%);animation:drift2 42s ease-in-out infinite alternate}
-    .o3{width:460px;height:460px;left:28%;bottom:-200px;background:radial-gradient(circle,rgba(236,72,153,.24),transparent 66%);animation:drift3 38s ease-in-out infinite alternate}
-    .o4{width:360px;height:360px;right:24%;top:-140px;background:radial-gradient(circle,rgba(245,158,11,.18),transparent 66%);animation:drift1 34s ease-in-out infinite alternate-reverse}
+    .o1{width:480px;height:480px;left:-140px;top:-120px;background:radial-gradient(circle,rgba(56,189,248,.5),transparent 66%);animation:drift1 36s ease-in-out infinite alternate}
+    .o2{width:560px;height:560px;right:-180px;top:14%;background:radial-gradient(circle,rgba(129,140,248,.46),transparent 66%);animation:drift2 42s ease-in-out infinite alternate}
+    .o3{width:460px;height:460px;left:28%;bottom:-200px;background:radial-gradient(circle,rgba(236,72,153,.38),transparent 66%);animation:drift3 38s ease-in-out infinite alternate}
+    .o4{width:360px;height:360px;right:24%;top:-140px;background:radial-gradient(circle,rgba(245,158,11,.3),transparent 66%);animation:drift1 34s ease-in-out infinite alternate-reverse}
     @keyframes drift1{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(60px,44px,0) scale(1.12)}}
     @keyframes drift2{from{transform:translate3d(0,0,0) scale(1.08)}to{transform:translate3d(-70px,54px,0) scale(.95)}}
     @keyframes drift3{from{transform:translate3d(0,0,0) scale(.95)}to{transform:translate3d(52px,-60px,0) scale(1.1)}}
@@ -130,7 +130,7 @@
       box-shadow:0 8px 24px rgba(129,140,248,.55), inset 0 1px 0 rgba(255,255,255,.45);
     }
     .brand .logo::after{content:"";position:absolute;inset:-4px;border-radius:16px;border:1px solid rgba(129,140,248,.35);opacity:.6}
-    .brand b{font-size:16.5px;letter-spacing:.5px;background:linear-gradient(90deg,#eef2ff,#c7d2fe);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .brand b{font-size:16.5px;letter-spacing:.5px;background:linear-gradient(90deg,#1e2440,#2563eb 70%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
     .brand small{display:block;color:var(--tx3);font-size:11px;font-weight:400;margin-top:1px}
     .nav{flex:1;padding:6px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;overflow-x:hidden}
     .nav-item{
@@ -192,7 +192,7 @@
     /* ===== 卡片（极光玻璃）===== */
     .card{
       position:relative;
-      background:linear-gradient(148deg,rgba(255,255,255,.76),rgba(255,255,255,.62) 46%,rgba(244,246,255,.68));
+      background:linear-gradient(148deg,rgba(255,255,255,.9),rgba(255,255,255,.76) 46%,rgba(243,246,255,.84));
       border:1px solid var(--card-bd);border-radius:18px;
       padding:18px;overflow:hidden;
       box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.10);
@@ -230,7 +230,7 @@
       filter:drop-shadow(0 0 10px var(--kpi-glow,rgba(14,165,233,.25)));
     }
     .kpi .u{font-size:12px;color:var(--tx3);font-weight:400;margin-left:5px;-webkit-text-fill-color:var(--tx3)}
-    .kpi .d{margin-top:7px;font-size:12px;color:var(--green);position:relative;z-index:1}
+    .kpi .d{margin-top:7px;font-size:11.5px;line-height:1.35;word-break:break-word;color:var(--green);position:relative;z-index:1}
     .kpi .d.warn{color:var(--amber)}
     .kpi .bar-ab{position:absolute;inset:0;opacity:.5;z-index:0}
     .kpi .bar-ab::after{content:"";position:absolute;top:-30px;right:-30px;width:130px;height:130px;border-radius:50%;filter:blur(38px)}
@@ -332,7 +332,7 @@
     /* ===== 区域卡片 ===== */
     .zone-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .zone{position:relative;border-radius:16px;padding:16px;cursor:pointer;overflow:hidden;transition:.24s;border:1px solid rgba(255,255,255,.92);background:linear-gradient(148deg,rgba(255,255,255,.72),rgba(255,255,255,.5));box-shadow:var(--shadow)}
-    .zone::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-hero);opacity:.9}
+    .zone::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--grad-hero);opacity:1}
     .zone:hover{transform:translateY(-4px);border-color:rgba(129,140,248,.55);box-shadow:var(--shadow),0 0 34px rgba(99,102,241,.28)}
     .zone .zt{display:flex;align-items:center;justify-content:space-between}
     .zone .zt b{font-size:15px}
@@ -348,7 +348,7 @@
     #page-zone{padding-top:2px}
     .zone-shell{
       position:relative;overflow:hidden;
-      background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,255,255,.56) 55%,rgba(244,246,255,.64));
+      background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(255,255,255,.76) 55%,rgba(242,245,255,.86));
       border:1px solid rgba(255,255,255,.9);border-radius:20px;
       box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.12);padding:20px;margin-bottom:16px;
     }
