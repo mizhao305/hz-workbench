@@ -502,7 +502,7 @@
     .modal-mask{position:fixed;inset:0;background:rgba(80,100,180,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:50;display:none;align-items:center;justify-content:center}
     .modal-mask.show{display:flex}
     .modal{
-      width:min(1040px,94vw);max-height:92vh;
+      display:none;width:min(1040px,94vw);max-height:92vh;
       position:relative;overflow:auto;
       background:linear-gradient(165deg,rgba(255,255,255,.95),rgba(244,246,255,.97));
       border:1px solid rgba(99,102,241,.3);border-radius:20px;
@@ -510,6 +510,7 @@
       animation:zoom .28s cubic-bezier(.22,.9,.3,1);
       backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);
     }
+    .modal.show{display:block}
     @keyframes zoom{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:none}}
     .m-head{position:sticky;top:0;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(99,102,241,.22);z-index:5}
     .m-head h2{font-size:16px;display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#1e2440,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -723,6 +724,7 @@
       .card-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
       table.tbl{font-size:12px}
       .bchart{height:120px}
+      #zoneBrand{min-width:840px}
       .hbar .hrow{grid-template-columns:38px 1fr 54px;gap:6px}
       .donut{width:122px;height:122px}
       .donut::after{inset:16px}
@@ -955,6 +957,12 @@
           </div>
 
           <div class="card" style="margin-bottom:16px">
+            <div class="chead"><div><div class="ch-t"><span class="dot"></span>区域月度业绩矩阵（2026年1-8月）</div><div class="ch-s" style="margin-top:3px">行=区域 · 列=月份 · 单元格=净进货盒数 · 手机可左右滑动</div></div>
+            <span class="badge-date" style="color:#0284c7">单位：盒</span></div>
+            <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="tbl" id="zoneMonthMatrix" style="min-width:760px"></table></div>
+          </div>
+
+          <div class="card" style="margin-bottom:16px">
             <div class="chead"><div><div class="ch-t"><span class="dot"></span>每月业绩与收款</div><div class="ch-s" style="margin-top:3px"><span id="monthSub">2026年1-8月</span> · 柱=盒数 · 线=金额</div></div>
             <div style="display:flex;gap:8px">
               <div class="seg" id="monthModeToggle">
@@ -969,7 +977,7 @@
           <div class="grid r32" style="grid-template-columns:2fr 1.1fr;margin-bottom:16px">
             <div class="card">
               <div class="chead"><div><div class="ch-t"><span class="dot"></span>区域净进货对比</div><div class="ch-s" style="margin-top:3px"><span id="zoneSub">2026年1-8月</span> · 点击柱条进区域</div></div></div>
-              <div class="bchart" id="zoneBrand"></div>
+              <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%"><div class="bchart" id="zoneBrand"></div></div>
               <div class="legend" id="zoneLegend" style="margin-top:12px"></div>
             </div>
             <div class="card">
@@ -998,12 +1006,6 @@
             <div class="chead" style="margin-bottom:14px"><div><div class="ch-t"><span class="dot"></span>区域作战地图</div><div class="ch-s" style="margin-top:3px">门店数=2025-2026全期 · 业绩=2026年1-9月 · 点卡片看门店明细</div></div>
             <span class="badge-date">📈 点击卡片进入区域门店明细</span></div>
             <div class="zone-grid-light" id="zoneGrid"></div>
-          </div>
-
-          <div class="card" style="margin-bottom:16px">
-            <div class="chead"><div><div class="ch-t"><span class="dot"></span>👥 团队人效榜（V4）</div><div class="ch-s" style="margin-top:3px">单店产出 · VIP达标率 · 综合分 · 按2026年1-9月</div></div>
-            <span class="badge-date">🔴低分=需要重点关注</span></div>
-            <div id="teamEff"></div>
           </div>
 
           <div class="grid r22" style="margin-bottom:16px">
@@ -1114,12 +1116,10 @@
               <div class="legend" id="prodDlg" style="margin-top:14px;justify-content:center"></div>
             </div>
             <div class="card">
-              <div class="chead"><div class="ch-t"><span class="dot"></span>单品覆盖效益</div><div class="ch-s">覆盖店数 × 单店贡献（盒/店）</div></div>
-              <div class="hbar" id="prodEffic"></div>
+              <div class="chead"><div class="ch-t"><span class="dot"></span>单品销量排行</div><div class="ch-s">净进货盒数 · 覆盖店数</div></div>
               <div class="rank" id="prodRank" style="margin-top:12px"></div>
             </div>
           </div>
-          <div class="grid" id="prodGrid" style="grid-template-columns:repeat(2,1fr)"></div>
         </div>
 
         <!-- ═══════════ 当月销售 CUR ═══════════ -->
@@ -1680,6 +1680,25 @@ function renderKpiGoal(){
   }).join('');
 }
 try{ renderKpiGoal(); }catch(e){}
+
+// ===== 区域月度业绩矩阵（2026年1-8月） =====
+function renderZoneMonthMatrix(){
+  const el=$('#zoneMonthMatrix'); if(!el) return;
+  const M=['2026-08','2026-07','2026-06','2026-05','2026-04','2026-03','2026-02','2026-01'];
+  const rows=DATA.zones.map(z=>{
+    const cells={}; let tot=0;
+    M.forEach(mk=>{ const v=z.stores.reduce((a,s)=>a+((s.monthQty&&s.monthQty[mk])||0),0); cells[mk]=v; tot+=v; });
+    return {zone:z.zone, cells, tot};
+  }).sort((a,b)=>b.tot-a.tot);
+  const gtot={}; M.forEach(mk=>gtot[mk]=rows.reduce((a,r)=>a+r.cells[mk],0));
+  const total=rows.reduce((a,r)=>a+r.tot,0);
+  const topCol=['#e11d48','#d97706','#ca8a04','#0284c7','#7c3aed'];
+  el.innerHTML='<thead><tr><th style="text-align:left;position:sticky;left:0;background:inherit">区域</th><th style="text-align:right">合计</th>'+M.map(mk=>'<th style="text-align:right">'+mk.substring(5)+'月</th>').join('')+'</tr></thead><tbody>'
+    +rows.map((r,i)=>'<tr><td style="text-align:left;position:sticky;left:0;background:inherit"><b style="color:'+(topCol[i]||'#334155')+'">'+(i+1)+'. '+r.zone+'</b></td><td style="text-align:right"><b>'+fmtN(r.tot)+'</b></td>'+M.map(mk=>'<td style="text-align:right">'+(r.cells[mk]>0?fmtN(r.cells[mk]):'<span style="color:#94a3b8">0</span>')+'</td>').join('')+'</tr>').join('')
+    +'<tr style="background:rgba(99,102,241,.09);font-weight:800"><td style="text-align:left;position:sticky;left:0;background:rgba(99,102,241,.09)">合计</td><td style="text-align:right">'+fmtN(total)+'</td>'+M.map(mk=>'<td style="text-align:right">'+fmtN(gtot[mk])+'</td>').join('')+'</tr>'
+    +'</tbody>';
+}
+try{ renderZoneMonthMatrix(); }catch(e){}
 
 
 function setYear(yr){
@@ -2315,29 +2334,10 @@ function renderProducts(){
   // 产品分布环形
   renderDonutLabelled('prodDonut', ps, ps.reduce((a,b)=>a+b.qty,0)||1);
   $('#prodDlg').innerHTML=ps.map((p,i)=>`<span><i style="background:${cols[i%10]}"></i>${p.name} <b style="color:${cols[i%10]}">${PRODUCT_CODE[p.name]||''}</b> ${Math.round(p.qty/(ps.reduce((a,b)=>a+b.qty,0)||1)*100)}%</span>`).join('');
-  // 覆盖效益: 单店贡献(盒/店) 排行
-  const ev=ps.map(p=>({name:p.name,qty:p.qty,stores:p.stores,per:p.stores?Math.round(p.qty/p.stores):0,cov:Math.round(p.stores/DATA.meta.totalStores*100)}));
-  const ex=Math.max(1,...ev.map(e=>e.per));
-  $('#prodEffic').innerHTML=ev.map(e=>`<div class="hrow"><div class="nm">${e.name}</div><div class="track"><div class="fill" style="width:${e.per/ex*100}%"></div></div><div class="vl">${fmtN(e.per)}<span style="font-size:9px;color:var(--tx3)">盒/店</span></div></div>`).join('');
+  // 覆盖效益图已按产品中心精简版移除
   $('#prodRank').innerHTML=ps.map((p,i)=>{
     const per=p.stores?Math.round(p.qty/p.stores):0;
     return `<div class="rank-item"><span class="no">${i+1}</span><div><div class="nm">${p.name}</div><div class="sub">覆盖${p.stores}店 · 单店${fmtN(per)}盒/店 · 占比${Math.round(p.qty/DATA.products.reduce((a,b)=>a+b.qty,0)*100)}%</div></div><div class="vl">${fmtN(p.qty)}盒</div></div>`;
-  }).join('');
-  $('#prodGrid').innerHTML=ps.map((p,i)=>{
-    const maxQ=ps[0].qty;
-    const pct=Math.round(p.qty/maxQ*100);
-    const cov=Math.round(p.stores/DATA.meta.totalStores*100);
-    const c=cols[i%10];
-    return `<div class="card" style="display:flex;gap:16px;align-items:center">
-      <div style="width:74px;height:74px;border-radius:16px;background:linear-gradient(135deg,${c},${c}44);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:#fff;box-shadow:0 8px 22px ${c}33;flex:0 0 74px">${i+1}</div>
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:14.5px">${p.name}</b>
-        <span style="font-size:11.5px;color:var(--tx3)"><span class="pill p">覆盖${p.stores}店</span> <span class="pill b">${p.zones}区</span></span></div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin:7px 0 3px"><span style="font-size:24px;font-weight:800;color:${c}">${fmtN(p.qty)}</span><span style="color:var(--tx3);font-size:12px">盒 · 2026年1-9月</span></div>
-        <div class="hrow" style="grid-template-columns:1fr;grid-template-rows:10px"><div class="track"><div class="fill" style="width:${pct}%;background:linear-gradient(90deg,${c},${c}88)"></div></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);margin-top:5px"><span>覆盖率 ${cov}% (${p.stores}/${DATA.meta.totalStores}店)</span><span>全品冠军占比 ${pct}%</span></div>
-      </div>
-    </div>`;
   }).join('');
 }
 
