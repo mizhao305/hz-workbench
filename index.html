@@ -2032,7 +2032,7 @@ function zoneTab(t,btn){
     const s=[...z.stores].sort((a,b)=>{ const va=dval(a), vb=dval(b); if(va===vb) return 0; return (va>vb?1:-1)*sd; });
     const aQ=sk==='qty'?(sd<0?'▼':'▲'):'', aD=sk==='dong'?(sd<0?'▼':'▲'):'';
     B.innerHTML=`<table class="tbl"><thead><tr><th>#</th><th>门店</th><th style="text-align:right;cursor:pointer" onclick="zoneSortBy('qty')">2026盒数 ${aQ}</th><th style="text-align:right;cursor:pointer" onclick="zoneSortBy('dong')" title="前两个完整月进货÷2（不含本月）">动销 ${aD}</th><th style="text-align:right">2026金额</th><th style="text-align:center">订单</th><th style="text-align:center">品种</th><th style="text-align:center">8月</th><th>最近</th><th>详情</th></tr></thead><tbody>`+
-      s.map((st,i)=>{ const dx=dongxiao(st); return `<tr><td>${i+1}</td><td class="hl">${esc(st.name)}</td><td class="num" style="text-align:right">${fmtN(st.qty)}</td><td class="num" style="text-align:right;color:${DT_C[dongTier(dx)]};font-weight:700">${fmtN(dx)}</td><td style="text-align:right">${fmtM(st.amount)}</td><td style="text-align:center">${st.orders}</td><td style="text-align:center">${st.prodCount}款</td><td style="text-align:center">${st.isAugActive?'<span class="pill g">活跃</span>':'<span class="pill o">待激活</span>'}</td><td>${st.lastDate||'-'}</td><td><button class="btn" style="padding:4px 12px;font-size:11px" onclick="openStore('${esc(st.name)}','${esc(z.zone)}')">查看</button></td></tr>`; }).join('')+`</tbody></table>`;
+      s.map((st,i)=>{ const dx=dongxiao(st); return `<tr onclick="openStore('${esc(st.name)}','${esc(z.zone)}')" style="cursor:pointer"><td>${i+1}</td><td class="hl">${esc(st.name)}</td><td class="num" style="text-align:right">${fmtN(st.qty)}</td><td class="num" style="text-align:right;color:${DT_C[dongTier(dx)]};font-weight:700">${fmtN(dx)}</td><td style="text-align:right">${fmtM(st.amount)}</td><td style="text-align:center">${st.orders}</td><td style="text-align:center">${st.prodCount}款</td><td style="text-align:center">${st.isAugActive?'<span class="pill g">活跃</span>':'<span class="pill o">待激活</span>'}</td><td>${st.lastDate||'-'}</td><td><button class="btn" style="padding:4px 12px;font-size:11px" onclick="event.stopPropagation();openStore('${esc(st.name)}','${esc(z.zone)}')">查看</button></td></tr>`; }).join('')+`</tbody></table>`;
   } else if(t==='trend'){
     B.innerHTML=`<div class="bchart" style="height:200px">${DATA.meta.months.map(m=>{
       const lbl=monthLabelOf(m);
@@ -2103,8 +2103,8 @@ function renderCrm(){
     const mr=momRateOf(s);
     const flag=mr===null?'':(mr<=-50?'<span class="flag-red" title="环比骤降">▼</span>':'');
     const vstar=vip?'⭐':'<span style="opacity:.3">☆</span>';
-    return `<tr>
-    <td>${CRM_PAGE*CRM_PER+i+1}</td><td class="hl"><span style="cursor:pointer;font-size:12px" title="${vip?'取消VIP':'设为VIP'}" onclick="toggleVip('${esc(jsEsc(s.name))}')">${vstar}</span> ${esc(s.name)}</td><td>${s.zone}${flag}</td><td>${s.manager}</td>
+    return `<tr onclick="openStore('${esc(jsEsc(s.name))}','${esc(s.zone)}')" style="cursor:pointer">
+    <td>${CRM_PAGE*CRM_PER+i+1}</td><td class="hl"><span style="cursor:pointer;font-size:12px" title="${vip?'取消VIP':'设为VIP'}" onclick="event.stopPropagation();toggleVip('${esc(jsEsc(s.name))}')">${vstar}</span> ${esc(s.name)}</td><td>${s.zone}${flag}</td><td>${s.manager}</td>
     <td class="num" style="text-align:right">${fmtN(s.qty)}</td>
     <td style="text-align:right">${fmtM(s.amount)}</td>
     <td style="text-align:center">${s.orders}</td>
@@ -2114,7 +2114,7 @@ function renderCrm(){
     <td style="text-align:center">${s.activeMonths}月</td>
     <td style="text-align:center"><span class="pill" style="border-color:${GRADEC[s.grade]}55;color:${GRADEC[s.grade]};background:${GRADEC[s.grade]}18">${s.grade}</span></td>
     <td style="text-align:center">${s.isAugActive?'<span class="pill g">'+s.lastDate+'</span>':'<span class="pill o">'+s.lastDate+'</span>'}</td>
-    <td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="openStore('${esc(jsEsc(s.name))}','${esc(s.zone)}')">看板</button></td>
+    <td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="event.stopPropagation();openStore('${esc(jsEsc(s.name))}','${esc(s.zone)}')">看板</button></td>
   </tr>`;}).join('')||`<tr><td colspan="14" class="empty" style="text-align:center">未找到${kw?('"'+kw+'"'):''}匹配的门店</td></tr>`;
   const _pg=document.getElementById('crmPager');
   if(_pg) _pg.innerHTML=`<span style="font-size:12px;color:var(--tx3)">共 ${_total} 家</span><button class="btn" style="padding:4px 12px;font-size:12px" ${CRM_PAGE<=0?'disabled':''} onclick="crmPage(-1)">‹ 上一页</button><span style="font-size:12.5px;font-weight:700">${CRM_PAGE+1} / ${_pages}</span><button class="btn" style="padding:4px 12px;font-size:12px" ${CRM_PAGE>=_pages-1?'disabled':''} onclick="crmPage(1)">下一页 ›</button>`;
@@ -2376,7 +2376,7 @@ function renderCurBuyers(kw){
     <thead><tr><th>客户</th>${th}<th style="text-align:right">合计</th></tr></thead>
     <tbody>${rows.map(b=>{
       const nm=b.cells||{};
-      return `<tr><td><div class="by-nm">${b.__new?'<span class="chip-new">新</span>':''}${esc(b.name)}</div><div class="by-zone">${b.zone} · ${b.manager}</div></td>`+
+      return `<tr onclick="openStore('${esc(b.name)}','${esc(b.zone)}')" style="cursor:pointer"><td><div class="by-nm">${b.__new?'<span class="chip-new">新</span>':''}${esc(b.name)}</div><div class="by-zone">${b.zone} · ${b.manager}</div></td>`+
         prods.map(p=>`<td class="buy-cell" data-p="${esc(p)}" data-s="${esc(b.name)}">${nm[p]?fmtN(nm[p]):''}</td>`).join('')+
         `<td class="num" style="text-align:right">${fmtN(b.tot)}</td></tr>`;
     }).join('')||`<tr><td colspan="${prods.length+2}" class="empty">未找到客户</td></tr>`}</tbody>
