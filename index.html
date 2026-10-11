@@ -517,6 +517,17 @@
       z-index:70;animation:none;
     }
     #devModal{width:min(560px,94vw)}
+    /* 卡片全屏放大（点击卡片→全屏预览→右上角✕关闭） */
+    .card{cursor:zoom-in}
+    .zoom-mask{position:fixed;inset:0;background:#eef2f9;z-index:80;display:flex;flex-direction:column;animation:zoomFade .18s}
+    .zoom-box{flex:1;display:flex;flex-direction:column;min-height:0;width:100%}
+    .zoom-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top));background:#fff;border-bottom:1px solid #dfe6f2;font-size:17px;font-weight:800;color:#0a1224;flex:none}
+    .zoom-head .x{background:rgba(13,24,51,.08);border:none;border-radius:50%;width:38px;height:38px;font-size:16px;font-weight:700;color:#0a1224;cursor:pointer;flex:none}
+    .zoom-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:16px;background:#eef2f9}
+    .zoom-body .card{margin:0!important;border:1px solid #dfe6f2;box-shadow:0 2px 14px rgba(13,24,51,.07)}
+    .zoom-body .bchart{min-width:780px}
+    .zoom-body .donut{width:min(92vw,560px)!important;max-width:min(92vw,560px)!important}
+    @keyframes zoomFade{from{opacity:0}to{opacity:1}}
     @keyframes zoom{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:none}}
     .m-head{position:sticky;top:0;background:rgba(255,255,255,.94);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(99,102,241,.22);z-index:5}
     .m-head h2{font-size:16px;display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#0a1224,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -1119,7 +1130,7 @@
           <div class="grid r22" style="margin-bottom:16px">
             <div class="card donut-card">
               <div class="chead"><div class="ch-t"><span class="dot"></span>产品分布热度</div><div class="ch-s">盒数占比 · 排序看强弱</div></div>
-              <div class="donut" id="prodDonut" class="prodDonut-responsive" style="width:100%;max-width:min(90vw,500px);height:auto;aspect-ratio:560/470;margin:4px auto;border-radius:0;box-shadow:none;filter:none"></div>
+              <div class="donut" id="prodDonut" class="prodDonut-responsive" style="width:100%;max-width:min(88vw,480px);height:auto;aspect-ratio:1/1;margin:6px auto;border-radius:0;box-shadow:none;filter:none"></div>
               <div class="legend" id="prodDlg" style="margin-top:14px;justify-content:center"></div>
             </div>
             <div class="card">
@@ -1151,7 +1162,7 @@
             </div>
             <div class="card">
               <div class="chead"><div class="ch-t"><span class="dot"></span>当月产品结构图</div><div class="ch-s">净进货占比</div></div>
-              <div class="donut" id="curDonut" class="curDonut-responsive" style="width:min(86vw,460px);height:auto;aspect-ratio:520/470;margin:6px auto;border-radius:0;box-shadow:none;filter:none"></div>
+              <div class="donut" id="curDonut" class="curDonut-responsive" style="width:min(86vw,460px);height:auto;aspect-ratio:1/1;margin:6px auto;border-radius:0;box-shadow:none;filter:none"></div>
               <div class="legend" id="curDlg" style="margin-top:14px;justify-content:center"></div>
             </div>
           </div>
@@ -1918,7 +1929,7 @@ function renderDonutLabelled(id, list, total){
   if(!total) total=list.reduce((a,b)=>a+b.qty,0)||1;
   const cols=['#0e7490','#a78bfa','#f472b6','#fbbf24','#34d399','#1d4ed8','#fb7185','#c084fc','#2dd4bf','#f87171'];
   const el=$('#'+id); if(!el) return;
-  const cx=240, cy=225, R=128, r=84, lr=196;
+  const cx=280, cy=280, R=128, r=84, lr=214;
   const p=(ang,rad)=>{const t=(ang-90)*Math.PI/180; return [cx+rad*Math.cos(t), cy+rad*Math.sin(t)];};
   const short=n=>n.replace(/[（(].*/,'');
   // 扇区 path
@@ -1942,7 +1953,7 @@ function renderDonutLabelled(id, list, total){
   // 中心文字
   segs.push(`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="30" font-weight="800" fill="#0a1224">${fmtN(total)}</text>`);
   segs.push(`<text x="${cx}" y="${cy+20}" text-anchor="middle" font-size="12" fill="#1e2a44">净进货(盒)</text>`);
-  el.innerHTML=`<svg viewBox="-45 -10 560 470" width="100%" height="100%" style="display:block;position:relative;z-index:2">${segs.join('')}</svg>`;
+  el.innerHTML=`<svg viewBox="-45 0 610 610" width="100%" height="100%" style="display:block;position:relative;z-index:2">${segs.join('')}</svg>`;
 }
 
 function renderZone(){
@@ -2311,6 +2322,31 @@ function openBoardTop5(){
 }
 function findStore(nm){ for(const z of DATA.zones){ const s=z.stores.find(x=>x.name===nm); if(s) return s; } return null; }
 function closeModal(id){ $('#'+id).classList.remove('show'); }
+/* ===== 卡片全屏放大（点卡片→全屏→右上角✕关闭）===== */
+let _zoomOpen=null;
+function zoomCard(card,ev){
+  if(!card||card.classList.contains('zoom-mask')||card===_zoomOpen) return;
+  if(ev&&ev.target&&ev.target.closest){
+    const it=ev.target.closest('[onclick],button,a,input,select,label,textarea,.tier,.zone,.rank-item');
+    if(it&&it!==card) return; // 内部交互元素，交给原行为
+  }
+  _zoomOpen=card;
+  const tEl=card.querySelector('.ch-t');
+  const title=(tEl?tEl.textContent:'').trim()||card.id||'卡片详情';
+  const mask=document.createElement('div');
+  mask.className='zoom-mask';
+  const clone=card.cloneNode(true);
+  clone.removeAttribute('onclick');
+  clone.style.margin='0'; clone.style.boxShadow='none'; clone.style.cursor='default';
+  clone.querySelectorAll('[onclick]').forEach(function(n){ if((n.getAttribute('onclick')||'').indexOf('zoomCard')>=0) n.removeAttribute('onclick'); });
+  if(clone.querySelector('.bchart')){ clone.querySelector('.bchart').style.minWidth='780px'; }
+  mask.innerHTML='<div class="zoom-box"><div class="zoom-head"><span>'+title+'</span><button class="x" onclick="closeZoom()">✕</button></div><div class="zoom-body"></div></div>';
+  mask.querySelector('.zoom-body').appendChild(clone);
+  document.body.appendChild(mask);
+  document.body.style.overflow='hidden';
+}
+function closeZoom(){ var m=document.querySelector('.zoom-mask'); if(m) m.remove(); _zoomOpen=null; document.body.style.overflow=''; }
+(function(){ document.querySelectorAll('.card').forEach(function(c){ c.addEventListener('click',function(ev){ zoomCard(c,ev); }); }); })();
 function openGradeList(g){
   const list=[];
   DATA.zones.forEach(z=>z.stores.forEach(s=>{ if(s.grade===g) list.push(Object.assign({},s,{zone:z.zone,manager:z.manager})); }));
