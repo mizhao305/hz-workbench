@@ -511,6 +511,12 @@
     /* mask 内的弹窗面板：显隐由遮罩(.modal-mask.show)控制，无需单独加 .show */
     .modal-mask > .modal{display:block}
     .modal.show{display:block}
+    /* 无遮罩弹窗（分级/档位/TOP榜/云端授权）：固定定位居中，避免落在页面底部看不到 */
+    #gradeModal,#tierModal,#boardTopModal,#devModal{
+      position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      z-index:70;animation:none;
+    }
+    #devModal{width:min(560px,94vw)}
     @keyframes zoom{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:none}}
     .m-head{position:sticky;top:0;background:rgba(255,255,255,.94);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(99,102,241,.22);z-index:5}
     .m-head h2{font-size:16px;display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#0a1224,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
