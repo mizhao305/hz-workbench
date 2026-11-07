@@ -392,6 +392,28 @@
     .zone.zglass .mini{background:rgba(255,255,255,.5);border-radius:9px;padding:7px 6px;margin-top:10px;height:30px;border:1px solid rgba(120,150,135,.22);box-shadow:inset 0 2px 6px rgba(56,110,86,.08)}
     .zone.zglass .mini i{background:linear-gradient(180deg,rgba(74,222,128,.7),rgba(22,163,74,.25));border-radius:2px 2px 0 0;box-shadow:0 0 6px rgba(74,222,128,.2)}
     .zone.zglass .zbadge{position:absolute;top:-10px;right:-10px;width:54px;height:54px;border-radius:50%;opacity:.3;filter:blur(1px);background:radial-gradient(circle at 35% 35%,#15803d,#16a34a);animation:pulse 4s ease-in-out infinite}
+    /* ==== 区域作战地图 · 横向条形排行（浅色绿玻璃，替代方块卡片） ==== */
+    .zone-bars{display:flex;flex-direction:column;gap:11px;position:relative;z-index:1}
+    .zone-bar{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:13px;align-items:center;padding:12px 15px;border-radius:15px;cursor:pointer;
+      background:linear-gradient(150deg,rgba(255,255,255,.86),rgba(255,255,255,.66) 55%,rgba(244,250,246,.8));
+      border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.12);transition:.2s}
+    .zone-bar:hover{border-color:rgba(34,197,94,.55);transform:translateX(4px);box-shadow:var(--shadow),0 0 26px rgba(22,163,74,.2)}
+    .zone-bar .zb-no{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#16a34a;background:rgba(22,163,74,.14);border:1px solid rgba(22,163,74,.32)}
+    .zone-bar:nth-child(1) .zb-no{background:linear-gradient(135deg,#fbbf24,#ec4899);color:#fff;border:none;box-shadow:0 4px 14px rgba(251,191,36,.42)}
+    .zone-bar:nth-child(2) .zb-no{background:linear-gradient(135deg,#cbd5e1,#64748b);color:#fff;border:none;box-shadow:0 4px 12px rgba(100,116,139,.3)}
+    .zone-bar:nth-child(3) .zb-no{background:linear-gradient(135deg,#f59e0b,#b45309);color:#fff;border:none;box-shadow:0 4px 12px rgba(245,158,11,.4)}
+    .zone-bar .zb-main{min-width:0}
+    .zone-bar .zb-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+    .zone-bar .zb-name{font-size:15px;font-weight:800;color:#0a1224;letter-spacing:.4px}
+    .zone-bar .zb-mgr{font-size:11.5px;color:var(--tx3)}
+    .zone-bar .zb-track{margin-top:9px;background:rgba(120,150,135,.2);border-radius:8px;height:13px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(56,110,86,.1)}
+    .zone-bar .zb-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#34d399,#16a34a);box-shadow:0 0 10px rgba(22,163,74,.3);transition:width .6s cubic-bezier(.22,.9,.3,1)}
+    .zone-bar .zb-side{text-align:right;min-width:116px}
+    .zone-bar .zb-qty{font-size:16px;font-weight:900;color:#0a1224;line-height:1.1}
+    .zone-bar .zb-unit{font-size:11px;font-weight:600;color:var(--tx3)}
+    .zone-bar .zb-sub{font-size:11px;color:var(--tx3);margin-top:4px;white-space:nowrap}
+    @media (max-width:900px){.zone-bar{grid-template-columns:28px minmax(0,1fr) auto;gap:9px;padding:10px 11px}.zone-bar .zb-side{min-width:92px}.zone-bar .zb-qty{font-size:14px}.zone-bar .zb-sub{font-size:10px}}
+
     /* 进度条/排名（区域页下半部） */
     .zone-glass .hrow .nm{color:var(--tx)}
     .zone-glass .hrow .track{background:rgba(120,150,135,.2)}
@@ -1022,9 +1044,9 @@
         <!-- ═══════════ 区域作战 ZONE ═══════════ -->
         <div class="page" id="page-zone">
           <div class="zone-shell">
-            <div class="chead" style="margin-bottom:14px"><div><div class="ch-t"><span class="dot"></span>区域作战地图</div><div class="ch-s" style="margin-top:3px">门店数=2025-2026全期 · 业绩=2026年1-9月 · 点卡片看门店明细</div></div>
-            <span class="badge-date">📈 点击卡片进入区域门店明细</span></div>
-            <div class="zone-grid-light" id="zoneGrid"></div>
+            <div class="chead" style="margin-bottom:14px"><div><div class="ch-t"><span class="dot"></span>区域作战地图</div><div class="ch-s" style="margin-top:3px">门店数=2025-2026全期 · 业绩=2026年 · 点击横条看门店明细</div></div>
+            <span class="badge-date">📈 点击横条进入区域门店明细</span></div>
+            <div class="zone-bars" id="zoneGrid"></div>
           </div>
 
           <div class="grid r22" style="margin-bottom:16px">
@@ -1738,7 +1760,7 @@ function go(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===page));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
   $('#page-'+page).classList.add('show');
-  const TITLES={dash:['工作台总览','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击区域卡片进入门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['销售看板','净进货 · 金额 · 动销 · 活跃 四维洞察'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','数据每日更新 · 支持月份回看'],promo:['促销管理','商务+促销 双线作战'],import:['数据导入','真诚开单 → 自动归集 → 刷新'],report:['工作报表','导出CSV用于晨会/周报/复盘'],issues:['问题清单','自动诊断 · 短板预警 · 行动清单']};
+  const TITLES={dash:['工作台总览','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['销售看板','净进货 · 金额 · 动销 · 活跃 四维洞察'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','数据每日更新 · 支持月份回看'],promo:['促销管理','商务+促销 双线作战'],import:['数据导入','真诚开单 → 自动归集 → 刷新'],report:['工作报表','导出CSV用于晨会/周报/复盘'],issues:['问题清单','自动诊断 · 短板预警 · 行动清单']};
   $('#ptitle').innerHTML='<span>'+TITLES[page][0]+'</span><span class="sub" id="psub">'+TITLES[page][1]+'</span>';
   if(page==='dash') renderDash();
   if(page==='zone') renderZone();
@@ -1963,20 +1985,31 @@ function renderZone(){
   const mxx=Math.max(1,...zones.map(x=>x.y26.qty));
   $('#zoneGrid').innerHTML=zones.map((x,i)=>{
     const z=x.z, y26=x.y26;
-    return `<div class="zone zglass" onclick="openZone('${esc(z.zone)}')">
-      <span class="zbadge"></span>
-      <div class="zh"><b>🏙️ ${z.zone}</b><span class="rank-badge">#${i+1}</span></div>
-      <div class="zm">👤 ${z.manager} · 2026年1-9月</div>
-      <div class="stats">
-        <div class="stat"><div class="num big">${fmtN(y26.qty)}</div><div class="lbl">2026净进货 · 盒</div></div>
-        <div class="stat"><div class="num">${y26.stores||0}</div><div class="lbl">2026进货门店 · 家</div></div>
+    const pct=Math.round(y26.qty/Math.max(1,mxx)*100);
+    return `<div class="zone-bar" onclick="openZone('${esc(z.zone)}')">
+      <div class="zb-no">${i+1}</div>
+      <div class="zb-main">
+        <div class="zb-top"><span class="zb-name">🏙️ ${z.zone}</span><span class="zb-mgr">👤 ${z.manager} · 2026净进货</span></div>
+        <div class="zb-track"><div class="zb-fill" style="width:${pct}%"></div></div>
       </div>
+      <div class="zb-side"><div class="zb-qty">${fmtN(y26.qty)}<span class="zb-unit"> 盒</span></div><div class="zb-sub">${y26.stores||0}店 · ${fmtM(y26.amt)}</div></div>
     </div>`;
   }).join('');
   // 区域 2026 排名
   const z26=Object.entries(IDX.zone26).map(([zone,v])=>({zone,...v,full:IDX.zoneFull[zone]})).sort((a,b)=>b.qty-a.qty);
   const mz=Math.max(1,...z26.map(z=>z.qty));
-  $('#boardZones').innerHTML=z26.map((z,i)=>`<div class="rank-item" style="font-size:14px"><span class="no">${i+1}</span><div><div class="nm" style="font-size:14.5px">${z.zone}</div><div class="sub" style="font-size:12px">${z.full.stores}家门店 · 净进货</div></div><div class="vl" style="font-size:14px">${fmtN(z.qty)}盒<br><span style="color:var(--tx3);font-weight:400;font-size:11.5px">${fmtM(z.amt)}</span></div></div>`).join('');
+  $('#boardZones').innerHTML=z26.map((z,i)=>{
+    const pct=Math.round(z.qty/Math.max(1,mz)*100);
+    const fs=(z.full&&z.full.stores)||0;
+    return `<div class="zone-bar" style="padding:8px 12px;gap:10px;border-radius:12px" onclick="openZone('${esc(z.zone)}')">
+      <div class="zb-no" style="width:26px;height:26px;font-size:12px">${i+1}</div>
+      <div class="zb-main">
+        <div class="zb-top"><span class="zb-name" style="font-size:13.5px">${z.zone}</span><span class="zb-mgr">全期 ${fs} 家门店</span></div>
+        <div class="zb-track" style="height:10px;margin-top:7px"><div class="zb-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="zb-side" style="min-width:92px"><div class="zb-qty" style="font-size:13.5px">${fmtN(z.qty)}<span class="zb-unit"> 盒</span></div><div class="zb-sub">${fmtM(z.amt)}</div></div>
+    </div>`;
+  }).join('');
   // 销售门店前五（2026）
   const top5=Object.values(IDX.store26).filter(s=>s.qty>0).sort((a,b)=>b.qty-a.qty).slice(0,20);
   $('#boardTop5').innerHTML=top5.map((s,i)=>`<div class="rank-item" onclick="openStore('${esc(s.name)}','${esc(s.zone)}')" style="font-size:14px"><span class="no">${i+1}</span><div><div class="nm" style="font-size:14.5px">${esc(s.name)}</div><div class="sub" style="font-size:12px">${s.zone} · 2026进${fmtN(s.qty)}盒</div></div><div class="vl" style="font-size:14px">${fmtN(s.qty)}盒</div></div>`).join('')||'<div class="empty">暂无2026数据</div>';
