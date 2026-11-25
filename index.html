@@ -1015,6 +1015,24 @@
 .pm-k b{font-size:19px;color:#0f2d3a;font-variant-numeric:tabular-nums;line-height:1.15}
 .pm-k i{font-size:10.5px;color:#94a3b8;font-style:normal}
 .pm-k.hl{background:linear-gradient(135deg,rgba(224,247,235,.95),rgba(255,255,255,.95));border-color:rgba(22,163,74,.3)}
+
+/* 手机卡片式记录（替代横向表格） */
+.pm-cards{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.pmc{border:1px solid rgba(15,23,42,.09);border-radius:12px;padding:10px 11px;background:rgba(255,255,255,.95);box-shadow:0 1px 6px rgba(15,23,42,.05)}
+.pmc-hd{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.pmc-no{width:20px;height:20px;border-radius:6px;background:rgba(22,163,74,.14);color:#15803d;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.pmc-hd b{font-size:13px;color:#0f2d3a;flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pmc-z{font-size:11px;color:#0e7490;flex:0 0 auto}
+.pmc-g{display:grid;grid-template-columns:1.35fr .85fr .85fr;gap:8px}
+.pmc-f{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pmc-f.wide{grid-column:1/4}
+.pmc-f span{font-size:10.5px;color:#64748b}
+.pmc .pm-cin,.pmc .pm-nin,.pmc .pm-tin,.pmc .pm-sin{width:100%;max-width:none;height:32px}
+.pmc-ft{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed rgba(15,23,42,.1)}
+.pmc-lb{font-size:10.5px;color:#64748b}
+.pmc-buy{flex:1 1 auto;font-size:12.5px}
+.pmc-amt{font-size:12px;color:#0e7490;font-variant-numeric:tabular-nums;white-space:nowrap}
+
 @media(max-width:768px){
   .pm-pick{gap:7px}
   .pm-in{flex:1 1 100%;height:34px;font-size:12.5px}
@@ -1032,7 +1050,7 @@
   .pm-c-nm{min-width:150px;max-width:150px;width:150px}
   .pm-tbl th.pm-c-nm,.pm-tbl td.pm-c-nm{left:30px}
   .pm-cand{max-height:260px}
-  .pm-scroll::after{content:"← 左右滑动查看全部列 →";display:block;text-align:center;font-size:10.5px;color:#94a3b8;padding:7px 0 2px}
+
 }
 
 /* 月度走势：横向条形行 */
@@ -2814,28 +2832,42 @@ function pmSet(t,f,v){
   var am=document.getElementById('pmamt_'+t); if(am) am.innerHTML=b.a?_M(b.a):'—';
   pmKpi(); pmMonth();
 }
+function _isPhone(){ try{ return window.matchMedia('(max-width:768px)').matches; }catch(e){ return false; } }
+function _buyCell(r){
+  var b=winBuy(r.store,r.date);
+  return (b.ok&&b.q)?('<b>'+_N(b.q)+'</b><small>盒</small><em>'+b.days+'</em>'):(r.date?'<span class="pm-wait">窗口内无进货</span>':'<span class="pm-wait">待填日期</span>');
+}
 function renderPm(){
   pmInitUI();
   var recs=_jload(PM_KEY);
-  var rows=recs.slice();
-  var mon=((document.getElementById('pmMon')||{}).value||'');
-  var shown=mon?rows.filter(function(r){ return (r.date||'').slice(0,7)===mon; }):rows;
   var sc=document.getElementById('pmScope');
-  if(sc) sc.innerHTML='共 <b>'+rows.length+'</b> 家驻店客户 · 当前显示 <b>'+shown.length+'</b> 行'+(mon?(' · 月份 '+mon):'')+' · 数据自动保存在本机并同步云端 · 不设删除';
+  if(sc) sc.innerHTML='共 <b>'+recs.length+'</b> 家驻店客户 · 数据自动保存（本机 + 云端）· 不设删除';
   var h='';
-  if(!rows.length){ h='<div class="pm-empty-lg">暂无驻店记录 · 在上方搜索门店并勾选加入即可开始填写</div>'; }
-  else{
-    h='<table class="tbl pm-tbl"><thead><tr><th class="pm-c-no">#</th><th class="pm-c-nm">门店</th><th class="pm-c-z">区域</th><th class="pm-c-d">驻店日期</th><th class="num">促销活数</th><th class="num">进店活数</th><th class="pm-c-nt">情况备注</th><th class="num pm-c-buy">驻店后4天进货</th><th class="num">金额</th></tr></thead><tbody>';
-    shown.forEach(function(r,i){
+  if(!recs.length){ h='<div class="pm-empty-lg">暂无驻店记录 · 在上方搜索门店并勾选加入即可开始填写</div>'; }
+  else if(_isPhone()){
+    h='<div class="pm-cards">'+recs.map(function(r,i){
       var b=winBuy(r.store,r.date);
-      h+='<tr'+(mon?'':'')+'><td class="pm-c-no">'+(i+1)+'</td>'+
+      return '<div class="pmc"><div class="pmc-hd"><span class="pmc-no">'+(i+1)+'</span><b>'+esc(r.store)+'</b><span class="pmc-z">'+esc(r.zone||'-')+'</span></div>'+
+      '<div class="pmc-g">'+
+      '<label class="pmc-f"><span>驻店日期</span><input type="date" id="pmdate_'+r.t+'" class="pm-cin" value="'+(r.date||'')+'" onchange="pmSet(\''+r.t+'\',\'date\',this.value)"></label>'+
+      '<label class="pmc-f"><span>促销活数</span><input type="number" min="0" id="pma1_'+r.t+'" class="pm-nin" value="'+(r.a1||0)+'" onchange="pmSet(\''+r.t+'\',\'a1\',this.value)"></label>'+
+      '<label class="pmc-f"><span>进店活数</span><input type="number" min="0" id="pma2_'+r.t+'" class="pm-nin" value="'+(r.a2||0)+'" onchange="pmSet(\''+r.t+'\',\'a2\',this.value)"></label>'+
+      '<label class="pmc-f wide"><span>情况备注</span><input type="text" id="pmnote_'+r.t+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="填写情况备注" onchange="pmSet(\''+r.t+'\',\'note\',this.value)"></label>'+
+      '</div>'+
+      '<div class="pmc-ft"><span class="pmc-lb">驻店后4天进货</span><div class="pmc-buy" id="pmbuy_'+r.t+'">'+_buyCell(r)+'</div><div class="pmc-amt" id="pmamt_'+r.t+'">'+(b.a?_M(b.a):'—')+'</div></div></div>';
+    }).join('')+'</div>';
+  } else {
+    h='<table class="tbl pm-tbl"><thead><tr><th class="pm-c-no">#</th><th class="pm-c-nm">门店</th><th class="pm-c-z">区域</th><th class="pm-c-d">驻店日期</th><th class="num">促销活数</th><th class="num">进店活数</th><th class="pm-c-nt">情况备注</th><th class="num pm-c-buy">驻店后4天进货</th><th class="num">金额</th></tr></thead><tbody>';
+    recs.forEach(function(r,i){
+      var b=winBuy(r.store,r.date);
+      h+='<tr><td class="pm-c-no">'+(i+1)+'</td>'+
         '<td class="pm-c-nm"><b>'+esc(r.store)+'</b></td>'+
         '<td class="pm-c-z">'+esc(r.zone||'-')+'</td>'+
-        '<td class="pm-c-d"><input type="date" id="pmdate_'+(r.t)+'" class="pm-cin" value="'+(r.date||'')+'" onchange="pmSet(\''+r.t+'\',\'date\',this.value)"></td>'+
-        '<td class="num"><input type="number" min="0" id="pma1_'+(r.t)+'" class="pm-nin" value="'+(r.a1||0)+'" onchange="pmSet(\''+r.t+'\',\'a1\',this.value)"></td>'+
-        '<td class="num"><input type="number" min="0" id="pma2_'+(r.t)+'" class="pm-nin" value="'+(r.a2||0)+'" onchange="pmSet(\''+r.t+'\',\'a2\',this.value)"></td>'+
-        '<td class="pm-c-nt"><input type="text" id="pmnote_'+(r.t)+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="情况备注" onchange="pmSet(\''+r.t+'\',\'note\',this.value)"></td>'+
-        '<td class="num pm-c-buy" id="pmbuy_'+r.t+'">'+((b.ok&&b.q)?('<b>'+_N(b.q)+'</b><small>盒</small><em>'+b.days+'</em>'):(r.date?'<span class="pm-wait">窗口内无进货</span>':'<span class="pm-wait">待填日期</span>'))+'</td>'+
+        '<td class="pm-c-d"><input type="date" id="pmdate_'+r.t+'" class="pm-cin" value="'+(r.date||'')+'" onchange="pmSet(\''+r.t+'\',\'date\',this.value)"></td>'+
+        '<td class="num"><input type="number" min="0" id="pma1_'+r.t+'" class="pm-nin" value="'+(r.a1||0)+'" onchange="pmSet(\''+r.t+'\',\'a1\',this.value)"></td>'+
+        '<td class="num"><input type="number" min="0" id="pma2_'+r.t+'" class="pm-nin" value="'+(r.a2||0)+'" onchange="pmSet(\''+r.t+'\',\'a2\',this.value)"></td>'+
+        '<td class="pm-c-nt"><input type="text" id="pmnote_'+r.t+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="情况备注" onchange="pmSet(\''+r.t+'\',\'note\',this.value)"></td>'+
+        '<td class="num pm-c-buy" id="pmbuy_'+r.t+'">'+_buyCell(r)+'</td>'+
         '<td class="num" id="pmamt_'+r.t+'">'+(b.a?_M(b.a):'—')+'</td></tr>';
     });
     h+='</tbody></table>';
@@ -2843,6 +2875,7 @@ function renderPm(){
   _mk('pmTable',h);
   pmKpi(); pmMonth();
 }
+
 function pmKpi(){
   var rows=_jload(PM_KEY), tq=0,ta=0, a1=0,a2=0;
   rows.forEach(function(r){ var b=winBuy(r.store,r.date); tq+=b.q; ta+=b.a; a1+=+(r.a1||0); a2+=+(r.a2||0); });
@@ -2929,26 +2962,35 @@ function rtSet(t,f,v){
 function renderRt(){
   rtInitUI();
   var rows=_jload(RT_KEY), mans=rtManagers();
-  var mon=((document.getElementById('rtMon')||{}).value||'');
-  var shown=mon?rows.filter(function(r){ return (r.date||'').slice(0,7)===mon; }):rows;
   var sc=document.getElementById('rtScope');
-  if(sc) sc.innerHTML='共 <b>'+rows.length+'</b> 家客户 · 当前显示 <b>'+shown.length+'</b> 行 · 商务经理由经理本人选择 · 数据自动保存并同步云端 · 不设删除';
+  if(sc) sc.innerHTML='共 <b>'+rows.length+'</b> 家客户 · 商务经理由经理本人选择 · 数据自动保存（本机 + 云端）· 不设删除';
+  var opt=function(cur){ return '<option value="">请选择</option>'+mans.map(function(m){ return '<option'+(cur===m?' selected':'')+'>'+m+'</option>'; }).join(''); };
   var h='';
   if(!rows.length){ h='<div class="pm-empty-lg">暂无圆桌记录 · 在上方搜索门店并勾选加入即可开始填写</div>'; }
-  else{
+  else if(_isPhone()){
+    h='<div class="pm-cards">'+rows.map(function(r,i){
+      return '<div class="pmc"><div class="pmc-hd"><span class="pmc-no">'+(i+1)+'</span><b>'+esc(r.store)+'</b><span class="pmc-z">'+esc(r.zone||'-')+'</span></div>'+
+      '<div class="pmc-g">'+
+      '<label class="pmc-f"><span>请客日期</span><input type="date" id="rtdate_'+r.t+'" class="pm-cin" value="'+(r.date||'')+'" onchange="rtSet(\''+r.t+'\',\'date\',this.value)"></label>'+
+      '<label class="pmc-f"><span>商务经理</span><select id="rtbiz_'+r.t+'" class="pm-sin" onchange="rtSet(\''+r.t+'\',\'biz\',this.value)">'+opt(r.biz)+'</select></label>'+
+      '<label class="pmc-f"><span>购进(盒)</span><input type="number" min="0" id="rtbuy_'+r.t+'" class="pm-nin" value="'+(r.buy||0)+'" onchange="rtSet(\''+r.t+'\',\'buy\',this.value)"></label>'+
+      '<label class="pmc-f wide"><span>情况备注</span><input type="text" id="rtnote_'+r.t+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="填写情况备注" onchange="rtSet(\''+r.t+'\',\'note\',this.value)"></label>'+
+      '</div></div>';
+    }).join('')+'</div>';
+  } else {
     h='<table class="tbl pm-tbl"><thead><tr><th class="pm-c-no">#</th><th class="pm-c-nm">门店</th><th class="pm-c-z">区域</th><th class="pm-c-bz">商务经理</th><th class="pm-c-d">请客日期</th><th class="num">购进(盒)</th><th class="pm-c-nt">情况备注</th></tr></thead><tbody>';
-    shown.forEach(function(r,i){
-      var opt='<option value="">请选择</option>'+mans.map(function(m){ return '<option'+(r.biz===m?' selected':'')+'>'+m+'</option>'; }).join('');
+    rows.forEach(function(r,i){
       h+='<tr><td class="pm-c-no">'+(i+1)+'</td><td class="pm-c-nm"><b>'+esc(r.store)+'</b></td><td class="pm-c-z">'+esc(r.zone||'-')+'</td>'+
-        '<td class="pm-c-bz"><select id="rtbiz_'+(r.t)+'" class="pm-sin" onchange="rtSet(\''+r.t+'\',\'biz\',this.value)">'+opt+'</select></td>'+
-        '<td class="pm-c-d"><input type="date" id="rtdate_'+(r.t)+'" class="pm-cin" value="'+(r.date||'')+'" onchange="rtSet(\''+r.t+'\',\'date\',this.value)"></td>'+
-        '<td class="num"><input type="number" min="0" id="rtbuy_'+(r.t)+'" class="pm-nin" value="'+(r.buy||0)+'" onchange="rtSet(\''+r.t+'\',\'buy\',this.value)"></td>'+
-        '<td class="pm-c-nt"><input type="text" id="rtnote_'+(r.t)+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="情况备注" onchange="rtSet(\''+r.t+'\',\'note\',this.value)"></td></tr>';
+        '<td class="pm-c-bz"><select id="rtbiz_'+r.t+'" class="pm-sin" onchange="rtSet(\''+r.t+'\',\'biz\',this.value)">'+opt(r.biz)+'</select></td>'+
+        '<td class="pm-c-d"><input type="date" id="rtdate_'+r.t+'" class="pm-cin" value="'+(r.date||'')+'" onchange="rtSet(\''+r.t+'\',\'date\',this.value)"></td>'+
+        '<td class="num"><input type="number" min="0" id="rtbuy_'+r.t+'" class="pm-nin" value="'+(r.buy||0)+'" onchange="rtSet(\''+r.t+'\',\'buy\',this.value)"></td>'+
+        '<td class="pm-c-nt"><input type="text" id="rtnote_'+r.t+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="情况备注" onchange="rtSet(\''+r.t+'\',\'note\',this.value)"></td></tr>';
     });
     h+='</tbody></table>';
   }
   _mk('rtTable',h); rtKpi(); rtMonth();
 }
+
 function rtKpi(){
   var rows=_jload(RT_KEY), tb=0, by={};
   rows.forEach(function(r){ tb+=+(r.buy||0); if(r.biz) by[r.biz]=(by[r.biz]||0)+1; });
@@ -2976,6 +3018,13 @@ function rtExport(){
   var blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
   var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='圆桌会议台账_'+_today()+'.csv'; a.click();
 }
+
+/* 宽度切换时重绘（桌面表格 / 手机卡片） */
+var _rzT=null;
+window.addEventListener('resize',function(){ clearTimeout(_rzT); _rzT=setTimeout(function(){
+  try{ var e1=document.getElementById('page-promoteam'); if(e1&&e1.classList.contains('show')) renderPm(); }catch(e){}
+  try{ var e2=document.getElementById('page-roundact'); if(e2&&e2.classList.contains('show')) renderRt(); }catch(e){}
+},260); });
 
 // ===== 云同步（GitHub 仓库 data/ 目录 · 跨设备记忆）=====
 const GH_REPO='mizhao305/hz-workbench';
