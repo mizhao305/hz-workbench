@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>杭州办工作台 · 图表版（Lieflat Charts）</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F0EFEB;--ink:#1C1C1A;--muted:#8F8E88;--faint:#C6C5BF;--grid:#DEDDD6}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink);
+    padding:34px 22px 60px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto}
+  .pagehead{margin-bottom:26px;padding:0 4px}
+  .kicker{font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .pagehead h1{font-size:24px;letter-spacing:-.02em;font-weight:800;margin-top:8px}
+  .pagehead p{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.75;max-width:760px}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:24px 0 26px}
+  .kpi{background:#E9E8E3;border-radius:20px;padding:16px 16px 14px}
+  .kpi .v{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+  .kpi .u{font-size:10px;font-weight:600;color:var(--muted);margin-left:2px}
+  .kpi .l{font-size:10px;color:var(--muted);margin-top:6px;font-weight:600;letter-spacing:.02em}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--bg);border-radius:24px;padding:24px 22px 16px}
+  .card.wide{grid-column:1/-1}
+  h2{font-weight:700;font-size:16.5px;letter-spacing:-.02em;margin-bottom:3px;line-height:1.35}
+  .sub{font-size:11.5px;color:var(--muted);margin-bottom:10px;line-height:1.6}
+  .src{font-size:9px;color:var(--faint);margin-top:8px;letter-spacing:.08em;font-weight:500;text-transform:uppercase}
+  svg{width:100%;height:auto;display:block;margin:0 auto;cursor:pointer}
+  svg text{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif}
+  .fade{animation:fade .9s ease both}
+  @keyframes fade{from{opacity:0}}
+  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1s cubic-bezier(.4,0,.2,1) both}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .pop{transform-box:fill-box;transform-origin:center;animation:pop .5s cubic-bezier(.2,.7,.3,1.3) both}
+  @keyframes pop{from{transform:scale(0)}to{transform:none}}
+  @media (prefers-reduced-motion:reduce){.fade,.draw,.pop{animation:none!important}}
+  .back{display:inline-block;margin-top:34px;font-size:11.5px;font-weight:600;color:var(--muted);text-decoration:none}
+  @media(max-width:760px){
+    body{padding:22px 14px 44px}
+    .pagehead h1{font-size:19px}
+    .kpis{grid-template-columns:repeat(2,1fr);gap:10px}
+    .kpi .v{font-size:18px}
+    .grid2{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="pagehead">
+    <div class="kicker">Hangzhou Mono-channel Pharmacy · Visual Edition</div>
+    <h1>杭州办 · 2026 年度数据图表</h1>
+    <p>四张图各承担一个结论：月度走势、区域分布、客户分层、产品今昔。一档 / 一根 tick / 一个点都对应真实单位，可数、可核。
+       口径为珍诚开单（发货），不等于终端纯销；数据截至 2026-11-25。</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">902<span class="u">家</span></div><div class="l">在册单体门店</div></div>
+    <div class="kpi"><div class="v">726<span class="u">家</span></div><div class="l">今年有进货</div></div>
+    <div class="kpi"><div class="v">59,574<span class="u">盒</span></div><div class="l">净进货总量</div></div>
+    <div class="kpi"><div class="v">1,512,778<span class="u">元</span></div><div class="l">开单金额</div></div>
+    <div class="kpi"><div class="v">59.6<span class="u">%</span></div><div class="l">85 家稳定店贡献</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>下半年单月重回 7,000 盒，11 月创年内新高</h2>
+      <div class="sub">2026 年 1–11 月 · 单月净进货盒数（已冲减退货）· 点 = 一个月，可数</div>
+      <svg id="monthline" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="src">Source: 珍诚开单明细 · 2026-01-01 → 2026-11-25 · Net of returns</div>
+    </div>
+
+    <div class="card">
+      <h2>萧山一区独占近半盘，前四区吃掉 75%</h2>
+      <div class="sub">13 区净进货盒数 · 一 tick = 1,000 盒 · 每 5 根标一点</div>
+      <svg id="zonerows" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="src">Source: 珍诚开单 · 13 区 · 江干并入上城</div>
+    </div>
+
+    <div class="card">
+      <h2>七成门店仍是低频：D 级 585 家占 65%</h2>
+      <div class="sub">902 家在册门店等级构成 · 一 tick = 1%（四舍五入补齐到 100）</div>
+      <svg id="gradedonut" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="src">Source: 珍诚开单 · 等级按 2026 年进货盒数划分</div>
+    </div>
+
+    <div class="card">
+      <h2>肺力咳合剂近翻倍，胶囊端连带下滑</h2>
+      <div class="sub">TOP6 产品 · 淡档 = 10 月 · 实档 = 11 月 · 一档 = 100 盒</div>
+      <svg id="prodpair" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="src">One rung = 20 boxes · Oct vs Nov 2026</div>
+    </div>
+  </div>
+
+  <a class="back" href="../index.html">← 返回工作台</a>
+</div>
+
+<script>
+const DATA = {"month": [[1, 5615], [2, 2765], [3, 4926], [4, 4825], [5, 3733], [6, 3821], [7, 7021], [8, 5196], [9, 6080], [10, 7564], [11, 8028]], "zone": [["萧山区", 28894], ["临平区", 7173], ["滨江区", 4355], ["余杭区", 4085], ["临安区", 3511], ["上城区", 2969], ["钱塘区", 2878], ["淳安县", 2421], ["西湖区", 918], ["拱墅区", 787], ["富阳区", 688], ["建德市", 572], ["桐庐县", 323]], "grade": [["A+", 9, 1.0], ["A", 36, 4.0], ["B", 69, 7.6], ["C", 203, 22.5], ["D", 585, 64.9]], "prod": [["感冒滴丸", 2323, 2272], ["肺力咳合剂", 1168, 2200], ["醒脾胶囊", 1039, 865], ["肺力咳胶囊", 1414, 926], ["功劳去火胶囊", 410, 653], ["康妇凝胶", 348, 364]], "kpi": {"reg": 902, "act": 726, "qty": 59574, "amt": 1512778, "core_n": 85, "core_pct": 59.6}};
+const INK='#1C1C1A',PAPER='#F0EFEB',MUTED='#8F8E88',GRID='#DEDDD6';
+const NS='http://www.w3.org/2000/svg';
+const el=(p,t,a)=>{const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);p.appendChild(n);return n};
+const txt=(p,a,s)=>{const n=el(p,'text',a);n.textContent=s;return n};
+const tip=(n,s)=>{const t=document.createElementNS(NS,'title');t.textContent=s;n.appendChild(t)};
+const rnd=(i,k)=>Math.abs(((i*73856093)^(k*19349663))%1000)/1000;
+const D2R=Math.PI/180;
+const pol=(cx,cy,r,deg)=>[cx+r*Math.cos(deg*D2R),cy+r*Math.sin(deg*D2R)];
+const nf=n=>Math.round(n).toLocaleString('en-US');
+const obsReveal=(id,fn)=>{
+  const n=document.getElementById(id);
+  const go=()=>{n.innerHTML='';fn(n)};
+  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){go();io.disconnect()}},{threshold:.25});
+  io.observe(n); n.addEventListener('click',go);
+};
+
+/* ════ B2 · hairline line —— 11 个月净进货 ════ */
+(()=>{
+const D=DATA.month, N=D.length, mx=Math.max(...D.map(d=>d[1]));
+obsReveal('monthline',s=>{
+  const x=d=>40+d*(318/(N-1)),base=250,top=52,map=v=>base-v/mx*(base-top);
+  for(let d=0;d<N;d++)
+    el(s,'line',{x1:x(d),y1:base,x2:x(d),y2:base-8,stroke:'#CFCEC7','stroke-width':.6,
+      class:'fade',style:`animation-delay:${d*.012}s`});
+  el(s,'line',{x1:32,y1:base,x2:368,y2:base,stroke:GRID,'stroke-width':.8,class:'fade'});
+  const vs=D.map(d=>d[1]);
+  const top2=[];
+  for(const d of [...vs.keys()].sort((a,b)=>vs[b]-vs[a])){
+    if(top2.every(t=>Math.abs(t-d)>=3))top2.push(d);
+    if(top2.length===2)break;
+  }
+  el(s,'path',{d:'M'+vs.map((v,d)=>`${x(d)} ${map(v)}`).join(' L '),fill:'none',stroke:INK,
+    'stroke-width':1,pathLength:1,class:'draw',style:'animation-duration:1.3s'});
+  vs.forEach((v,d)=>{
+    const big=top2.includes(d);
+    const dot=el(s,'circle',{cx:x(d),cy:map(v),r:big?4.2:2.2,fill:INK,class:'pop',
+      style:`animation-delay:${.2+d*.04}s`});
+    tip(dot,`${D[d][0]}月 — ${nf(v)} 盒`);
+    if(big)txt(s,{x:x(d),y:map(v)-12,'font-size':10,'font-weight':800,fill:INK,'text-anchor':'middle',
+      style:`paint-order:stroke;stroke:${PAPER};stroke-width:3.5px;animation-delay:${1+d*.02}s`,
+      class:'fade'},nf(v));
+  });
+  const lo=vs.indexOf(Math.min(...vs));
+  txt(s,{x:x(lo),y:map(vs[lo])+16,'font-size':8.5,'font-weight':800,fill:MUTED,'text-anchor':'middle',
+    class:'fade',style:'animation-delay:1.1s'},nf(vs[lo]));
+  [[0,'1月'],[2,'3月'],[5,'6月'],[8,'9月'],[10,'11月']].forEach(([d,m])=>
+    txt(s,{x:x(d),y:base+18,'font-size':8,'font-weight':600,fill:MUTED,'text-anchor':'middle',
+      class:'fade'},m));
+  txt(s,{x:x(N-1),y:map(vs[N-1])-22,'font-size':7.5,'font-weight':700,fill:MUTED,'text-anchor':'end',
+    class:'fade',style:'animation-delay:1.2s'},'年内峰值');
+  txt(s,{x:200,y:302,'font-size':7,'font-weight':600,fill:'#B0AFA9','text-anchor':'middle',
+    'letter-spacing':'.12em',class:'fade',style:'animation-delay:1.1s'},
+    'ONE DOT = ONE MONTH · 净盒数，已冲减退货');
+});
+})();
+
+/* ════ C1 · tick rows —— 13 区销量，1 tick = 1,000 盒 ════ */
+(()=>{
+const D=DATA.zone, U=1000;
+obsReveal('zonerows',s=>{
+  const y0=i=>46+i*20,X0=96,PX=6.2;
+  D.forEach(([name,v],i)=>{
+    const y=y0(i),n=Math.max(1,Math.round(v/U));
+    txt(s,{x:84,y:y+3,'font-size':8.5,'font-weight':700,fill:'#6A6963','text-anchor':'end',
+      class:'fade',style:`animation-delay:${i*.06}s`},name.replace(/[区市县]$/,''));
+    el(s,'line',{x1:X0,y1:y+8,x2:X0+30*PX,y2:y+8,stroke:GRID,'stroke-width':.5,
+      class:'fade',style:`animation-delay:${i*.06}s`});
+    for(let k=0;k<n;k++){
+      const xx=X0+k*PX+PX/2,h=6+rnd(k+1,i+2)*3;
+      el(s,'line',{x1:xx,y1:y+8,x2:xx,y2:y+8-h,stroke:INK,'stroke-width':.9,
+        opacity:.55+rnd(k+3,i+5)*.45,class:'fade',style:`animation-delay:${i*.06+k*.01}s`});
+      if(k%5===4)el(s,'circle',{cx:xx,cy:y+11,r:.7,fill:'#C6C5BF',
+        class:'fade',style:`animation-delay:${i*.06+k*.01}s`});
+    }
+    const lab=txt(s,{x:378,y:y+3,'font-size':9.5,'font-weight':800,fill:INK,'text-anchor':'end',
+      class:'fade',style:`animation-delay:${.35+i*.06}s`},nf(v));
+    tip(lab,`${name} — ${nf(v)} 盒`);
+  });
+
+});
+})();
+
+/* ════ B4 · tick donut —— 等级构成，1 tick = 1% ════ */
+(()=>{
+const SHADE=['#1C1C1A','#4A4944','#6A6963','#8F8E88','#B0AFA9'];
+obsReveal('gradedonut',s=>{
+  const cx=200,cy=142,R0=62;
+  let ticks=[]; let acc=0;
+  DATA.grade.forEach(([name],si)=>{
+    const n=Math.round(DATA.grade[si][2]);
+    for(let k=0;k<n;k++) ticks.push([name,si]);
+    acc+=n;
+  });
+  while(ticks.length<100) ticks.push([DATA.grade[DATA.grade.length-1][0],DATA.grade.length-1]);
+  ticks=ticks.slice(0,100);
+  ticks.forEach(([name,si],idx)=>{
+    const a=idx*3.6-90,len=9+rnd(idx+1,si+2)*6;
+    const [x1,y1]=pol(cx,cy,R0,a),[x2,y2]=pol(cx,cy,R0+len,a);
+    el(s,'line',{x1,y1,x2,y2,stroke:SHADE[si],'stroke-width':1.4,class:'fade',
+      style:`animation-delay:${idx*.012}s`});
+    if(idx%10===0){
+      const [dx,dy]=pol(cx,cy,R0-5,a);
+      el(s,'circle',{cx:dx,cy:dy,r:.8,fill:'#C6C5BF',class:'fade',
+        style:`animation-delay:${idx*.012}s`});
+    }
+  });
+  let k0=0;
+  DATA.grade.forEach(([name,count,pct],si)=>{
+    const mid=(k0+Math.round(pct)/2)*3.6-90;
+    const RR=R0+(si%2?52:32); const [lx,ly]=pol(cx,cy,RR,mid),[gx,gy]=pol(cx,cy,R0+18,mid);
+    el(s,'line',{x1:gx,y1:gy,x2:lx,y2:ly,stroke:'#C6C5BF','stroke-width':.7,
+      'stroke-dasharray':'1 3',class:'fade',style:`animation-delay:${.6+si*.1}s`});
+    const anchor=Math.cos(mid*D2R)>0.3?'start':Math.cos(mid*D2R)<-0.3?'end':'middle';
+    const lab=txt(s,{x:lx,y:ly+3,'font-size':8,'font-weight':800,fill:SHADE[si],'text-anchor':anchor,
+      style:`paint-order:stroke;stroke:${PAPER};stroke-width:3px;animation-delay:${.65+si*.1}s`,class:'fade'},
+      `${name} · ${count}`);
+    tip(lab,`${name} 级 — ${count} 家 / ${pct}%`);
+    k0+=Math.round(pct);
+  });
+  txt(s,{x:cx,y:cy-2,'font-size':24,'font-weight':800,fill:INK,'text-anchor':'middle',
+    class:'fade',style:'animation-delay:.9s'},'902');
+  txt(s,{x:cx,y:cy+14,'font-size':7,'font-weight':600,fill:MUTED,'text-anchor':'middle',
+    'letter-spacing':'.1em',class:'fade',style:'animation-delay:.9s'},'TICKS · ONE = 1%');
+
+});
+})();
+
+/* ════ C2 · paired rungs —— TOP6 产品 10月 vs 11月，1 档 = 20 盒 ════ */
+(()=>{
+const D=DATA.prod, U=100;
+const mx=Math.max(...D.map(d=>Math.max(d[1],d[2])));
+obsReveal('prodpair',s=>{
+  const x0=i=>60+i*58,base=248,step=Math.min(6,(base-86)/mx*U),HW=8;
+  D.forEach(([name,oct,nov],i)=>{
+    const xa=x0(i)-11,xb=x0(i)+11;
+    const na=Math.max(1,Math.round(oct/U)),nb=Math.max(1,Math.round(nov/U));
+    for(let k=0;k<na;k++){
+      const y=base-k*step,w=HW-1.2+rnd(k+1,i+2)*2.4;
+      el(s,'line',{x1:xa-w,y1:y,x2:xa+w,y2:y,stroke:'#B0AFA9','stroke-width':1,
+        opacity:.5+rnd(k+2,i+3)*.4,class:'fade',style:`animation-delay:${i*.07+k*.01}s`});
+    }
+    for(let k=0;k<nb;k++){
+      const y=base-k*step,w=HW-1.2+rnd(k+1,i+7)*2.4;
+      el(s,'line',{x1:xb-w,y1:y,x2:xb+w,y2:y,stroke:INK,'stroke-width':1,
+        opacity:.6+rnd(k+2,i+8)*.4,class:'fade',style:`animation-delay:${.15+i*.07+k*.01}s`});
+    }
+    const num=txt(s,{x:xb,y:base-(nb-1)*step-9,'font-size':10,'font-weight':800,fill:INK,
+      'text-anchor':'start',class:'fade',style:`animation-delay:${.5+i*.07}s`},nf(nov));
+    tip(num,`${name} — 10月 ${nf(oct)} → 11月 ${nf(nov)}`);
+    txt(s,{x:xa,y:base-(na-1)*step-22,'font-size':8.5,'font-weight':700,fill:'#B0AFA9','text-anchor':'end',
+      class:'fade',style:`animation-delay:${.5+i*.07}s`},nf(oct));
+    txt(s,{x:x0(i),y:base+16,'font-size':7.5,'font-weight':700,fill:MUTED,'text-anchor':'middle',
+      class:'fade',style:`animation-delay:${i*.07}s`},name);
+  });
+  el(s,'line',{x1:30,y1:base+4,x2:372,y2:base+4,stroke:GRID,'stroke-width':.8,class:'fade'});
+  txt(s,{x:200,y:300,'font-size':7,'font-weight':600,fill:'#B0AFA9','text-anchor':'middle',
+    'letter-spacing':'.12em',class:'fade',style:'animation-delay:1s'},
+    'FAINT = OCT · INK = NOV · ONE RUNG = 100 BOXES');
+});
+})();
+</script>
+</body>
+</html>
