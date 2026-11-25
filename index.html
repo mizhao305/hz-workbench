@@ -1090,7 +1090,7 @@
             <table class="tbl">
               <thead><tr>
                 <th>#</th><th>门店名称</th><th style="cursor:pointer;user-select:none" onclick="crmSortBy('zone')">区域 <span id="sZone"></span></th><th style="cursor:pointer;user-select:none" onclick="crmSortBy('manager')">负责人 <span id="sMgr"></span></th>
-                <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('qty')">净进货(盒) <span id="sQty"></span></th>
+                <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('qty')">净进货(盒·2026) <span id="sQty"></span></th>
                 <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('amount')">净金额(元) <span id="sAmt"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('orders')">订单 <span id="sOrd"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('dong')" title="前两完整月均值（不含本月）">动销(盒) <span id="sDong"></span></th>
@@ -1544,6 +1544,14 @@ function yearMonthsOf(yr){
     if(qy>0) out.push(Object.assign({},s,{zone:z.zone,manager:z.manager}));
   }));
   return out;
+}
+function store26(s){
+  let q=0,a=0,o=0,ms=0; const pr={};
+  for(const k in (s.monthQty||{})){ if(k.indexOf('2026-')===0){ const v=+(s.monthQty[k]||0); if(v){ q+=v; ms++; } } }
+  for(const k in (s.monthAmount||{})){ if(k.indexOf('2026-')===0){ a+=+(s.monthAmount[k]||0); } }
+  for(const k in (s.monthOrders||{})){ if(k.indexOf('2026-')===0){ o+=+(s.monthOrders[k]||0); } }
+  for(const pn in (s.matrix2||{})){ for(const k in (s.matrix2[pn]||{})){ if(k.indexOf('2026-')===0){ pr[pn]=(pr[pn]||0)+(+(s.matrix2[pn][k]||0)); } } }
+  return {q:q, a:a, o:o, ms:ms, pc:Object.values(pr).filter(v=>v>0).length, grade:(q>=1000?'A+':q>=300?'A':q>=100?'B':q>=30?'C':'D')};
 }
 function yearActiveAug(yr){
   if(yr==='2026') return DATA.zones.reduce((a,z)=>a+z.activeAug,0);
@@ -2130,11 +2138,12 @@ function renderCrm(){
   const mf=document.getElementById('crmMgrF')?document.getElementById('crmMgrF').value:'';
   const vf=document.getElementById('crmVipF')?document.getElementById('crmVipF').value:'';
   const all=allStoresFlat();
+  const y26Map={}; all.forEach(s=>y26Map[s.name]=store26(s));
   const dongMap={}; all.forEach(s=>dongMap[s.name]=dongxiao(s));
   const effMap={}; all.forEach(s=>effMap[s.name]=effVisitOf(s));
   const vips=vipSet();
   const sk=CRM_SORT.key, sd=CRM_SORT.dir;
-  const valOf=s=> sk==='dong'?dongMap[s.name]: sk==='eff'?effMap[s.name]: sk==='qty'?s.qty: sk==='amount'?s.amount: sk==='orders'?s.orders: sk==='pc'?s.prodCount: sk==='months'?s.activeMonths: (s[sk]||'');
+  const valOf=s=>{ const y=y26Map[s.name]; return sk==='dong'?dongMap[s.name]: sk==='eff'?effMap[s.name]: sk==='qty'?y.q: sk==='amount'?y.a: sk==='orders'?y.o: sk==='pc'?y.pc: sk==='months'?y.ms: (s[sk]||''); };
   all.sort((a,b)=>{ const va=valOf(a), vb=valOf(b); if(va===vb) return 0; return (va>vb?1:-1)*sd; });
   let list=all;
   if(kw) list=list.filter(s=>s.name.toLowerCase().includes(kw)||s.zone.includes(kw)||(s.manager||'').includes(kw));
@@ -2160,13 +2169,13 @@ function renderCrm(){
     const vstar=vip?'⭐':'<span style="opacity:.3">☆</span>';
     return `<tr onclick="openStore('${esc(jsEsc(s.name))}','${esc(s.zone)}')" style="cursor:pointer">
     <td>${CRM_PAGE*CRM_PER+i+1}</td><td class="hl"><span style="cursor:pointer;font-size:12px" title="${vip?'取消VIP':'设为VIP'}" onclick="event.stopPropagation();toggleVip('${esc(jsEsc(s.name))}')">${vstar}</span> ${esc(s.name)}</td><td>${s.zone}${flag}</td><td>${s.manager}</td>
-    <td class="num" style="text-align:right">${fmtN(s.qty)}</td>
-    <td style="text-align:right">${fmtM(s.amount)}</td>
-    <td style="text-align:center">${s.orders}</td>
+    <td class="num" style="text-align:right">${fmtN(y26Map[s.name].q)}</td>
+    <td style="text-align:right">${fmtM(y26Map[s.name].a)}</td>
+    <td style="text-align:center">${y26Map[s.name].o}</td>
     <td class="num" style="text-align:right;color:${DT_C[dt]}" title="前两完整月均值（不含本月） · ${DT_NAME[dt]}">${fmtN(dong)}</td>
     <td style="text-align:center" title="当月有出货天数">${eff}</td>
-    <td style="text-align:center"><span style="color:${s.prodCount>=8?'var(--green)':s.prodCount>=4?'#fcd34d':'#fda4af'}">${s.prodCount}款</span></td>
-    <td style="text-align:center">${s.activeMonths}月</td>
+    <td style="text-align:center"><span style="color:${s.prodCount>=8?'var(--green)':s.prodCount>=4?'#fcd34d':'#fda4af'}">${y26Map[s.name].pc}款</span></td>
+    <td style="text-align:center">${y26Map[s.name].ms}月</td>
     <td style="text-align:center"><span class="pill" style="border-color:${GRADEC[s.grade]}55;color:${GRADEC[s.grade]};background:${GRADEC[s.grade]}18">${s.grade}</span></td>
     <td style="text-align:center">${s.isAugActive?'<span class="pill g">'+s.lastDate+'</span>':'<span class="pill o">'+s.lastDate+'</span>'}</td>
     <td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="event.stopPropagation();openStore('${esc(jsEsc(s.name))}','${esc(s.zone)}')">看板</button></td>
