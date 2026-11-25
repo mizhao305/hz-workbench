@@ -959,6 +959,7 @@
         <div class="nav-item" data-page="promo"><span class="ic">📣</span>促销管理</div>
         <div class="nav-item" data-page="import"><span class="ic">📥</span>数据导入</div>
         <div class="nav-item" data-page="report"><span class="ic">📋</span>工作报表</div>
+        <div class="nav-item" data-page="charts"><span class="ic">📈</span>图表版<small>新</small></div>
       </nav>
     </aside>
 
@@ -1741,6 +1742,7 @@ function allStoresFlat(){
 
 // ===== 导航 =====
 function go(page){
+  if(page==='charts'){ window.open('charts/index.html','_blank'); return; }
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===page));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
   $('#page-'+page).classList.add('show');
