@@ -1189,6 +1189,48 @@ body::before{background:radial-gradient(42% 42% at 22% 28%,rgba(59,130,246,.24),
 .kpi::after{display:none !important}
 .kpi{background:linear-gradient(150deg,rgba(255,255,255,.96),rgba(240,246,255,.9)) !important;border:1px solid rgba(255,255,255,.98) !important}
 .kpi .d{color:#3b5480}
+/* 促销：撤销按钮 */
+.pmc-del{flex:0 0 auto;margin-left:auto;border:1px solid rgba(225,29,72,.35);background:rgba(225,29,72,.08);color:#be123c;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;cursor:pointer}
+.pmc-del:active{background:rgba(225,29,72,.18)}
+.pm-clear{border:1px solid rgba(100,116,139,.35)!important;background:rgba(255,255,255,.9)!important;color:#475569!important;font-size:12px!important;padding:6px 10px!important;border-radius:10px!important}
+@media (max-width:768px){
+  /* 全站表格：紧凑、表头吸顶、字号收敛 */
+  .tbl th{position:sticky;top:0;z-index:3;padding:6px 7px;font-size:11px;line-height:1.25;white-space:nowrap}
+  .tbl td{padding:4px 7px;font-size:11.5px;line-height:1.3;white-space:nowrap}
+  .tbl tbody tr{height:auto}
+  .card-wrap{margin:0 -6px}
+  .content{padding:6px 8px 28px}
+  .card{padding:10px 10px 12px;border-radius:14px}
+  .ch-t{font-size:14px}
+  .ch-s{font-size:11px;line-height:1.4}
+  .page .grid{gap:9px}
+  .pm-tbl th,.pm-tbl td{padding:4px 5px;font-size:11px}
+  #page-crm .tbl th,#page-crm .tbl td{font-size:11px;padding:4px 6px}
+}
+@media (max-width:768px){
+  /* 弹窗内表格：更小更紧、可横向滑动 */
+  .modal .tbl th,.modal .tbl td{padding:3px 5px;font-size:10.5px}
+  .modal .tbl td.hl{max-width:132px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .modal .modal-body{padding:10px 8px}
+}
+@media (max-width:768px){
+  /* 标题右侧带年月，始终可见 */
+  .topbar h1 .sub{display:inline-block !important;font-size:12.5px !important;margin-left:9px !important;color:#3b5480 !important;font-weight:600}
+  /* 卡片间呼吸感：紧凑但不挤 */
+  .page>.grid+.grid{margin-top:12px}
+  .card+.card{margin-top:12px}
+  .ch-t{margin-bottom:2px}
+  .ch-s{margin-bottom:10px}
+  .kpi-strip{gap:10px}
+  .tabs{margin-bottom:12px}
+}
+@media (max-width:768px){
+  /* 卡片标题与徽章不再重叠 */
+  .chead{flex-wrap:wrap;align-items:flex-start;gap:6px}
+  .chead>div:first-child{flex:1 1 100%}
+  .chead .badge-date{order:2;font-size:10.5px !important;padding:3px 9px !important;border-radius:9px !important;margin-top:2px}
+  .ch-t{line-height:1.35}
+}
 </style>
 
 
@@ -1214,7 +1256,7 @@ body::before{background:radial-gradient(42% 42% at 22% 28%,rgba(59,130,246,.24),
 
     <main class="main">
       <div class="topbar">
-        <div><h1 id="ptitle">销售总数据 <span class="sub" id="psub">全杭州 · 单体药店 · 2026年1-11月</span></h1></div>
+        <div><h1 id="ptitle">销售总数据 <span class="sub" id="psub">2026年 1-11月</span></h1></div>
         <div class="right">
           <button class="btn" onclick="location.reload(true)" title="强制重新拉取最新数据" style="padding:6px 12px;font-size:13px;margin-right:6px">🔄 刷新最新</button>
           <span class="badge-date" style="border-color:rgba(236,72,153,.45);background:linear-gradient(120deg,rgba(236,72,153,.16),rgba(52,211,153,.12))" title="当前线上版本">v5.0 · 2026-11-25</span>
@@ -1227,11 +1269,7 @@ body::before{background:radial-gradient(42% 42% at 22% 28%,rgba(59,130,246,.24),
 
         <!-- ═══════════ 总览 DASHBOARD ═══════════ -->
         <div class="page show" id="page-dash">
-          <div class="tabs" id="yearTabs" style="margin-bottom:16px">
-            <button data-y="2026" class="on" onclick="setYear('2026')">2026年 · 1-11月</button>
-            <span style="font-size:11.5px;color:var(--tx3);align-self:center;margin-left:4px">全站数据口径：2026年1月1日—11月25日 · 仅本年度 · 历史年份已全部关闭</span>
-          </div>
-          <div class="kpi-strip">
+                    <div class="kpi-strip">
             <div class="ks"><div><div class="ks-t">🏪 合作单体店</div><div class="ks-v" id="kpiStore">-<span class="u">家</span></div></div><div class="ks-note" id="kpiStoreNote"></div></div>
             <div class="ks"><div><div class="ks-t">📦 进货量</div><div class="ks-v" id="kpiQty">-<span class="u">盒</span></div></div></div>
             <div class="ks"><div><div class="ks-t">💰 进货金额</div><div class="ks-v" id="kpiAmt">-</div></div></div>
@@ -1340,7 +1378,7 @@ body::before{background:radial-gradient(42% 42% at 22% 28%,rgba(59,130,246,.24),
               <thead><tr>
                 <th>#</th><th>门店名称</th><th style="cursor:pointer;user-select:none" onclick="crmSortBy('zone')">区域 <span id="sZone"></span></th><th style="cursor:pointer;user-select:none" onclick="crmSortBy('manager')">负责人 <span id="sMgr"></span></th>
                 <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('qty')">进货 <span id="sQty"></span></th>
-                <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('amount')">净金额(元) <span id="sAmt"></span></th>
+                <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('amount')">金额 <span id="sAmt"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('dong')" title="前两完整月均值（不含本月）">动销(盒) <span id="sDong"></span></th>
                 
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('pc')">动销品种 <span id="sPc"></span></th>
@@ -1478,12 +1516,12 @@ body::before{background:radial-gradient(42% 42% at 22% 28%,rgba(59,130,246,.24),
           <div class="card pm-card">
             <div class="chead"><div>
               <div class="ch-t" style="font-size:15.5px"><span class="dot"></span>📣 促销管理 · 驻店台账</div>
-              <div class="ch-s" style="margin-top:4px">从客户 CRM 选门店 → 填「驻店日期 / 促销活数 / 进店活数 / 情况备注」→ 系统自动抓取<b style="color:#0e7490">驻店日起 4 天内</b>该店实际进货盒数与金额</div>
+              <div class="ch-s" style="margin-top:4px">从客户 CRM 选门店 → 填「驻店日期 / 促销盒数 / 进店盒数 / 情况备注」→ 系统自动抓取<b style="color:#0e7490">驻店日起 4 天内</b>该店实际进货盒数与金额</div>
             </div><div id="pmSaveTag" class="pm-tag">已保存</div></div>
             <div class="pm-pick">
               <input id="pmQ" class="pm-in" placeholder="搜索门店 / 区域 / 经理" oninput="pmSearch()">
               <select id="pmZone" class="pm-in" onchange="pmSearch()"><option value="">全部区域</option></select>
-              <button class="btn pm-add" onclick="pmAddChecked()">＋ 加入选中 <span id="pmSelN">0</span></button>
+              <button class="btn pm-clear" onclick="pmClearSel()">✕ 取消勾选</button><button class="btn pm-add" onclick="pmAddChecked()">＋ 加入选中 <span id="pmSelN">0</span></button>
             </div>
             <div id="pmCand" class="pm-cand"></div>
           </div>
@@ -1946,7 +1984,7 @@ function go(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===NAVOF(page)));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
   $('#page-'+page).classList.add('show');
-  const TITLES={dash:['销售总数据','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['日周看板','今日/本周 双视角 · 净进货 · 金额 · 动销 · 活跃'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','2026逐月回看 + 2025全年存档'],promoteam:['促销管理','选门店 · 记驻店 · 自动抓 4 天进货'],roundact:['圆桌会议','选客户 · 请客 · 填购进']};
+  const TITLES={dash:['销售总数据','2026年 1-11月'],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['日周看板','今日/本周 双视角 · 净进货 · 金额 · 动销 · 活跃'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','2026逐月回看 + 2025全年存档'],promoteam:['促销管理','选门店 · 记驻店 · 自动抓 4 天进货'],roundact:['圆桌会议','选客户 · 请客 · 填购进']};
   $('#ptitle').innerHTML='<span>'+TITLES[page][0]+'</span><span class="sub" id="psub">'+TITLES[page][1]+'</span>';
   if(page==='dash') renderDash();
   if(page==='zone') renderZone();
@@ -1974,7 +2012,7 @@ function renderDash(){
   const M=DATA.meta;
   $('#monthSub').textContent=yearPeriod(YEAR);
   $('#zoneSub').textContent=yearPeriod(YEAR);
-  $('#psub').textContent='全杭州 · 单体药店 · '+yearPeriod(YEAR);
+  $('#psub').textContent='2026年 1-11月';
   const compareEl=$('#yearCompare');
   if(YEAR==='compare'){
     compareEl.style.display='block';
@@ -2228,7 +2266,7 @@ function renderStoreTier(){
 function openTierStores(i){
   const list=TIER_LIST[i]||[];
   const defs=['💯 千盒门店','🥇 500~1000 盒','🥈 300~500 盒','🥉 100~300 盒','🔻 100 盒以下'];
-  const head='<tr><th>#</th><th>门店</th><th>区域</th><th>负责人</th><th style="text-align:right">2026净进货(盒)</th><th>详情</th></tr>';
+  const head='<tr><th>#</th><th>门店</th><th>区域</th><th>负责人</th><th style="text-align:right">进货</th><th>详情</th></tr>';
   const body=list.map((s,k)=>`<tr><td>${k+1}</td><td class="hl">${esc(s.name)}</td><td>${s.zone}</td><td>${s.manager||'-'}</td><td style="text-align:right">${fmtN(s.qty)}</td><td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="closeModal('tierModal');openStore('${esc(s.name)}','${esc(s.zone)}')">看板</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty" style="text-align:center">该档暂无门店</td></tr>';
   $('#tierModalTitle').textContent=defs[i]+' · '+list.length+' 家门店（2026年至今）';
   $('#tierModalBody').innerHTML='<table class="tbl">'+head+body+'</table>';
@@ -2517,7 +2555,7 @@ function renderBoardToday(){
     const sd=(DATA.storeDaily||{})[date]||[];
     const rows=sd.slice().sort((a,b)=>b.q-a);
     title='('+date+') · 历史回看 · '+rows.length+' 家门店 · 仅当日汇总';
-    const th='<tr><th style="min-width:200px;text-align:left;white-space:nowrap">门店</th><th style="min-width:84px;text-align:left;white-space:nowrap">区域</th><th style="min-width:110px;text-align:right;white-space:nowrap">净进货(盒)</th><th style="min-width:120px;text-align:right;white-space:nowrap">金额</th></tr>';
+    const th='<tr><th style="min-width:200px;text-align:left;white-space:nowrap">门店</th><th style="min-width:84px;text-align:left;white-space:nowrap">区域</th><th style="min-width:72px;text-align:right;white-space:nowrap">进货</th><th style="min-width:86px;text-align:right;white-space:nowrap">金额</th></tr>';
     $('#boardTodayHead').innerHTML=th;
     $('#boardTodayBody').innerHTML=rows.map(r=>`<tr onclick="openStore('${esc(r.n)}','${esc(r.z)}')" style="cursor:pointer"><td class="hl" style="min-width:200px;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.n)}</td><td style="min-width:84px;white-space:nowrap">${r.z}</td><td class="num ${r.q<0?'neg':''}" style="text-align:right;font-weight:700;white-space:nowrap">${fmtN(r.q)}</td><td style="text-align:right;white-space:nowrap">${fmtM(r.a)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty" style="text-align:center">该日暂无进货数据</td></tr>';
   }
@@ -2649,10 +2687,10 @@ function openGradeList(g){
   DATA.zones.forEach(z=>z.stores.forEach(s=>{ if(s.grade===g) list.push(Object.assign({},s,{zone:z.zone,manager:z.manager})); }));
   list.sort((a,b)=>b.qty-a.qty);
   const _m26=DATA.meta.months.filter(m=>m.startsWith('2026'));
-  const head='<tr><th>#</th><th>门店</th><th>区域</th><th>负责人</th><th style="text-align:right">2026净进货(盒)</th><th style="text-align:right">2026净金额</th><th style="text-align:center">订单</th><th>最近进货</th><th>详情</th></tr>';
+  const head='<tr><th>#</th><th>门店</th><th>区域</th><th>负责人</th><th style="text-align:right">进货</th><th style="text-align:right">金额</th><th>最近进货</th><th>详情</th></tr>';
   const body=list.map((s,i)=>{
     const q26=_m26.reduce((a,m)=>a+(s.monthQty[m]||0),0), a26=_m26.reduce((a,m)=>a+(s.monthAmount[m]||0),0);
-    return `<tr><td>${i+1}</td><td class="hl">${esc(s.name)}</td><td>${s.zone}</td><td>${s.manager||'-'}</td><td style="text-align:right">${fmtN(q26)}</td><td style="text-align:right">${fmtM(a26)}</td><td style="text-align:center">${s.orders}</td><td>${s.lastDate||'-'}</td><td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="closeModal('gradeModal');openStore('${esc(s.name)}','${esc(s.zone)}')">看板</button></td></tr>`;
+    return `<tr><td>${i+1}</td><td class="hl">${esc(s.name)}</td><td>${s.zone}</td><td>${s.manager||'-'}</td><td style="text-align:right">${fmtN(q26)}</td><td style="text-align:right">${fmtM(a26)}</td><td>${s.lastDate||'-'}</td><td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="closeModal('gradeModal');openStore('${esc(s.name)}','${esc(s.zone)}')">›</button></td></tr>`;
   }).join('');
   document.getElementById('gradeModalTitle').innerHTML=`${GRADES[g]}（${g}级）· ${list.length} 家门店`;
   document.getElementById('gradeModalBody').innerHTML='<table class="tbl">'+head+body+'</table>';
@@ -2892,12 +2930,25 @@ function pmAddChecked(){
   var idx={}; pmStores().forEach(function(s){ idx[s.n]=s; });
   sel.forEach(function(n,i){
     var s=idx[n]||{z:'',m:''};
-    list.push({t:base+i,store:n,zone:s.z||'',mgr:s.m||'',date:'',a1:0,a2:0,note:'',created:new Date().toISOString()});
+    list.push({t:base+i,store:n,zone:s.z||'',mgr:s.m||'',date:'',a1:0,a2:0,note:'',created:new Date().toISOString(),upd:Date.now()});
   });
   _jsave(PM_KEY,list); _cloudLater(PM_KEY); _tag('pmSaveTag');
   PM_SEL={}; var t=document.getElementById('pmSelN'); if(t) t.textContent='0';
   renderPm(); pmSearch();
   if(typeof toast==='function') toast('已加入 '+sel.length+' 家门店');
+}
+function pmDel(t){
+  if(!window.confirm('撤销这家门店的驻店记录？撤销后该行数据将从台账与云端一并删除。')) return;
+  var list=_jload(PM_KEY).filter(function(r){ return String(r.t)!==String(t); });
+  _jsave(PM_KEY,list); _cloudLater(PM_KEY); _tag('pmSaveTag');
+  renderPm(); pmSearch();
+  if(typeof toast==='function') toast('已撤销该条记录');
+}
+function pmClearSel(){
+  PM_SEL={};
+  document.querySelectorAll('#pmCand input[type=checkbox]').forEach(function(c){ c.checked=false; });
+  var t=document.getElementById('pmSelN'); if(t) t.textContent='0';
+  if(typeof toast==='function') toast('已取消勾选');
 }
 function pmSet(t,f,v){
   var list=_jload(PM_KEY), i=-1;
@@ -2906,6 +2957,7 @@ function pmSet(t,f,v){
   if(f==='a1'||f==='a2') list[i][f]=Math.max(0,parseFloat(v)||0);
   else if(f==='date') list[i].date=v||'';
   else if(f==='note') list[i].note=v||'';
+  list[i].upd=Date.now();
   _jsave(PM_KEY,list); _cloudLater(PM_KEY); _tag('pmSaveTag');
   var _map={date:'pmdate_',a1:'pma1_',a2:'pma2_',note:'pmnote_'};
   if(_map[f]){ var inp=document.getElementById(_map[f]+t); if(inp&&inp.value!==String(v)) inp.value=(v||''); }
@@ -2929,17 +2981,17 @@ function renderPm(){
   else if(_isPhone()){
     h='<div class="pm-cards">'+recs.map(function(r,i){
       var b=winBuy(r.store,r.date);
-      return '<div class="pmc"><div class="pmc-hd"><span class="pmc-no">'+(i+1)+'</span><b>'+esc(r.store)+'</b><span class="pmc-z">'+esc(r.zone||'-')+'</span></div>'+
+      return '<div class="pmc"><div class="pmc-hd"><span class="pmc-no">'+(i+1)+'</span><b>'+esc(r.store)+'</b><span class="pmc-z">'+esc(r.zone||'-')+'</span><button class="pmc-del" onclick="pmDel('+r.t+')">↩ 撤销</button></div>'+
       '<div class="pmc-g">'+
       '<label class="pmc-f"><span>驻店日期</span><input type="date" id="pmdate_'+r.t+'" class="pm-cin" value="'+(r.date||'')+'" onchange="pmSet(\''+r.t+'\',\'date\',this.value)"></label>'+
-      '<label class="pmc-f"><span>促销活数</span><input type="number" min="0" id="pma1_'+r.t+'" class="pm-nin" value="'+(r.a1||0)+'" onchange="pmSet(\''+r.t+'\',\'a1\',this.value)"></label>'+
-      '<label class="pmc-f"><span>进店活数</span><input type="number" min="0" id="pma2_'+r.t+'" class="pm-nin" value="'+(r.a2||0)+'" onchange="pmSet(\''+r.t+'\',\'a2\',this.value)"></label>'+
+      '<label class="pmc-f"><span>促销盒数</span><input type="number" min="0" id="pma1_'+r.t+'" class="pm-nin" value="'+(r.a1||0)+'" onchange="pmSet(\''+r.t+'\',\'a1\',this.value)"></label>'+
+      '<label class="pmc-f"><span>进店盒数</span><input type="number" min="0" id="pma2_'+r.t+'" class="pm-nin" value="'+(r.a2||0)+'" onchange="pmSet(\''+r.t+'\',\'a2\',this.value)"></label>'+
       '<label class="pmc-f wide"><span>情况备注</span><input type="text" id="pmnote_'+r.t+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="填写情况备注" onchange="pmSet(\''+r.t+'\',\'note\',this.value)"></label>'+
       '</div>'+
       '<div class="pmc-ft"><span class="pmc-lb">驻店后4天进货</span><div class="pmc-buy" id="pmbuy_'+r.t+'">'+_buyCell(r)+'</div><div class="pmc-amt" id="pmamt_'+r.t+'">'+(b.a?_M(b.a):'—')+'</div></div></div>';
     }).join('')+'</div>';
   } else {
-    h='<table class="tbl pm-tbl"><thead><tr><th class="pm-c-no">#</th><th class="pm-c-nm">门店</th><th class="pm-c-z">区域</th><th class="pm-c-d">驻店日期</th><th class="num">促销活数</th><th class="num">进店活数</th><th class="pm-c-nt">情况备注</th><th class="num pm-c-buy">驻店后4天进货</th><th class="num">金额</th></tr></thead><tbody>';
+    h='<table class="tbl pm-tbl"><thead><tr><th class="pm-c-no">#</th><th class="pm-c-nm">门店</th><th class="pm-c-z">区域</th><th class="pm-c-d">驻店日期</th><th class="num">促销盒数</th><th class="num">进店盒数</th><th class="pm-c-nt">情况备注</th><th class="num pm-c-buy">驻店后4天进货</th><th class="num">金额</th><th class="pm-c-op">操作</th></tr></thead><tbody>';
     recs.forEach(function(r,i){
       var b=winBuy(r.store,r.date);
       h+='<tr><td class="pm-c-no">'+(i+1)+'</td>'+
@@ -2950,7 +3002,8 @@ function renderPm(){
         '<td class="num"><input type="number" min="0" id="pma2_'+r.t+'" class="pm-nin" value="'+(r.a2||0)+'" onchange="pmSet(\''+r.t+'\',\'a2\',this.value)"></td>'+
         '<td class="pm-c-nt"><input type="text" id="pmnote_'+r.t+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="情况备注" onchange="pmSet(\''+r.t+'\',\'note\',this.value)"></td>'+
         '<td class="num pm-c-buy" id="pmbuy_'+r.t+'">'+_buyCell(r)+'</td>'+
-        '<td class="num" id="pmamt_'+r.t+'">'+(b.a?_M(b.a):'—')+'</td></tr>';
+        '<td class="num" id="pmamt_'+r.t+'">'+(b.a?_M(b.a):'—')+'</td>'+
+        '<td class="pm-c-op"><button class="pmc-del" onclick="pmDel('+r.t+')">撤销</button></td></tr>';
     });
     h+='</tbody></table>';
   }
@@ -2963,8 +3016,8 @@ function pmKpi(){
   rows.forEach(function(r){ var b=winBuy(r.store,r.date); tq+=b.q; ta+=b.a; a1+=+(r.a1||0); a2+=+(r.a2||0); });
   _mk('pmKpi','<div class="pm-k4">'+
     '<div class="pm-k"><span>驻店客户</span><b>'+rows.length+'</b><i>家</i></div>'+
-    '<div class="pm-k"><span>促销活数</span><b>'+a1+'</b><i>场</i></div>'+
-    '<div class="pm-k"><span>进店活数</span><b>'+a2+'</b><i>场</i></div>'+
+    '<div class="pm-k"><span>促销盒数</span><b>'+a1+'</b><i>盒</i></div>'+
+    '<div class="pm-k"><span>进店盒数</span><b>'+a2+'</b><i>盒</i></div>'+
     '<div class="pm-k hl"><span>自动抓进货</span><b>'+_N(tq)+'</b><i>盒 · '+_M(ta)+'</i></div></div>');
 }
 function pmMonth(){
@@ -2977,7 +3030,7 @@ function pmMonth(){
   });
   var keys=Object.keys(g).sort().reverse();
   if(!keys.length){ _mk('pmMonth','<div class="pm-empty-lg">暂无数据</div>'); return; }
-  var h='<table class="tbl"><thead><tr><th>月份</th><th class="num">驻店客户</th><th class="num">促销活数</th><th class="num">进店活数</th><th class="num">进货(盒)</th><th class="num">进货金额</th></tr></thead><tbody>';
+  var h='<table class="tbl"><thead><tr><th>月份</th><th class="num">驻店客户</th><th class="num">促销盒数</th><th class="num">进店盒数</th><th class="num">进货</th><th class="num">进货金额</th></tr></thead><tbody>';
   var T={n:0,a1:0,a2:0,q:0,amt:0};
   keys.forEach(function(m){ var o=g[m]; T.n+=o.n;T.a1+=o.a1;T.a2+=o.a2;T.q+=o.q;T.amt+=o.amt;
     h+='<tr><td><b>'+m+'</b></td><td class="num">'+o.n+'</td><td class="num">'+o.a1+'</td><td class="num">'+o.a2+'</td><td class="num">'+_N(o.q)+'</td><td class="num">'+_M(o.amt)+'</td></tr>'; });
@@ -2986,7 +3039,7 @@ function pmMonth(){
 }
 function pmExport(){
   var rows=_jload(PM_KEY); if(!rows.length){ if(typeof toast==='function')toast('暂无数据可导出'); return; }
-  var head=['序号','门店','区域','负责人','驻店日期','促销活数','进店活数','情况备注','驻店后4天进货(盒)','进货金额(元)'];
+  var head=['序号','门店','区域','负责人','驻店日期','促销盒数','进店盒数','情况备注','驻店后4天进货(盒)','进货金额(元)'];
   var lines=[head.join(',')];
   rows.forEach(function(r,i){ var b=winBuy(r.store,r.date);
     lines.push([i+1,'"'+r.store+'"',r.zone||'',r.mgr||'',r.date||'',r.a1||0,r.a2||0,'"'+(r.note||'').replace(/"/g,'""')+'"',b.q,Math.round(b.a)].join(','));
@@ -3153,7 +3206,7 @@ async function cloudPut(file,obj){
     return put.ok;
   }catch(e){ return false; }
 }
-function mergeArr(a,b){ const m=new Map(); (a||[]).forEach(x=>x&&x.t!==undefined&&m.set(x.t,x)); (b||[]).forEach(x=>x&&x.t!==undefined&&m.set(x.t,x)); return [...m.values()]; }
+function mergeArr(a,b){ const m=new Map(); (a||[]).forEach(x=>x&&x.t!==undefined&&m.set(x.t,x)); (b||[]).forEach(x=>{ if(!x||x.t===undefined) return; const o=m.get(x.t); if(o&&+o.upd&&+x.upd&&+o.upd>+x.upd) return; m.set(x.t,x); }); return [...m.values()]; }
 function mergeNames(a,b){ const s=new Set(); (a||[]).forEach(x=>s.add(x)); (b||[]).forEach(x=>s.add(x)); return [...s]; }
 // 启动拉取：远程 → 本地（仅当远程存在且有数据时合并，避免覆盖本机已有）
 async function cloudSyncAll(){
@@ -3469,7 +3522,7 @@ function toast(msg){
   $('#updateDate').textContent='数据截止：'+lastDataDate()+' · 每日更新';
   const fd=document.getElementById('footDate'); if(fd) fd.textContent='数据截止 '+lastDataDate();
   const yb=document.querySelector('[data-y="2026"]'); if(yb) yb.textContent=yearLabel('2026');
-  const ps=document.getElementById('psub'); if(ps) ps.textContent='全杭州 · 单体药店 · '+yearPeriod('2026');
+  const ps=document.getElementById('psub'); if(ps) ps.textContent='2026年 1-11月';
   document.querySelector('[data-page="hub"]').classList.add('active');
   ensureHubTabs('dash');
   renderDash();
