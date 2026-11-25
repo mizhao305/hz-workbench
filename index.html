@@ -1104,6 +1104,91 @@
   .zone-bar .zb-side{min-width:80px !important}
   .topbar .right .btn{padding:4px 10px !important;font-size:11px !important;border-radius:16px !important;min-height:30px !important}
 }
+/* ===== V5.3 柱图数值 / CRM 紧凑 ===== */
+.content{padding:10px 22px 36px !important}
+.main>.page{padding:0 !important}
+
+.bar-col .bval{display:block !important;font-size:9.5px;font-weight:700;line-height:1.15;margin-bottom:1px;white-space:nowrap;font-variant-numeric:tabular-nums;filter:none !important}
+#page-crm .search{margin-bottom:8px !important;padding:7px 10px !important}
+#page-crm .card{padding:4px 4px 6px !important}
+#page-crm .tbl th{padding:5px 7px !important;font-size:11.5px !important}
+#page-crm .tbl td{padding:3px 7px !important;font-size:12px !important;line-height:1.4}
+#page-crm .tbl td .pill{padding:1px 6px !important;font-size:10.5px !important}
+@media(max-width:768px){
+  #page-crm .search{padding:5px 8px !important;margin-bottom:6px !important}
+  #page-crm .tbl td,#page-crm .tbl th{padding:3px 6px !important}
+}
+/* ===== 正式皮肤：冰川蓝玻璃（2026-11-26 用户选定方案B） ===== */
+:root{
+  --bg0:#eef4ff;--bg1:#e3edfd;--bg2:#e8eefc;
+  --card:rgba(255,255,255,.75);--card-bd:rgba(255,255,255,.96);
+  --tx:#0b1a33;--tx2:#17305c;--tx3:#3b5480;
+  --cyan:#1d4ed8;--violet:#6d28d9;--pink:#9333ea;--amber:#f59e0b;
+  --green:#0ea5a4;--red:#e11d48;--blue:#2563eb;
+  --grad:linear-gradient(135deg,#2563eb,#6d28d9);
+  --grad-hot:linear-gradient(135deg,#7c3aed,#f59e0b);
+  --grad-hero:linear-gradient(135deg,#1d4ed8,#4f46e5 45%,#7c3aed 82%,#22d3ee);
+  --ring:rgba(99,102,241,.34);
+  --shadow:0 18px 46px rgba(59,90,180,.20);--glow:0 0 24px rgba(99,102,241,.22);
+}
+body{background:linear-gradient(150deg,#eff6ff,#e4ecfd 60%,#eae6ff) !important}
+body::before{background:radial-gradient(42% 42% at 22% 28%,rgba(59,130,246,.24),transparent 66%),radial-gradient(46% 46% at 76% 22%,rgba(99,102,241,.26),transparent 66%),radial-gradient(40% 44% at 66% 78%,rgba(167,139,250,.22),transparent 66%),radial-gradient(38% 40% at 26% 82%,rgba(34,211,238,.16),transparent 66%)}
+.o1{background:radial-gradient(circle,rgba(59,130,246,.42),transparent 66%)}
+.o2{background:radial-gradient(circle,rgba(99,102,241,.40),transparent 66%)}
+.o3{background:radial-gradient(circle,rgba(167,139,250,.34),transparent 66%)}
+.o4{background:radial-gradient(circle,rgba(34,211,238,.26),transparent 66%)}
+.topbar{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(244,248,255,.84));border-bottom:1px solid rgba(147,175,255,.5)}
+.topbar h1{background:linear-gradient(90deg,#0b1a33,#1d4ed8 52%,#7c3aed) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important}
+.card{background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(255,255,255,.78) 50%,rgba(240,246,255,.88));border:1px solid rgba(255,255,255,.96);border-radius:20px;box-shadow:0 12px 30px rgba(64,96,175,.13)}
+.hub-tabs button{border:1px solid rgba(99,102,241,.28);background:rgba(255,255,255,.95);color:#1d4ed8;border-radius:999px;box-shadow:none}
+.hub-tabs button.on{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(99,102,241,.32)}
+.nav-item{border-radius:14px}
+.btn{border-radius:12px}
+.tbl th{background:rgba(238,244,255,.94);color:#17305c}
+.tbl tbody tr:nth-child(even){background:rgba(238,244,255,.5)}
+.kpi.c1{--kpi-c:#2563eb;--kpi-glow:rgba(37,99,235,.22)}.kpi.c2{--kpi-c:#4f46e5;--kpi-glow:rgba(79,70,229,.22)}
+.kpi.c3{--kpi-c:#7c3aed;--kpi-glow:rgba(124,58,237,.22)}.kpi.c4{--kpi-c:#0ea5e9;--kpi-glow:rgba(14,165,233,.2)}
+.side{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(246,249,255,.86));border-right:1px solid rgba(147,175,255,.35);box-shadow:6px 0 26px rgba(64,96,175,.10)}
+.brand .logo{background:linear-gradient(135deg,#1d4ed8,#4f46e5 55%,#7c3aed);box-shadow:0 8px 22px rgba(79,70,229,.4),inset 0 1px 0 rgba(255,255,255,.45)}
+.brand .logo::after{border-color:rgba(99,102,241,.35)}
+.brand b{background:linear-gradient(90deg,#0b1a33,#1d4ed8 65%,#7c3aed);-webkit-background-clip:text;background-clip:text}
+.nav-item.active{background:linear-gradient(120deg,rgba(59,130,246,.12),rgba(124,58,237,.14));border-color:rgba(99,102,241,.35);color:#0b1a33;box-shadow:inset 0 0 22px rgba(99,102,241,.1)}
+.nav-item.active::before{background:linear-gradient(180deg,#2563eb,#7c3aed);box-shadow:0 0 10px rgba(99,102,241,.6)}
+.nav-item.active .ic{filter:none}
+.kpi .bar-ab{display:none}
+/* 柱图数值配色跟随蓝紫 */
+.bar-col .bval{color:#1e3a8a}
+/* ===== V5.6 手机端顶部排版收紧（2026-11-26） ===== */
+/* 1) 去掉横向滚动条（那根紫色细条） */
+.nav::-webkit-scrollbar,.hub-tabs::-webkit-scrollbar,.card-wrap::-webkit-scrollbar{display:none;height:0;width:0}
+.nav,.hub-tabs,.card-wrap{scrollbar-width:none;-ms-overflow-style:none}
+/* 2) 渐变文字在安卓 WebView 里会糊成色块，改纯色 */
+.topbar h1,.brand b,.m-head h2{background:none !important;-webkit-text-fill-color:currentColor !important;color:#12306b !important;animation:none !important}
+@media (max-width:768px){
+  /* 3) 顶栏：刷新靠左，去掉多余徽章拥挤 */
+  .topbar{height:auto;min-height:48px;padding:8px 12px;justify-content:flex-start;gap:8px;flex-wrap:wrap}
+  .topbar>div:first-child{flex:1 1 auto;min-width:0}
+  .topbar h1{font-size:14.5px;letter-spacing:0}
+  .topbar .right{gap:8px;flex:0 0 auto;margin-left:0}
+  .topbar .right .badge-date{font-size:11px;padding:5px 10px}
+  /* 4) 五个主标签：两列网格，做大做高，更大气 */
+  .hub-tabs{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0;margin:2px 0 14px;background:none;border:0;box-shadow:none;overflow:visible}
+  .hub-tabs button{width:100%;min-height:52px;padding:0 10px;font-size:13.5px;font-weight:800;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(64,96,175,.10)}
+  .hub-tabs button.on{box-shadow:0 10px 24px rgba(99,102,241,.30);transform:none}
+  .hub-tabs button:last-child:nth-child(odd){grid-column:span 2}
+  /* 5) 主内容留白 */
+  .content{padding:10px 12px 34px}
+}
+@media (max-width:768px){
+  /* 刷新按钮靠左、做成轻量胶囊；隐藏冗余徽章 */
+  .topbar .right{order:-1;margin-right:8px;gap:0}
+  .topbar .right .badge-date{display:none}
+  .topbar .right .btn{font-size:12px !important;padding:7px 12px !important;border-radius:999px !important;background:rgba(255,255,255,.9) !important;color:var(--tx2,#17305c) !important;border:1px solid rgba(130,150,200,.4) !important;box-shadow:0 2px 8px rgba(64,96,175,.10) !important}
+}
+/* KPI 卡统一成冰蓝白，去掉残留绿色光晕 */
+.kpi::after{display:none !important}
+.kpi{background:linear-gradient(150deg,rgba(255,255,255,.96),rgba(240,246,255,.9)) !important;border:1px solid rgba(255,255,255,.98) !important}
+.kpi .d{color:#3b5480}
 </style>
 
 
@@ -1133,7 +1218,7 @@
         <div class="right">
           <button class="btn" onclick="location.reload(true)" title="强制重新拉取最新数据" style="padding:6px 12px;font-size:13px;margin-right:6px">🔄 刷新最新</button>
           <span class="badge-date" style="border-color:rgba(236,72,153,.45);background:linear-gradient(120deg,rgba(236,72,153,.16),rgba(52,211,153,.12))" title="当前线上版本">v5.0 · 2026-11-25</span>
-          <button class="btn" onclick="shotPage()" title="截取当前整个界面保存为图片" style="padding:6px 14px;font-size:13px;margin-right:6px">📷 一键截图</button>
+          
           <span class="badge-date"><span class="live-dot"></span><span id="updateDate"></span></span>
         </div>
       </div>
@@ -1254,14 +1339,13 @@
             <table class="tbl">
               <thead><tr>
                 <th>#</th><th>门店名称</th><th style="cursor:pointer;user-select:none" onclick="crmSortBy('zone')">区域 <span id="sZone"></span></th><th style="cursor:pointer;user-select:none" onclick="crmSortBy('manager')">负责人 <span id="sMgr"></span></th>
-                <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('qty')">净进货(盒·2026) <span id="sQty"></span></th>
+                <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('qty')">进货 <span id="sQty"></span></th>
                 <th style="text-align:right;cursor:pointer;user-select:none" onclick="crmSortBy('amount')">净金额(元) <span id="sAmt"></span></th>
-                <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('orders')">订单 <span id="sOrd"></span></th>
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('dong')" title="前两完整月均值（不含本月）">动销(盒) <span id="sDong"></span></th>
-                <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('eff')" title="当月有出货的天数=有效拜访">有效拜访 <span id="sEff"></span></th>
+                
                 <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('pc')">动销品种 <span id="sPc"></span></th>
-                <th style="text-align:center;cursor:pointer;user-select:none" onclick="crmSortBy('months')">覆盖月数 <span id="sMon"></span></th>
-                <th style="text-align:center">等级</th><th style="text-align:center">最近进货</th><th>详情</th>
+                
+                <th style="text-align:center">最近进货</th><th>详情</th>
               </tr></thead>
               <tbody id="crmBody"></tbody>
             </table>
@@ -1844,7 +1928,7 @@ function allStoresFlat(){
 
 // ===== 导航 =====
 const HUBPAGES=['dash','zone','board','product','cur'];
-const HUBTABS=[['dash','📊 销售总数据'],['zone','🗺️ 区域作战'],['board','🏆 销售看板'],['product','💊 产品中心'],['cur','📅 当月销售']];
+const HUBTABS=[['dash','📊 销售总数据'],['zone','🗺️ 区域作战'],['board','🏆 日周看板'],['product','💊 产品中心'],['cur','📅 当月销售']];
 const NAVOF=p=>HUBPAGES.indexOf(p)>=0?'hub':p;
 function ensureHubTabs(p){
   if(HUBPAGES.indexOf(p)<0) return;
@@ -1862,7 +1946,7 @@ function go(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===NAVOF(page)));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
   $('#page-'+page).classList.add('show');
-  const TITLES={dash:['销售总数据','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['销售看板','净进货 · 金额 · 动销 · 活跃 四维洞察'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','2026逐月回看 + 2025全年存档'],promoteam:['促销管理','选门店 · 记驻店 · 自动抓 4 天进货'],roundact:['圆桌会议','选客户 · 请客 · 填购进']};
+  const TITLES={dash:['销售总数据','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['日周看板','今日/本周 双视角 · 净进货 · 金额 · 动销 · 活跃'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','2026逐月回看 + 2025全年存档'],promoteam:['促销管理','选门店 · 记驻店 · 自动抓 4 天进货'],roundact:['圆桌会议','选客户 · 请客 · 填购进']};
   $('#ptitle').innerHTML='<span>'+TITLES[page][0]+'</span><span class="sub" id="psub">'+TITLES[page][1]+'</span>';
   if(page==='dash') renderDash();
   if(page==='zone') renderZone();
@@ -1941,7 +2025,7 @@ function renderDash(){
   } else {
     const zones=[...DATA.zones].sort((a,b)=>b.yY[YEAR].qty-a.yY[YEAR].qty);
     const mx=zones[0]?Math.max(1,zones[0].yY[YEAR].qty):1;
-    $('#zoneBrand').innerHTML=zones.map(z=>`<div class="bar-col" title="${z.zone}" onclick="go('zone')" style="position:relative"><span class="bt">${z.zone} ${fmtN(z.yY[YEAR].qty)}盒</span><div class="bval">${fmtC(z.yY[YEAR].qty)}</div><div class="bar" style="height:${Math.max(3,z.yY[YEAR].qty/mx*100)}%"></div><div class="bl">${z.zone}</div></div>`).join('');
+    $('#zoneBrand').innerHTML=zones.map(z=>`<div class="bar-col" title="${z.zone}" onclick="go('zone')" style="position:relative"><span class="bt">${z.zone} ${fmtN(z.yY[YEAR].qty)}盒</span><div class="bval">${fmtN(z.yY[YEAR].qty)}</div><div class="bar" style="height:${Math.max(3,z.yY[YEAR].qty/mx*74)}%"></div><div class="bl">${z.zone}</div></div>`).join('');
     $('#zoneLegend').innerHTML='';
     // 区域TOP5
     $('#zoneTop').innerHTML=zones.slice(0,5).map((z,i)=>`<div class="rank-item" onclick="go('zone')"><span class="no">${i+1}</span><div><div class="nm">${z.zone}</div><div class="sub">${z.manager} · ${z.yY[YEAR].stores}店 · ${fmtN(z.yY[YEAR].qty)}盒</div></div><div class="vl">${fmtN(z.yY[YEAR].qty)}<span style="color:var(--tx3);font-weight:400;font-size:10.5px">盒</span></div></div>`).join('');
@@ -1978,7 +2062,7 @@ function renderYearMonthChart(){
   const all=[...data25,...data26];
   const maxK=Math.max(1,...all.map(m=>qtyMode?m.qty:m.amt));
   const fmtB=m=>qtyMode?fmtC(m.qty):'¥'+fmtC(m.amt);
-  const barCol=(m,y,fg,bg)=>`<div class="bar-col" style="position:relative;min-width:38px" title="${m.lbl} ${qtyMode?(fmtN(m.qty)+'盒'):('¥'+fmtN(m.amt))}"><span class="bt">${m.lbl} ${qtyMode?(fmtN(m.qty)+'盒'):('¥'+fmtN(m.amt))}</span><div class="bval" style="color:${fg||'var(--tx)'}">${fmtB(m)}</div><div class="bar" style="height:${Math.max(3,(qtyMode?m.qty:m.amt)/maxK*100)}%;background:${bg}"></div><div class="bl">${m.lbl}</div></div>`;
+  const barCol=(m,y,fg,bg)=>`<div class="bar-col" style="position:relative;min-width:38px" title="${m.lbl} ${qtyMode?(fmtN(m.qty)+'盒'):('¥'+fmtN(m.amt))}"><span class="bt">${m.lbl} ${qtyMode?(fmtN(m.qty)+'盒'):('¥'+fmtN(m.amt))}</span><div class="bval" style="color:${fg||'var(--tx)'}">${fmtB(m)}</div><div class="bar" style="height:${Math.max(3,(qtyMode?m.qty:m.amt)/maxK*74)}%;background:${bg}"></div><div class="bl">${m.lbl}</div></div>`;
   $('#monthChart').innerHTML=`<div class="bchart" style="height:170px;gap:3px">${data25.map(m=>barCol(m,'2025','#86efac','linear-gradient(180deg,#86efac,rgba(134,239,172,.2))')).join('')}<div class="bar-col" style="pointer-events:none;min-width:8px;flex:0 0 8px"></div>${data26.map(m=>barCol(m,'2026','#0e7490','linear-gradient(180deg,#0e7490,rgba(34,211,238,.2))')).join('')}</div>
     <div class="legend" style="margin-top:8px;justify-content:center"><span><i style="background:#0e7490"></i>2026年1-11月 ${qtyMode?'盒数':'金额'}</span></div>
     <div style="margin-top:8px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;font-size:11.5px;color:var(--tx2)">
@@ -1990,9 +2074,9 @@ function renderZoneCompareChart(){
   const zones=[...DATA.zones].sort((a,b)=>b.yY['2026'].qty-a.yY['2026'].qty);
   const mx=zones[0]?Math.max(1,zones[0].yY['2026'].qty):1;
   $('#zoneBrand').innerHTML=zones.map(z=>{
-    const h26=Math.max(3,z.yY['2026'].qty/mx*100);
+    const h26=Math.max(3,z.yY['2026'].qty/mx*74);
     const h25=Math.max(3,z.yY['2025'].qty/mx*100);
-    return `<div class="bar-col" onclick="go('zone')" style="position:relative"><span class="bt">${z.zone} 2025=${fmtN(z.yY['2025'].qty)} · 2026=${fmtN(z.yY['2026'].qty)}盒</span><div class="bval">${fmtC(z.yY['2026'].qty)}</div><div class="bar" style="height:${h26}%"><span style="position:absolute;left:2px;width:45%;bottom:0;height:${h25}%;background:linear-gradient(180deg,#86efac,rgba(134,239,172,.2));border-radius:5px 5px 0 0"></span></div><div class="bl">${z.zone}</div></div>`;
+    return `<div class="bar-col" onclick="go('zone')" style="position:relative"><span class="bt">${z.zone} 2025=${fmtN(z.yY['2025'].qty)} · 2026=${fmtN(z.yY['2026'].qty)}盒</span><div class="bval">${fmtN(z.yY['2026'].qty)}</div><div class="bar" style="height:${h26}%"><span style="position:absolute;left:2px;width:45%;bottom:0;height:${h25}%;background:linear-gradient(180deg,#86efac,rgba(134,239,172,.2));border-radius:5px 5px 0 0"></span></div><div class="bl">${z.zone}</div></div>`;
   }).join('');
   $('#zoneLegend').innerHTML=`<span><i style="background:#0e7490;width:9px;height:9px;border-radius:3px"></i>2026净进货</span><span><i style="background:#86efac;width:9px;height:9px;border-radius:3px"></i>2025净进货</span>`;
 }
@@ -2261,15 +2345,11 @@ function renderCrm(){
     <td>${CRM_PAGE*CRM_PER+i+1}</td><td class="hl"><span style="cursor:pointer;font-size:12px" title="${vip?'取消VIP':'设为VIP'}" onclick="event.stopPropagation();toggleVip('${esc(jsEsc(s.name))}')">${vstar}</span> ${esc(s.name)}</td><td>${s.zone}${flag}</td><td>${s.manager}</td>
     <td class="num" style="text-align:right">${fmtN(y26Map[s.name].q)}</td>
     <td style="text-align:right">${fmtM(y26Map[s.name].a)}</td>
-    <td style="text-align:center">${y26Map[s.name].o}</td>
     <td class="num" style="text-align:right;color:${DT_C[dt]}" title="前两完整月均值（不含本月） · ${DT_NAME[dt]}">${fmtN(dong)}</td>
-    <td style="text-align:center" title="当月有出货天数">${eff}</td>
     <td style="text-align:center"><span style="color:${s.prodCount>=8?'var(--green)':s.prodCount>=4?'#fcd34d':'#fda4af'}">${y26Map[s.name].pc}款</span></td>
-    <td style="text-align:center">${y26Map[s.name].ms}月</td>
-    <td style="text-align:center"><span class="pill" style="border-color:${GRADEC[s.grade]}55;color:${GRADEC[s.grade]};background:${GRADEC[s.grade]}18">${s.grade}</span></td>
     <td style="text-align:center">${s.isAugActive?'<span class="pill g">'+s.lastDate+'</span>':'<span class="pill o">'+s.lastDate+'</span>'}</td>
     <td><button class="btn" style="padding:4px 10px;font-size:11px" onclick="event.stopPropagation();openStore('${esc(jsEsc(s.name))}','${esc(s.zone)}')">看板</button></td>
-  </tr>`;}).join('')||`<tr><td colspan="14" class="empty" style="text-align:center">未找到${kw?('"'+kw+'"'):''}匹配的门店</td></tr>`;
+  </tr>`;}).join('')||`<tr><td colspan="9" class="empty" style="text-align:center">未找到${kw?('"'+kw+'"'):''}匹配的门店</td></tr>`;
   const _pg=document.getElementById('crmPager');
   if(_pg) _pg.innerHTML=`<span style="font-size:12px;color:var(--tx3)">共 ${_total} 家</span><button class="btn" style="padding:4px 12px;font-size:12px" ${CRM_PAGE<=0?'disabled':''} onclick="crmPage(-1)">‹ 上一页</button><span style="font-size:12.5px;font-weight:700">${CRM_PAGE+1} / ${_pages}</span><button class="btn" style="padding:4px 12px;font-size:12px" ${CRM_PAGE>=_pages-1?'disabled':''} onclick="crmPage(1)">下一页 ›</button>`;
 }
@@ -2483,83 +2563,85 @@ function zoomCard(card,ev){
   document.body.style.overflow='hidden';
 }
 function closeZoom(){ var m=document.querySelector('.zoom-mask'); if(m) m.remove(); _zoomOpen=null; document.body.style.overflow=''; }
-/* 放大卡片一键保存为 PNG（页面内样式注入 + SVG foreignObject + canvas 导出） */
-function saveZoom(){
-  var body=document.querySelector('.zoom-body'); if(!body) return;
-  var node=body.firstElementChild; if(!node){ if(window.toast) toast('暂无可保存内容'); return; }
+/* ===== 统一导出：任意 DOM → PNG，失败自动降级（预览长按 / 下载） ===== */
+function _imgSaveOverlay(url,name){
+  var old=document.querySelector('.img-save-mask'); if(old) old.remove();
+  var m=document.createElement('div'); m.className='img-save-mask';
+  m.innerHTML='<div style="position:fixed;inset:0;z-index:99999;background:rgba(8,16,36,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:12px">'
+    +'<div style="color:#dbeafe;font-size:13px;text-align:center">图片已生成 · 安卓/微信内长按图片即可保存到相册</div>'
+    +'<img alt="导出图片" style="max-width:92vw;max-height:70vh;border-radius:12px;box-shadow:0 12px 34px rgba(0,0,0,.45);background:#fff" src="'+url+'">'
+    +'<div style="display:flex;gap:12px"><a class="dl" download="'+name+'" href="'+url+'" style="background:#2563eb;color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700">⬇ 下载图片</a><button class="cls" style="background:rgba(255,255,255,.16);color:#fff;border:0;padding:10px 20px;border-radius:10px;font-size:13px">关闭</button></div></div>';
+  m.querySelector('.cls').addEventListener('click',function(){ m.remove(); });
+  document.body.appendChild(m);
+}
+function _stripHeavy(root){
+  root.querySelectorAll('*').forEach(function(el){
+    var cs=getComputedStyle(el);
+    el.style.boxShadow='none'; el.style.filter='none'; el.style.backdropFilter='none';
+    el.style.animation='none'; el.style.transition='none';
+    if(cs.backgroundClip==='text'||cs.webkitBackgroundClip==='text'){
+      el.style.backgroundImage='none'; el.style.webkitTextFillColor=cs.color||'#0b1a33';
+    }
+    if(cs.position==='sticky'||cs.position==='fixed') el.style.position='static';
+  });
+}
+function _fallbackExport(node,finish,fail){
   try{
-    var w=Math.max(node.scrollWidth, body.clientWidth, 320);
-    var h=Math.max(node.scrollHeight, 200);
-    var styles=''; Array.prototype.forEach.call(document.querySelectorAll('style'),function(s){ styles+=s.textContent; });
+    var w=Math.min(Math.max(node.scrollWidth,node.clientWidth,320),1200);
+    var h=Math.min(Math.max(node.scrollHeight,200),3200);
+    var styles=Array.from(document.querySelectorAll('style')).map(function(s){return s.textContent;}).join('\n')
+      .replace(/url\((?!(?:'|")?data:)[^)]*\)/g,'none');
     var holder=document.createElement('div');
-    holder.setAttribute('style','background:#eef2f9;padding:14px;width:'+w+'px;box-sizing:border-box');
+    holder.setAttribute('style','width:'+w+'px;box-sizing:border-box;background:#f4f7ff;padding:14px;font-size:14px;color:#0b1a33');
     var st=document.createElement('style'); st.textContent=styles; holder.appendChild(st);
     var clone=node.cloneNode(true);
-    clone.removeAttribute('onclick');
-    clone.setAttribute('style','margin:0;box-shadow:none;width:100%;box-sizing:border-box');
-    holder.appendChild(clone);
+    clone.style.margin='0'; clone.style.boxShadow='none'; clone.style.width='100%'; clone.style.boxSizing='border-box';
+    holder.appendChild(clone); _stripHeavy(holder);
     var xml=new XMLSerializer().serializeToString(holder);
-    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+(h+28)+'"><foreignObject width="100%" height="100%">'+xml+'</foreignObject></svg>';
-    var blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
-    var url=URL.createObjectURL(blob);
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'"><foreignObject width="100%" height="100%">'+xml+'</foreignObject></svg>';
+    var url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));
     var img=new Image();
     img.onload=function(){
       try{
-        var cv=document.createElement('canvas');
-        cv.width=w*2; cv.height=(h+28)*2;
-        var ctx=cv.getContext('2d');
-        ctx.fillStyle='#eef2f9'; ctx.fillRect(0,0,cv.width,cv.height);
-        ctx.scale(2,2); ctx.drawImage(img,0,0);
-        var a=document.createElement('a');
-        a.href=cv.toDataURL('image/png');
-        a.download='工作台卡片_'+new Date().toISOString().slice(0,10)+'.png';
-        document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); },300);
-        if(window.toast) toast('已生成图片，请查收');
-      }catch(e){ if(window.toast) toast('保存失败：'+e.message); }
+        var cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+        var ctx=cv.getContext('2d'); ctx.fillStyle='#f4f7ff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0,w,h);
+        finish(cv.toDataURL('image/png'));
+      }catch(e){ fail(); }
       URL.revokeObjectURL(url);
     };
-    img.onerror=function(){ if(window.toast) toast('保存失败，请重试'); URL.revokeObjectURL(url); };
+    img.onerror=function(){ URL.revokeObjectURL(url); fail(); };
     img.src=url;
-  }catch(e){ if(window.toast) toast('保存失败：'+e.message); }
+  }catch(e){ fail(); }
 }
-/* ===== 保存放大卡片为图片（SVG foreignObject → canvas → PNG）===== */
+function saveNodeAsImage(node,name,opts){
+  if(!node){ if(window.toast) toast('暂无可保存内容'); return; }
+  name=name||('工作台_'+new Date().toISOString().slice(0,10)+'.png');
+  if(window.toast) toast('正在生成图片…');
+  var saved=false;
+  var finish=function(url){
+    if(saved) return; saved=true;
+    try{
+      var a=document.createElement('a'); a.href=url; a.download=name;
+      document.body.appendChild(a); a.click(); setTimeout(function(){a.remove();},300);
+    }catch(e){}
+    _imgSaveOverlay(url,name);
+    if(window.toast) toast('图片已生成 · 长按可保存');
+  };
+  var fail=function(){
+    if(window.toast) toast('当前浏览器限制导出，请用手机系统截图');
+  };
+  if(window.htmlToImage){
+    var o=Object.assign({backgroundColor:'#f4f7ff',pixelRatio:2,skipFonts:true,cacheBust:true},opts||{});
+    htmlToImage.toPng(node,o).then(function(d){
+      if(d&&d.indexOf('data:image')===0) finish(d);
+      else _fallbackExport(node,finish,fail);
+    }).catch(function(){ _fallbackExport(node,finish,fail); });
+  } else _fallbackExport(node,finish,fail);
+}
 function saveZoom(){
   var body=document.querySelector('.zoom-body'); if(!body) return;
-  var node=body.firstElementChild; if(!node) return;
-  var w=Math.max(node.scrollWidth, body.clientWidth), h=node.scrollHeight;
-  if(w>1600){ w=1600; }
-  var styles=Array.from(document.querySelectorAll('style')).map(function(s){ return s.textContent; }).join('\n');
-  var holder=document.createElement('div');
-  holder.style.cssText='width:'+w+'px;box-sizing:border-box;background:#eef2f9;padding:14px;font-size:14px;color:#0a1224';
-  var st=document.createElement('style'); st.textContent=styles;
-  holder.appendChild(st);
-  var clone=node.cloneNode(true);
-  clone.style.margin='0'; clone.style.boxShadow='none';
-  holder.appendChild(clone);
-  var xml;
-  try{ xml=new XMLSerializer().serializeToString(holder); }
-  catch(e){ toast('保存失败，请重试'); return; }
-  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+(h+34)+'"><foreignObject width="100%" height="100%">'+xml+'</foreignObject></svg>';
-  var blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  var img=new Image();
-  img.onload=function(){
-    try{
-      var cv=document.createElement('canvas');
-      cv.width=w*2; cv.height=(h+34)*2;
-      var ctx=cv.getContext('2d');
-      ctx.fillStyle='#eef2f9'; ctx.fillRect(0,0,cv.width,cv.height);
-      ctx.scale(2,2); ctx.drawImage(img,0,0);
-      var a=document.createElement('a');
-      a.href=cv.toDataURL('image/png');
-      a.download='工作台卡片_'+new Date().toISOString().slice(0,10)+'.png';
-      document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); },200);
-      toast('图片已保存');
-    }catch(e){ toast('保存失败：图片含特殊元素，请用截图'); }
-    URL.revokeObjectURL(url);
-  };
-  img.onerror=function(){ toast('保存失败，请重试'); URL.revokeObjectURL(url); };
-  img.src=url;
+  var node=body.firstElementChild; if(!node){ if(window.toast) toast('暂无可保存内容'); return; }
+  saveNodeAsImage(node,'工作台卡片_'+new Date().toISOString().slice(0,10)+'.png');
 }
 (function(){ document.querySelectorAll('.card').forEach(function(c){ c.addEventListener('click',function(ev){ zoomCard(c,ev); }); }); })();
 function openGradeList(g){
@@ -2587,7 +2669,7 @@ function renderProducts(){
   // 销量对比柱状图
   const mxQ=ps[0].qty;
   $('#prodCompare').innerHTML=ps.map((p,i)=>
-    `<div class="bar-col" style="position:relative"><div class="bval">${fmtN(p.qty)}</div><div class="bar" style="height:${Math.max(3,p.qty/mxQ*100)}%;background:linear-gradient(180deg,${cols[i%10]},${cols[i%10]}33)"></div><div class="bl">${p.name.replace(/[（(].*/,'')}</div></div>`
+    `<div class="bar-col" style="position:relative"><div class="bval">${fmtN(p.qty)}</div><div class="bar" style="height:${Math.max(3,p.qty/mxQ*74)}%;background:linear-gradient(180deg,${cols[i%10]},${cols[i%10]}33)"></div><div class="bl">${p.name.replace(/[（(].*/,'')}</div></div>`
   ).join('');
   // 产品分布环形
   renderDonutLabelled('prodDonut', ps, ps.reduce((a,b)=>a+b.qty,0)||1);
@@ -3368,20 +3450,9 @@ function exportReport(type){
 
 // ===== 一键截图 =====
 function shotPage(){
-  const st=function(msg){ const t=document.getElementById('toast'); if(t){t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);} };
-  if(!window.htmlToImage){ st('截图组件未就绪'); return; }
-  const body=document.body;
-  const vw=window.innerWidth, vh=window.innerHeight;
-  st('📷 正在生成截图…');
-  htmlToImage.toJpeg(body,{backgroundColor:'#eef1ff',pixelRatio:2,quality:0.92,skipFonts:true,cacheBust:false,width:vw,height:vh,clip:{x:0,y:Math.max(0,window.scrollY||0),width:vw,height:vh}})
-    .then(dataUrl=>{
-      const a=document.createElement('a');
-      const d=new Date();
-      a.download='杭州办工作台_'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.jpg';
-      a.href=dataUrl; a.click();
-      st('✅ 截图已保存');
-    })
-    .catch(e=>{ st('截图失败: '+e.message); });
+  const d=new Date();
+  saveNodeAsImage(document.body,'杭州办工作台_'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.png',
+    {width:window.innerWidth,height:window.innerHeight,style:{height:window.innerHeight+'px',overflow:'hidden'}});
 }
 
 function toast(msg){
