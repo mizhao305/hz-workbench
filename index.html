@@ -965,6 +965,127 @@
   .zoom-bar{display:none !important}
   .badge-date{font-size:11px !important;padding:4px 9px !important;flex:0 0 auto}
 }
+/* ===== V5.1b 模块样式 ===== */
+/* ===== V5.1 促销管理 / 圆桌活动 样式 ===== */
+.pm-card{margin-bottom:14px}
+.pm-tag{font-size:11px;color:#15803d;background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.28);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.pm-pick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.pm-in{flex:1 1 150px;min-width:120px;height:36px;border:1px solid rgba(22,163,74,.3);border-radius:10px;padding:0 10px;font-size:13px;color:#1e2a44;background:#fff;outline:none}
+.pm-in:focus{border-color:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.14)}
+.pm-add{height:36px;padding:0 14px;border-radius:10px;white-space:nowrap;font-size:13px}
+.pm-acts .btn{font-size:12px;padding:6px 12px;border-radius:9px;white-space:nowrap}
+.pm-cand{margin-top:10px;max-height:230px;overflow-y:auto;border:1px solid rgba(15,23,42,.08);border-radius:10px;background:rgba(255,255,255,.72)}
+.pm-cand-hd{font-size:11.5px;color:#64748b;padding:8px 10px;border-bottom:1px solid rgba(15,23,42,.07);position:sticky;top:0;background:#f8fafc;z-index:1}
+.pm-row{display:grid;grid-template-columns:22px minmax(0,1fr) 62px 74px;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid rgba(15,23,42,.05);font-size:12.5px;cursor:pointer}
+.pm-row:hover{background:rgba(22,163,74,.06)}
+.pm-row.done{opacity:.62}
+.pm-row .pm-nm{font-weight:700;color:#213047;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm-row .pm-z{color:#0e7490;font-size:11.5px}
+.pm-row .pm-m{color:#64748b;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pm-sel-tag{font-size:10.5px;color:#15803d;background:rgba(22,163,74,.12);border-radius:999px;padding:2px 7px;white-space:nowrap;grid-column:3/5;justify-self:end}
+.pm-empty,.pm-empty-lg{color:#94a3b8;font-size:12.5px;text-align:center;padding:18px 8px}
+.pm-empty-lg{padding:26px 8px;border:1px dashed rgba(22,163,74,.28);border-radius:12px}
+.pm-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:10px}
+/* 手机/桌面均冻结「序号+门店」两列，滑动时仍能对上门店 */
+.pm-tbl th.pm-c-no,.pm-tbl td.pm-c-no{position:sticky;left:0;background:#fff;z-index:3}
+.pm-tbl th.pm-c-nm,.pm-tbl td.pm-c-nm{position:sticky;left:36px;background:#fff;z-index:3;box-shadow:2px 0 5px rgba(15,23,42,.07)}
+.pm-tbl{min-width:900px;font-size:12.5px}
+.pm-tbl th{font-size:11px;font-weight:700;color:#475569;white-space:nowrap;padding:8px 8px}
+.pm-tbl td{padding:7px 8px;vertical-align:middle}
+.pm-tbl tbody tr:nth-child(even){background:rgba(22,163,74,.04)}
+.pm-c-no{width:36px;text-align:center;color:#94a3b8;font-weight:700}
+.pm-c-nm{min-width:190px;max-width:190px;width:190px}
+.pm-c-nm b{display:block;font-weight:700;color:#1e2a44;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm-c-z{width:66px;color:#0e7490;white-space:nowrap}
+.pm-c-bz{width:104px}
+.pm-c-d{width:132px}
+.pm-c-nt{min-width:170px}
+.pm-cin,.pm-nin,.pm-tin,.pm-sin{width:100%;height:30px;border:1px solid rgba(15,23,42,.12);border-radius:8px;padding:0 7px;font-size:12px;color:#1e2a44;background:#fff;outline:none;box-sizing:border-box}
+.pm-cin:focus,.pm-nin:focus,.pm-tin:focus,.pm-sin:focus{border-color:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,.14)}
+.pm-nin{max-width:74px;text-align:right;font-variant-numeric:tabular-nums}
+.pm-sin{font-size:12px}
+.pm-wait{color:#94a3b8;font-size:11.5px;white-space:nowrap}
+.pm-c-buy{min-width:132px;white-space:nowrap}
+.pm-c-buy b{color:#0e7490}
+.pm-c-buy small{color:#64748b;font-size:10px;margin-left:2px}
+.pm-c-buy em{display:block;font-style:normal;font-size:9.5px;color:#94a3b8}
+.pm-k4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}
+.pm-k{background:rgba(255,255,255,.9);border:1px solid rgba(15,23,42,.08);border-radius:11px;padding:10px 11px;display:flex;flex-direction:column;gap:2px}
+.pm-k span{font-size:11px;color:#64748b}
+.pm-k b{font-size:19px;color:#0f2d3a;font-variant-numeric:tabular-nums;line-height:1.15}
+.pm-k i{font-size:10.5px;color:#94a3b8;font-style:normal}
+.pm-k.hl{background:linear-gradient(135deg,rgba(224,247,235,.95),rgba(255,255,255,.95));border-color:rgba(22,163,74,.3)}
+@media(max-width:768px){
+  .pm-pick{gap:7px}
+  .pm-in{flex:1 1 100%;height:34px;font-size:12.5px}
+  .pm-add{flex:1 1 100%;height:34px}
+  .pm-row{grid-template-columns:20px minmax(0,1fr) auto;grid-template-areas:"c n n" "c m z";row-gap:3px;column-gap:6px;padding:9px 10px}
+  .pm-row input{grid-area:c;align-self:start;margin-top:2px}
+  .pm-row .pm-nm{grid-area:n;font-size:12.5px}
+  .pm-row .pm-m{grid-area:m;font-size:10.5px}
+  .pm-row .pm-z{grid-area:z;justify-self:end;font-size:11px}
+  .pm-row.done .pm-z{display:none}
+  .pm-sel-tag{grid-area:z;justify-self:end}
+  .pm-acts .btn{white-space:nowrap}
+  .pm-k4{grid-template-columns:repeat(2,1fr)}
+  .pm-tbl{min-width:820px}
+  .pm-c-nm{min-width:150px;max-width:150px;width:150px}
+  .pm-tbl th.pm-c-nm,.pm-tbl td.pm-c-nm{left:30px}
+  .pm-cand{max-height:260px}
+  .pm-scroll::after{content:"← 左右滑动查看全部列 →";display:block;text-align:center;font-size:10.5px;color:#94a3b8;padding:7px 0 2px}
+}
+
+/* 月度走势：横向条形行 */
+#curYearBar,#cur2025Bar{display:block !important;height:auto !important}
+.mrow-list{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.mrow{display:grid;grid-template-columns:34px 1fr 70px;gap:9px;align-items:center;padding:4px 6px;border-radius:8px;cursor:pointer;transition:.15s}
+.mrow:hover{background:rgba(14,116,144,.07)}
+.mrow .mname{font-size:11.5px;font-weight:700;color:#334155;white-space:nowrap}
+.mrow .mtrack{height:9px;border-radius:99px;background:rgba(15,23,42,.07);overflow:hidden}
+.mrow .mfill{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#0891b2,#22d3ee);transition:.25s}
+.mrow .mval{font-size:12px;font-weight:800;color:#0f2d3a;text-align:right;font-variant-numeric:tabular-nums}
+.mrow.on{background:rgba(251,191,36,.16)}
+.mrow.on .mname,.mrow.on .mval{color:#b45309}
+.mrow.on .mfill{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.mrow.gray .mfill{background:linear-gradient(90deg,#a8b3c4,#cbd5e1)}
+.mrow.gray .mval{color:#475569}
+
+/* ===== V5.1 胶囊标签 / 紧凑区域条 / 图表标签规范 ===== */
+.hub-tabs{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:14px;padding:0;background:none;border:0;box-shadow:none;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.hub-tabs::-webkit-scrollbar{display:none}
+.hub-tabs button{flex:0 0 auto;border:1px solid rgba(22,163,74,.3);background:rgba(255,255,255,.94);padding:7px 15px;border-radius:999px;font-size:12.5px;font-weight:700;color:#166534;cursor:pointer;white-space:nowrap;transition:.16s;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.hub-tabs button.on{background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(22,163,74,.32)}
+.hub-tabs button:hover:not(.on){background:rgba(22,163,74,.1)}
+/* 区域作战：13 区紧凑行 */
+.zone-bar{grid-template-columns:24px minmax(0,1fr) auto !important;gap:10px !important;padding:8px 12px !important;border-radius:10px !important;box-shadow:0 1px 6px rgba(15,23,42,.05) !important}
+.zone-bar:hover{transform:none !important;box-shadow:0 2px 12px rgba(22,163,74,.16) !important}
+.zone-bar .zb-no{width:22px !important;height:22px !important;border-radius:7px !important;font-size:11.5px !important}
+.zone-bar .zb-line{display:flex;align-items:baseline;gap:8px;min-width:0}
+.zone-bar .zb-name{font-size:13.5px !important;letter-spacing:0 !important}
+.zone-bar .zb-mgr{font-size:10.5px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zone-bar .zb-track{height:5px !important;margin-top:4px !important}
+.zone-bar .zb-qty{font-size:13px !important}
+.zone-bar .zb-sub{font-size:10px !important}
+.zone-bar .zb-side{min-width:88px !important}
+/* 柱图：不再竖排数字 */
+.bar-col .bval{display:none !important}
+/* 环形图图例改为规范表格 */
+.legend.legend-tbl{display:block !important}
+#curDonut::after,#prodDonut::after{display:none !important}
+#curDonut,#prodDonut{filter:none !important}
+.legend-tbl .tbl{width:100%;font-size:12px;margin-top:2px}
+.lg-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+@media(max-width:768px){
+  .hub-tabs{gap:6px;overflow-x:auto;flex-wrap:nowrap}
+  .hub-tabs button{padding:6px 12px;font-size:11.5px}
+  .zone-bar{padding:7px 10px !important;gap:8px !important}
+  .zone-bar .zb-no{width:20px !important;height:20px !important;font-size:11px !important}
+  .zone-bar .zb-name{font-size:12.5px !important}
+  .zone-bar .zb-mgr{font-size:10px}
+  .zone-bar .zb-qty{font-size:12.5px !important}
+  .zone-bar .zb-side{min-width:80px !important}
+  .topbar .right .btn{padding:4px 10px !important;font-size:11px !important;border-radius:16px !important;min-height:30px !important}
+}
 </style>
 
 
@@ -982,8 +1103,8 @@
       <nav class="nav">
         <div class="nav-item active" data-page="hub"><span class="ic">📦</span>进销存<small id="zm">13</small></div>
         <div class="nav-item" data-page="crm"><span class="ic">🏪</span>客户管理 CRM<small id="cm"></small></div>
-        <div class="nav-item" data-page="promoteam"><span class="ic">📣</span>促销部<small>待建</small></div>
-        <div class="nav-item" data-page="roundact"><span class="ic">🍽️</span>圆桌活动<small>待建</small></div>
+        <div class="nav-item" data-page="promoteam"><span class="ic">📣</span>促销管理<small>台账</small></div>
+        <div class="nav-item" data-page="roundact"><span class="ic">🍽️</span>圆桌会议<small>台账</small></div>
         <div class="nav-item" data-page="charts"><span class="ic">📈</span>图表版<small>新</small></div>
       </nav>
     </aside>
@@ -1192,12 +1313,12 @@
         <div class="page" id="page-cur">
           <div class="mask-tip">📋 当月销售：2026年1月-11月 逐月可回看 · 含退货净量 · 环比/同比实时对比</div>
           <div class="card" id="curYearCard" style="margin-bottom:16px;border:2px solid rgba(14,116,144,.5);box-shadow:0 0 0 4px rgba(34,211,238,.10),0 10px 24px rgba(14,116,144,.10)">
-            <div class="chead"><div><div class="ch-t" style="font-size:15.5px"><span class="dot"></span>📊 2026年 1–11月 月度净进货走势</div><div class="ch-s" style="margin-top:4px">柱=当月净进货盒数 · <b style="color:#0e7490">橙色高亮=当前查看月份</b> · 点柱子直接切到该月</div></div><div style="text-align:right"><div id="curYearTotal" style="font-size:12.5px;color:var(--tx2)">-</div></div></div>
-            <div class="bchart" id="curYearBar" style="height:160px;gap:5px;margin-top:6px"></div>
+            <div class="chead"><div><div class="ch-t" style="font-size:15.5px"><span class="dot"></span>📊 2026年 1–11月 月度净进货走势</div><div class="ch-s" style="margin-top:4px">条长=当月净进货盒数 · <b style="color:#0e7490">橙色高亮=当前查看月份</b> · 点月份行切换到该月</div></div><div style="text-align:right"><div id="curYearTotal" style="font-size:12.5px;color:var(--tx2)">-</div></div></div>
+            <div class="mrow-list" id="curYearBar" style="margin-top:8px"></div>
           </div>
           <div class="card" id="cur2025Card" style="margin-bottom:16px;border:1px solid rgba(148,163,184,.45)">
-            <div class="chead"><div><div class="ch-t" style="font-size:15px"><span class="dot" style="background:#94a3b8"></span>📉 2025年 1–12月 净进货（历史存档）</div><div class="ch-s" style="margin-top:4px">柱=当月净进货盒数 · <b style="color:#b45309">2025 为全年口径（含九德堂8家/共902家）</b> · 不参与 2026 合计</div></div><div style="text-align:right"><div id="cur2025Total" style="font-size:12.5px;color:var(--tx2)">-</div></div></div>
-            <div class="bchart" id="cur2025Bar" style="height:150px;gap:5px;margin-top:6px"></div>
+            <div class="chead"><div><div class="ch-t" style="font-size:15px"><span class="dot" style="background:#94a3b8"></span>📉 2025年 1–12月 净进货（历史存档）</div><div class="ch-s" style="margin-top:4px">条长=当月净进货盒数 · <b style="color:#b45309">2025 为全年口径（含九德堂8家/共902家）</b> · 不参与 2026 合计</div></div><div style="text-align:right"><div id="cur2025Total" style="font-size:12.5px;color:var(--tx2)">-</div></div></div>
+            <div class="mrow-list" id="cur2025Bar" style="margin-top:8px"></div>
           </div>
           <div class="month-picker" id="curMonthPicker" style="margin-bottom:14px"></div>
           <div class="grid kpis" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px">
@@ -1250,21 +1371,59 @@
           </div>
         </div>
 
-        <!-- ═══════════ 促销部（空壳待建） ═══════════ -->
+        <!-- ═══════════ 促销部 · 促销管理 ═══════════ -->
         <div class="page" id="page-promoteam">
-          <div class="card" style="max-width:720px">
-            <div class="ch-t" style="font-size:15px;margin-bottom:10px"><span class="dot"></span>📣 促销部</div>
-            <p style="color:var(--tx3);font-size:13px;line-height:1.9;margin:0">看台已建，内容等待接入。</p>
-            <div style="margin-top:16px;padding:22px;border-radius:12px;border:1px dashed rgba(22,163,74,.3);text-align:center;color:var(--tx3);font-size:12.5px">暂无内容 · 待补充促销计划 / 活动排期 / 物料</div>
+          <div class="card pm-card">
+            <div class="chead"><div>
+              <div class="ch-t" style="font-size:15.5px"><span class="dot"></span>📣 促销管理 · 驻店台账</div>
+              <div class="ch-s" style="margin-top:4px">从客户 CRM 选门店 → 填「驻店日期 / 促销活数 / 进店活数 / 情况备注」→ 系统自动抓取<b style="color:#0e7490">驻店日起 4 天内</b>该店实际进货盒数与金额</div>
+            </div><div id="pmSaveTag" class="pm-tag">已保存</div></div>
+            <div class="pm-pick">
+              <input id="pmQ" class="pm-in" placeholder="搜索门店 / 区域 / 经理" oninput="pmSearch()">
+              <select id="pmZone" class="pm-in" onchange="pmSearch()"><option value="">全部区域</option></select>
+              <button class="btn pm-add" onclick="pmAddChecked()">＋ 加入选中 <span id="pmSelN">0</span></button>
+            </div>
+            <div id="pmCand" class="pm-cand"></div>
+          </div>
+          <div class="card pm-card">
+            <div class="chead"><div>
+              <div class="ch-t" style="font-size:15.5px"><span class="dot"></span>📋 驻店记录表</div>
+              <div class="ch-s" id="pmScope" style="margin-top:4px">—</div>
+            </div><div class="pm-acts"><button class="btn" onclick="pmExport()">⬇ 导出CSV</button></div></div>
+            <div id="pmKpi" class="pm-kpi"></div>
+            <div class="pm-scroll"><div id="pmTable"></div></div>
+          </div>
+          <div class="card pm-card">
+            <div class="ch-t" style="font-size:15px"><span class="dot"></span>📆 月度汇总（每月一张表）</div>
+            <div class="pm-scroll" style="margin-top:10px"><div id="pmMonth"></div></div>
           </div>
         </div>
 
-        <!-- ═══════════ 圆桌活动（空壳待建） ═══════════ -->
+        <!-- ═══════════ 圆桌活动 · 请客记录 ═══════════ -->
         <div class="page" id="page-roundact">
-          <div class="card" style="max-width:720px">
-            <div class="ch-t" style="font-size:15px;margin-bottom:10px"><span class="dot"></span>🍽️ 圆桌活动</div>
-            <p style="color:var(--tx3);font-size:13px;line-height:1.9;margin:0">看台已建，内容等待接入。</p>
-            <div style="margin-top:16px;padding:22px;border-radius:12px;border:1px dashed rgba(22,163,74,.3);text-align:center;color:var(--tx3);font-size:12.5px">暂无内容 · 待补充圆桌会议 / 客户答谢 / 回访记录</div>
+          <div class="card rt-card">
+            <div class="chead"><div>
+              <div class="ch-t" style="font-size:15.5px"><span class="dot"></span>🍽️ 圆桌会议 · 请客台账</div>
+              <div class="ch-s" style="margin-top:4px">从客户 CRM 选门店 → 填「请客日期 / 商务经理 / 购进（盒）/ 情况备注」；商务经理一栏由经理本人选择自己名字</div>
+            </div><div id="rtSaveTag" class="pm-tag">已保存</div></div>
+            <div class="pm-pick">
+              <input id="rtQ" class="pm-in" placeholder="搜索门店 / 区域 / 经理" oninput="rtSearch()">
+              <select id="rtZone" class="pm-in" onchange="rtSearch()"><option value="">全部区域</option></select>
+              <button class="btn pm-add" onclick="rtAddChecked()">＋ 加入选中 <span id="rtSelN">0</span></button>
+            </div>
+            <div id="rtCand" class="pm-cand"></div>
+          </div>
+          <div class="card rt-card">
+            <div class="chead"><div>
+              <div class="ch-t" style="font-size:15.5px"><span class="dot"></span>📋 圆桌记录表</div>
+              <div class="ch-s" id="rtScope" style="margin-top:4px">—</div>
+            </div><div class="pm-acts"><button class="btn" onclick="rtExport()">⬇ 导出CSV</button></div></div>
+            <div id="rtKpi" class="pm-kpi"></div>
+            <div class="pm-scroll"><div id="rtTable"></div></div>
+          </div>
+          <div class="card rt-card">
+            <div class="ch-t" style="font-size:15px"><span class="dot"></span>📆 月度汇总</div>
+            <div class="pm-scroll" style="margin-top:10px"><div id="rtMonth"></div></div>
           </div>
         </div>
 
@@ -1685,7 +1844,7 @@ function go(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===NAVOF(page)));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
   $('#page-'+page).classList.add('show');
-  const TITLES={dash:['销售总数据','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['销售看板','净进货 · 金额 · 动销 · 活跃 四维洞察'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','2026逐月回看 + 2025全年存档'],promoteam:['促销部','看台已建 · 内容待接入'],roundact:['圆桌活动','看台已建 · 内容待接入']};
+  const TITLES={dash:['销售总数据','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['销售看板','净进货 · 金额 · 动销 · 活跃 四维洞察'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','2026逐月回看 + 2025全年存档'],promoteam:['促销管理','选门店 · 记驻店 · 自动抓 4 天进货'],roundact:['圆桌会议','选客户 · 请客 · 填购进']};
   $('#ptitle').innerHTML='<span>'+TITLES[page][0]+'</span><span class="sub" id="psub">'+TITLES[page][1]+'</span>';
   if(page==='dash') renderDash();
   if(page==='zone') renderZone();
@@ -1693,6 +1852,8 @@ function go(page){
   if(page==='board') renderBoard();
   if(page==='product') renderProducts();
   if(page==='cur') renderCur();
+  if(page==='promoteam'){ try{ renderPm(); }catch(e){} }
+  if(page==='roundact'){ try{ renderRt(); }catch(e){} }
 }
 document.querySelectorAll('.nav-item').forEach(n=>n.addEventListener('click',()=>go(n.dataset.page)));
 
@@ -1875,7 +2036,7 @@ function renderDonutLabelled(id, list, total){
   if(!total) total=list.reduce((a,b)=>a+b.qty,0)||1;
   const cols=['#0e7490','#86efac','#f472b6','#fbbf24','#34d399','#15803d','#fb7185','#4ade80','#2dd4bf','#f87171'];
   const el=$('#'+id); if(!el) return;
-  const cx=280, cy=280, R=128, r=84, lr=176;
+  const cx=280, cy=280, R=130, r=84, midR=(R+r)/2+1;
   const p=(ang,rad)=>{const t=(ang-90)*Math.PI/180; return [cx+rad*Math.cos(t), cy+rad*Math.sin(t)];};
   const short=n=>n.replace(/[（(].*/,'');
   // 扇区 path
@@ -1885,21 +2046,19 @@ function renderDonutLabelled(id, list, total){
     const large=(a1-a0)>180?1:0;
     const [x1,y1]=p(a0,R),[x2,y2]=p(a1,R),[x3,y3]=p(a1,r),[x4,y4]=p(a0,r);
     segs.push(`<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${R} ${R} 0 ${large} 1 ${x2.toFixed(1)} ${y2.toFixed(1)} L${x3.toFixed(1)} ${y3.toFixed(1)} A${r} ${r} 0 ${large} 0 ${x4.toFixed(1)} ${y4.toFixed(1)} Z" fill="${cols[i%10]}" opacity=".92"><title>${item.name} ${(Math.round(item.qty/total*100))}%</title></path>`);
-    // 标签（按扇区弧中点对齐到对应色块）
-    const ang=(a0+a1)/2;
-    const [lx,ly]=p(ang,lr);
-    const [bx,by]=p(ang,162);
-    const right=(ang+90)%360<=180;
-    const anchor=right?'start':'end';
-    const ox=right?6:-6;
-    const c1=cols[i%10];
-    segs.push(`<text x="${(lx+ox).toFixed(1)}" y="${(ly+4).toFixed(1)}" text-anchor="${anchor}" font-size="12.5" font-weight="700" fill="${c1}">${PRODUCT_CODE[item.name]||short(item.name)}</text>`);
-    segs.push(`<text x="${(lx+ox).toFixed(1)}" y="${(ly+18).toFixed(1)}" text-anchor="${anchor}" font-size="10.5" fill="#1e2a44">${Math.round(item.qty/total*100)}%</text>`);
+    // 标签：只标 ≥8% 的扇区，居中放在环带内，双行水平排列
+    const pct=item.qty/total*100;
+    if(pct>=8){
+      const ang=(a0+a1)/2;
+      const [lx,ly]=p(ang,midR);
+      segs.push(`<text x="${lx.toFixed(1)}" y="${(ly-3).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="800" fill="#083344">${PRODUCT_CODE[item.name]||short(item.name)}</text>`);
+      segs.push(`<text x="${lx.toFixed(1)}" y="${(ly+11).toFixed(1)}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0f2d3a">${Math.round(pct)}%</text>`);
+    }
   });
   // 中心文字
   segs.push(`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="30" font-weight="800" fill="#0a1224">${fmtN(total)}</text>`);
   segs.push(`<text x="${cx}" y="${cy+20}" text-anchor="middle" font-size="12" fill="#1e2a44">净进货(盒)</text>`);
-  el.innerHTML=`<svg viewBox="-45 0 570 570" width="100%" height="100%" style="display:block;position:relative;z-index:2">${segs.join('')}</svg>`;
+  el.innerHTML=`<svg viewBox="88 88 384 384" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;position:relative;z-index:2">${segs.join('')}</svg>`;
 }
 
 function renderZone(){
@@ -1912,7 +2071,7 @@ function renderZone(){
     return `<div class="zone-bar" onclick="openZone('${esc(z.zone)}')">
       <div class="zb-no">${i+1}</div>
       <div class="zb-main">
-        <div class="zb-top"><span class="zb-name">🏙️ ${z.zone}</span><span class="zb-mgr">👤 ${z.manager} · 2026净进货</span></div>
+        <div class="zb-line"><span class="zb-name">${z.zone}</span><span class="zb-mgr">${z.manager}</span></div>
         <div class="zb-track"><div class="zb-fill" style="width:${pct}%"></div></div>
       </div>
       <div class="zb-side"><div class="zb-qty">${fmtN(y26.qty)}<span class="zb-unit"> 盒</span></div><div class="zb-sub">${y26.stores||0}店 · ${fmtM(y26.amt)}</div></div>
@@ -2477,10 +2636,7 @@ function renderCur2025(){
   const ms=D2025.months;
   const mx=Math.max(1,...ms.map(v=>v.q));
   el.innerHTML=ms.map(v=>{const mm=(+v.m.slice(5))+'月';
-    return `<div class="bar-col" style="flex:1;min-width:0" title="${mm} ${fmtN(v.q)}盒 / ${fmtM(v.a)}">
-      <div class="bval" style="writing-mode:vertical-rl;font-size:10.5px;letter-spacing:0;color:#5b6479;white-space:nowrap">${fmtN(v.q)}</div>
-      <div class="bar" style="height:${Math.max(4,v.q/mx*100)}%;background:linear-gradient(180deg,#e2e8f0,#94a3b8)"></div>
-      <div class="bl" style="color:var(--tx3)">${mm}</div></div>`;}).join('');
+    return `<div class="mrow gray" title="${mm} ${fmtN(v.q)}盒 / ${fmtM(v.a)}"><span class="mname">${mm}</span><span class="mtrack"><span class="mfill" style="width:${Math.max(2,v.q/mx*100)}%"></span></span><span class="mval">${fmtN(v.q)}</span></div>`;}).join('');
   const te=document.getElementById('cur2025Total');
   const tq=ms.reduce((a,v)=>a+v.q,0), ta=ms.reduce((a,v)=>a+v.a,0);
   if(te) te.innerHTML='全年 <b style="color:#475569">'+fmtN(tq)+'盒</b> · '+fmtM(ta)+' · 进货门店 '+((D2025.total&&D2025.total.stores)||'-')+'家';
@@ -2500,11 +2656,7 @@ function renderCurYearBar(){
   const te=$('#curYearTotal'); if(te) te.innerHTML='1–'+ms.length+'月累计 <b style="color:#0e7490">'+fmtN(tot)+'盒</b> · '+fmtM(tamt);
   el.innerHTML=vals.map(v=>{
     const on=(v.m===CUR_M), mm=(+v.m.slice(5))+'月';
-    return `<div class="bar-col" style="flex:1;min-width:0;cursor:pointer" title="${mm} ${fmtN(v.q)}盒 / ${fmtM(v.a)}" onclick="setCurMonth('${v.m}')">
-      <div class="bval" style="writing-mode:vertical-rl;font-size:10.5px;letter-spacing:0;color:${on?'#b45309':'#2a3550'};font-weight:${on?'800':'600'};white-space:nowrap">${fmtN(v.q)}</div>
-      <div class="bar" style="height:${Math.max(4,v.q/mx*100)}%;background:${on?'linear-gradient(180deg,#fbbf24,#f59e0b)':'linear-gradient(180deg,#0e7490,#22d3ee)'};box-shadow:${on?'0 0 16px rgba(251,191,36,.55)':'0 0 10px rgba(14,116,144,.18)'}"></div>
-      <div class="bl" style="font-weight:${on?'800':'500'};color:${on?'#b45309':'var(--tx3)'}">${mm}</div>
-    </div>`;
+    return `<div class="mrow${on?' on':''}" title="${mm} ${fmtN(v.q)}盒 / ${fmtM(v.a)}" onclick="setCurMonth('${v.m}')"><span class="mname">${mm}</span><span class="mtrack"><span class="mfill" style="width:${Math.max(2,v.q/mx*100)}%"></span></span><span class="mval">${fmtN(v.q)}</span></div>`;
   }).join('');
 }
 function renderCurMonth(mk){
@@ -2545,7 +2697,9 @@ function renderCurMonth(mk){
   const ctot=plist.reduce((a,b)=>a+b.qty,0)||1;
   renderDonutLabelled('curDonut', plist, ctot);
   const ccols=['#0e7490','#86efac','#f472b6','#fbbf24','#34d399','#15803d','#fb7185','#4ade80','#2dd4bf','#f87171'];
-  const cdlg=$('#curDlg'); if(cdlg) cdlg.innerHTML=plist.map((p,i)=>`<span><i style="background:${ccols[i%10]}"></i>${p.name} <b style="color:${ccols[i%10]}">${PRODUCT_CODE[p.name]||''}</b> ${Math.round(p.qty/ctot*100)}%</span>`).join('');
+  const cdlg=$('#curDlg'); if(cdlg){ cdlg.classList.add('legend-tbl'); cdlg.innerHTML=`<table class="tbl"><thead><tr><th>产品</th><th>代码</th><th class="num">盒数</th><th class="num">占比</th></tr></thead><tbody>${
+    plist.map((p,i)=>`<tr><td><i class="lg-dot" style="background:${ccols[i%10]}"></i>${p.name}</td><td>${PRODUCT_CODE[p.name]||'-'}</td><td class="num">${fmtN(p.qty)}</td><td class="num">${Math.round(p.qty/ctot*100)}%</td></tr>`).join('')
+  }</tbody></table>`; }
   // 当月订购客户 & 进货明细（表格）
   renderCurYearBar();
   CUR_BUY=currentBuyers(mk);
@@ -2581,10 +2735,252 @@ function setCurMonth(mk){
 
 
 
+/* ======== V5.1 促销管理 / 圆桌活动（本地记忆 + 云端记忆 + 自动抓进货） ======== */
+var PM_KEY='hz_promo_rec', RT_KEY='hz_round_rec', PM_WIN=3, _cT={};
+function _jload(k){ try{ return JSON.parse(localStorage.getItem(k)||'[]'); }catch(e){ return []; } }
+function _jsave(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+function _cloudLater(k){ try{ clearTimeout(_cT[k]); _cT[k]=setTimeout(function(){ try{ cloudSave(k); }catch(e){} },1500); }catch(e){} }
+function _today(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function _dAdd(ds,n){ var d=new Date(ds+'T00:00:00'); if(isNaN(d.getTime())) return ds; d.setDate(d.getDate()+n); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function _N(x){ return (typeof fmtN==='function')?fmtN(x):String(x); }
+function _M(x){ return (typeof fmtM==='function')?fmtM(x):('¥'+Math.round(x)); }
+function _tag(id,txt){ var e=document.getElementById(id); if(e) e.textContent=txt||'已保存 '+new Date().toTimeString().slice(0,5); }
+function _mk(el,html){ var e=document.getElementById(el); if(e) e.innerHTML=html; }
+
+/* ---- 公共：门店索引 / 进货窗口 ---- */
+var _SIDX=null;
+function pmStores(){
+  if(_SIDX) return _SIDX;
+  var a=[]; (DATA.zones||[]).forEach(function(z){ (z.stores||[]).forEach(function(s){ a.push({n:s.name,z:z.zone,m:z.manager||'',g:s.grade||'D'}); }); });
+  _SIDX=a; return a;
+}
+function winBuy(store,date){
+  if(!date||!store) return {q:0,a:0,days:'',ok:false};
+  var q=0,a=0,hs=[];
+  for(var i=0;i<=PM_WIN;i++){
+    var k=_dAdd(date,i), rows=(DATA.storeDaily&&DATA.storeDaily[k])||[], hq=0,ha=0;
+    rows.forEach(function(r){ if(r.n===store){ hq+=r.q||0; ha+=r.a||0; } });
+    q+=hq; a+=ha; if(hq||ha) hs.push((+k.slice(8))+'日');
+  }
+  return {q:q,a:a,days:hs.join('·'),ok:true};
+}
+
+/* ================= 促销管理 ================= */
+var PM_SEL={};
+function pmInitUI(){
+  var zs=document.getElementById('pmZone');
+  if(zs&&!zs.dataset.on){ zs.dataset.on='1'; zs.innerHTML='<option value="">全部区域</option>'+[...new Set(pmStores().map(function(s){return s.z;}))].map(function(z){return '<option>'+z+'</option>';}).join(''); }
+  pmSearch();
+}
+function pmSearch(){
+  var q=((document.getElementById('pmQ')||{}).value||'').trim(), z=((document.getElementById('pmZone')||{}).value||'');
+  var has={}; _jload(PM_KEY).forEach(function(r){ has[r.store]=1; });
+  var list=pmStores().filter(function(s){ return (!z||s.z===z)&&(!q||s.n.indexOf(q)>=0||s.z.indexOf(q)>=0||(s.m||'').indexOf(q)>=0); }).slice(0,40);
+  var h=list.length?('<div class="pm-cand-hd">匹配 '+list.length+' 家（最多显示 40）· 勾选后点右上「加入选中」</div>'+list.map(function(s){
+    var done=has[s.n];
+    return '<label class="pm-row'+(done?' done':'')+'"><input type="checkbox" value="'+esc(s.n)+'" '+(done?'disabled':'')+' onchange="pmSel(this)"><span class="pm-nm">'+esc(s.n)+'</span><span class="pm-z">'+s.z+'</span><span class="pm-m">'+esc(s.m||'待分配')+'</span>'+(done?'<span class="pm-sel-tag">已在表内</span>':'')+'</label>';
+  }).join('')):'<div class="pm-empty">没有匹配门店，换个关键词试试</div>';
+  _mk('pmCand',h);
+}
+function pmSel(el){
+  if(el.checked) PM_SEL[el.value]=1; else delete PM_SEL[el.value];
+  var n=Object.keys(PM_SEL).length, t=document.getElementById('pmSelN'); if(t) t.textContent=n;
+}
+function pmAddChecked(){
+  var sel=Object.keys(PM_SEL); if(!sel.length){ if(typeof toast==='function') toast('请先勾选门店'); return; }
+  var list=_jload(PM_KEY), base=Date.now(), d=_today();
+  var idx={}; pmStores().forEach(function(s){ idx[s.n]=s; });
+  sel.forEach(function(n,i){
+    var s=idx[n]||{z:'',m:''};
+    list.push({t:base+i,store:n,zone:s.z||'',mgr:s.m||'',date:'',a1:0,a2:0,note:'',created:new Date().toISOString()});
+  });
+  _jsave(PM_KEY,list); _cloudLater(PM_KEY); _tag('pmSaveTag');
+  PM_SEL={}; var t=document.getElementById('pmSelN'); if(t) t.textContent='0';
+  renderPm(); pmSearch();
+  if(typeof toast==='function') toast('已加入 '+sel.length+' 家门店');
+}
+function pmSet(t,f,v){
+  var list=_jload(PM_KEY), i=-1;
+  for(var k=0;k<list.length;k++){ if(String(list[k].t)===String(t)){ i=k; break; } }
+  if(i<0) return;
+  if(f==='a1'||f==='a2') list[i][f]=Math.max(0,parseFloat(v)||0);
+  else if(f==='date') list[i].date=v||'';
+  else if(f==='note') list[i].note=v||'';
+  _jsave(PM_KEY,list); _cloudLater(PM_KEY); _tag('pmSaveTag');
+  var _map={date:'pmdate_',a1:'pma1_',a2:'pma2_',note:'pmnote_'};
+  if(_map[f]){ var inp=document.getElementById(_map[f]+t); if(inp&&inp.value!==String(v)) inp.value=(v||''); }
+  var b=winBuy(list[i].store,list[i].date), cell=document.getElementById('pmbuy_'+t);
+  if(cell) cell.innerHTML=(b.ok&&b.q)?('<b>'+_N(b.q)+'</b><small>盒</small><em>'+b.days+'</em>'):(list[i].date?'<span class="pm-wait">窗口内无进货</span>':'<span class="pm-wait">待填日期</span>');
+  var am=document.getElementById('pmamt_'+t); if(am) am.innerHTML=b.a?_M(b.a):'—';
+  pmKpi(); pmMonth();
+}
+function renderPm(){
+  pmInitUI();
+  var recs=_jload(PM_KEY);
+  var rows=recs.slice();
+  var mon=((document.getElementById('pmMon')||{}).value||'');
+  var shown=mon?rows.filter(function(r){ return (r.date||'').slice(0,7)===mon; }):rows;
+  var sc=document.getElementById('pmScope');
+  if(sc) sc.innerHTML='共 <b>'+rows.length+'</b> 家驻店客户 · 当前显示 <b>'+shown.length+'</b> 行'+(mon?(' · 月份 '+mon):'')+' · 数据自动保存在本机并同步云端 · 不设删除';
+  var h='';
+  if(!rows.length){ h='<div class="pm-empty-lg">暂无驻店记录 · 在上方搜索门店并勾选加入即可开始填写</div>'; }
+  else{
+    h='<table class="tbl pm-tbl"><thead><tr><th class="pm-c-no">#</th><th class="pm-c-nm">门店</th><th class="pm-c-z">区域</th><th class="pm-c-d">驻店日期</th><th class="num">促销活数</th><th class="num">进店活数</th><th class="pm-c-nt">情况备注</th><th class="num pm-c-buy">驻店后4天进货</th><th class="num">金额</th></tr></thead><tbody>';
+    shown.forEach(function(r,i){
+      var b=winBuy(r.store,r.date);
+      h+='<tr'+(mon?'':'')+'><td class="pm-c-no">'+(i+1)+'</td>'+
+        '<td class="pm-c-nm"><b>'+esc(r.store)+'</b></td>'+
+        '<td class="pm-c-z">'+esc(r.zone||'-')+'</td>'+
+        '<td class="pm-c-d"><input type="date" id="pmdate_'+(r.t)+'" class="pm-cin" value="'+(r.date||'')+'" onchange="pmSet(\''+r.t+'\',\'date\',this.value)"></td>'+
+        '<td class="num"><input type="number" min="0" id="pma1_'+(r.t)+'" class="pm-nin" value="'+(r.a1||0)+'" onchange="pmSet(\''+r.t+'\',\'a1\',this.value)"></td>'+
+        '<td class="num"><input type="number" min="0" id="pma2_'+(r.t)+'" class="pm-nin" value="'+(r.a2||0)+'" onchange="pmSet(\''+r.t+'\',\'a2\',this.value)"></td>'+
+        '<td class="pm-c-nt"><input type="text" id="pmnote_'+(r.t)+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="情况备注" onchange="pmSet(\''+r.t+'\',\'note\',this.value)"></td>'+
+        '<td class="num pm-c-buy" id="pmbuy_'+r.t+'">'+((b.ok&&b.q)?('<b>'+_N(b.q)+'</b><small>盒</small><em>'+b.days+'</em>'):(r.date?'<span class="pm-wait">窗口内无进货</span>':'<span class="pm-wait">待填日期</span>'))+'</td>'+
+        '<td class="num" id="pmamt_'+r.t+'">'+(b.a?_M(b.a):'—')+'</td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+  _mk('pmTable',h);
+  pmKpi(); pmMonth();
+}
+function pmKpi(){
+  var rows=_jload(PM_KEY), tq=0,ta=0, a1=0,a2=0;
+  rows.forEach(function(r){ var b=winBuy(r.store,r.date); tq+=b.q; ta+=b.a; a1+=+(r.a1||0); a2+=+(r.a2||0); });
+  _mk('pmKpi','<div class="pm-k4">'+
+    '<div class="pm-k"><span>驻店客户</span><b>'+rows.length+'</b><i>家</i></div>'+
+    '<div class="pm-k"><span>促销活数</span><b>'+a1+'</b><i>场</i></div>'+
+    '<div class="pm-k"><span>进店活数</span><b>'+a2+'</b><i>场</i></div>'+
+    '<div class="pm-k hl"><span>自动抓进货</span><b>'+_N(tq)+'</b><i>盒 · '+_M(ta)+'</i></div></div>');
+}
+function pmMonth(){
+  var rows=_jload(PM_KEY), g={};
+  rows.forEach(function(r){
+    var m=(r.date||'').slice(0,7)||'未定日期';
+    var b=winBuy(r.store,r.date);
+    var o=g[m]=g[m]||{n:0,a1:0,a2:0,q:0,amt:0};
+    o.n++; o.a1+=+(r.a1||0); o.a2+=+(r.a2||0); o.q+=b.q; o.amt+=b.a;
+  });
+  var keys=Object.keys(g).sort().reverse();
+  if(!keys.length){ _mk('pmMonth','<div class="pm-empty-lg">暂无数据</div>'); return; }
+  var h='<table class="tbl"><thead><tr><th>月份</th><th class="num">驻店客户</th><th class="num">促销活数</th><th class="num">进店活数</th><th class="num">进货(盒)</th><th class="num">进货金额</th></tr></thead><tbody>';
+  var T={n:0,a1:0,a2:0,q:0,amt:0};
+  keys.forEach(function(m){ var o=g[m]; T.n+=o.n;T.a1+=o.a1;T.a2+=o.a2;T.q+=o.q;T.amt+=o.amt;
+    h+='<tr><td><b>'+m+'</b></td><td class="num">'+o.n+'</td><td class="num">'+o.a1+'</td><td class="num">'+o.a2+'</td><td class="num">'+_N(o.q)+'</td><td class="num">'+_M(o.amt)+'</td></tr>'; });
+  h+='</tbody><tfoot><tr><td>合计</td><td class="num">'+T.n+'</td><td class="num">'+T.a1+'</td><td class="num">'+T.a2+'</td><td class="num">'+_N(T.q)+'</td><td class="num">'+_M(T.amt)+'</td></tr></tfoot></table>';
+  _mk('pmMonth',h);
+}
+function pmExport(){
+  var rows=_jload(PM_KEY); if(!rows.length){ if(typeof toast==='function')toast('暂无数据可导出'); return; }
+  var head=['序号','门店','区域','负责人','驻店日期','促销活数','进店活数','情况备注','驻店后4天进货(盒)','进货金额(元)'];
+  var lines=[head.join(',')];
+  rows.forEach(function(r,i){ var b=winBuy(r.store,r.date);
+    lines.push([i+1,'"'+r.store+'"',r.zone||'',r.mgr||'',r.date||'',r.a1||0,r.a2||0,'"'+(r.note||'').replace(/"/g,'""')+'"',b.q,Math.round(b.a)].join(','));
+  });
+  var blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='促销驻店台账_'+_today()+'.csv'; a.click();
+}
+
+/* ================= 圆桌会议 ================= */
+var RT_SEL={};
+function rtManagers(){
+  var s=[]; (DATA.zones||[]).forEach(function(z){ var m=(z.manager||'').trim(); if(m&&m!=='吴敏'&&s.indexOf(m)<0) s.push(m); });
+  return s;
+}
+function rtInitUI(){
+  var zs=document.getElementById('rtZone');
+  if(zs&&!zs.dataset.on){ zs.dataset.on='1'; zs.innerHTML='<option value="">全部区域</option>'+[...new Set(pmStores().map(function(s){return s.z;}))].map(function(z){return '<option>'+z+'</option>';}).join(''); }
+  rtSearch();
+}
+function rtSearch(){
+  var q=((document.getElementById('rtQ')||{}).value||'').trim(), z=((document.getElementById('rtZone')||{}).value||'');
+  var has={}; _jload(RT_KEY).forEach(function(r){ has[r.store]=1; });
+  var list=pmStores().filter(function(s){ return (!z||s.z===z)&&(!q||s.n.indexOf(q)>=0||s.z.indexOf(q)>=0||(s.m||'').indexOf(q)>=0); }).slice(0,40);
+  var h=list.length?('<div class="pm-cand-hd">匹配 '+list.length+' 家（最多显示 40）· 勾选后点右上「加入选中」</div>'+list.map(function(s){
+    var done=has[s.n];
+    return '<label class="pm-row'+(done?' done':'')+'"><input type="checkbox" value="'+esc(s.n)+'" '+(done?'disabled':'')+' onchange="rtSel(this)"><span class="pm-nm">'+esc(s.n)+'</span><span class="pm-z">'+s.z+'</span><span class="pm-m">'+esc(s.m||'待分配')+'</span>'+(done?'<span class="pm-sel-tag">已在表内</span>':'')+'</label>';
+  }).join('')):'<div class="pm-empty">没有匹配门店，换个关键词试试</div>';
+  _mk('rtCand',h);
+}
+function rtSel(el){
+  if(el.checked) RT_SEL[el.value]=1; else delete RT_SEL[el.value];
+  var t=document.getElementById('rtSelN'); if(t) t.textContent=Object.keys(RT_SEL).length;
+}
+function rtAddChecked(){
+  var sel=Object.keys(RT_SEL); if(!sel.length){ if(typeof toast==='function') toast('请先勾选门店'); return; }
+  var list=_jload(RT_KEY), base=Date.now(), idx={};
+  pmStores().forEach(function(s){ idx[s.n]=s; });
+  sel.forEach(function(n,i){ var s=idx[n]||{z:'',m:''};
+    list.push({t:base+i,store:n,zone:s.z||'',biz:'',date:'',buy:0,note:'',created:new Date().toISOString()}); });
+  _jsave(RT_KEY,list); _cloudLater(RT_KEY); _tag('rtSaveTag');
+  RT_SEL={}; var t=document.getElementById('rtSelN'); if(t) t.textContent='0';
+  renderRt(); rtSearch();
+  if(typeof toast==='function') toast('已加入 '+sel.length+' 家门店');
+}
+function rtSet(t,f,v){
+  var list=_jload(RT_KEY), i=-1;
+  for(var k=0;k<list.length;k++){ if(String(list[k].t)===String(t)){ i=k; break; } }
+  if(i<0) return;
+  if(f==='buy') list[i].buy=Math.max(0,parseFloat(v)||0);
+  else list[i][f]=v||'';
+  var _map={date:'rtdate_',buy:'rtbuy_',biz:'rtbiz_',note:'rtnote_'};
+  if(_map[f]){ var inp=document.getElementById(_map[f]+t); if(inp&&inp.value!==String(v)) inp.value=(v||''); }
+  _jsave(RT_KEY,list); _cloudLater(RT_KEY); _tag('rtSaveTag'); rtKpi(); rtMonth();
+}
+function renderRt(){
+  rtInitUI();
+  var rows=_jload(RT_KEY), mans=rtManagers();
+  var mon=((document.getElementById('rtMon')||{}).value||'');
+  var shown=mon?rows.filter(function(r){ return (r.date||'').slice(0,7)===mon; }):rows;
+  var sc=document.getElementById('rtScope');
+  if(sc) sc.innerHTML='共 <b>'+rows.length+'</b> 家客户 · 当前显示 <b>'+shown.length+'</b> 行 · 商务经理由经理本人选择 · 数据自动保存并同步云端 · 不设删除';
+  var h='';
+  if(!rows.length){ h='<div class="pm-empty-lg">暂无圆桌记录 · 在上方搜索门店并勾选加入即可开始填写</div>'; }
+  else{
+    h='<table class="tbl pm-tbl"><thead><tr><th class="pm-c-no">#</th><th class="pm-c-nm">门店</th><th class="pm-c-z">区域</th><th class="pm-c-bz">商务经理</th><th class="pm-c-d">请客日期</th><th class="num">购进(盒)</th><th class="pm-c-nt">情况备注</th></tr></thead><tbody>';
+    shown.forEach(function(r,i){
+      var opt='<option value="">请选择</option>'+mans.map(function(m){ return '<option'+(r.biz===m?' selected':'')+'>'+m+'</option>'; }).join('');
+      h+='<tr><td class="pm-c-no">'+(i+1)+'</td><td class="pm-c-nm"><b>'+esc(r.store)+'</b></td><td class="pm-c-z">'+esc(r.zone||'-')+'</td>'+
+        '<td class="pm-c-bz"><select id="rtbiz_'+(r.t)+'" class="pm-sin" onchange="rtSet(\''+r.t+'\',\'biz\',this.value)">'+opt+'</select></td>'+
+        '<td class="pm-c-d"><input type="date" id="rtdate_'+(r.t)+'" class="pm-cin" value="'+(r.date||'')+'" onchange="rtSet(\''+r.t+'\',\'date\',this.value)"></td>'+
+        '<td class="num"><input type="number" min="0" id="rtbuy_'+(r.t)+'" class="pm-nin" value="'+(r.buy||0)+'" onchange="rtSet(\''+r.t+'\',\'buy\',this.value)"></td>'+
+        '<td class="pm-c-nt"><input type="text" id="rtnote_'+(r.t)+'" class="pm-tin" value="'+esc(r.note||'')+'" placeholder="情况备注" onchange="rtSet(\''+r.t+'\',\'note\',this.value)"></td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+  _mk('rtTable',h); rtKpi(); rtMonth();
+}
+function rtKpi(){
+  var rows=_jload(RT_KEY), tb=0, by={};
+  rows.forEach(function(r){ tb+=+(r.buy||0); if(r.biz) by[r.biz]=(by[r.biz]||0)+1; });
+  _mk('rtKpi','<div class="pm-k4">'+
+    '<div class="pm-k"><span>圆桌客户</span><b>'+rows.length+'</b><i>家</i></div>'+
+    '<div class="pm-k"><span>已定日期</span><b>'+rows.filter(function(r){return r.date;}).length+'</b><i>场</i></div>'+
+    '<div class="pm-k"><span>已填商务经理</span><b>'+rows.filter(function(r){return r.biz;}).length+'</b><i>行</i></div>'+
+    '<div class="pm-k hl"><span>购进合计</span><b>'+_N(tb)+'</b><i>盒</i></div></div>');
+}
+function rtMonth(){
+  var rows=_jload(RT_KEY), g={};
+  rows.forEach(function(r){ var m=(r.date||'').slice(0,7)||'未定日期'; var o=g[m]=g[m]||{n:0,buy:0,biz:0}; o.n++; o.buy+=+(r.buy||0); if(r.biz)o.biz++; });
+  var keys=Object.keys(g).sort().reverse();
+  if(!keys.length){ _mk('rtMonth','<div class="pm-empty-lg">暂无数据</div>'); return; }
+  var h='<table class="tbl"><thead><tr><th>月份</th><th class="num">圆桌客户</th><th class="num">购进(盒)</th><th class="num">已填经理</th></tr></thead><tbody>', T={n:0,buy:0};
+  keys.forEach(function(m){ var o=g[m]; T.n+=o.n; T.buy+=o.buy;
+    h+='<tr><td><b>'+m+'</b></td><td class="num">'+o.n+'</td><td class="num">'+_N(o.buy)+'</td><td class="num">'+o.biz+'</td></tr>'; });
+  h+='</tbody><tfoot><tr><td>合计</td><td class="num">'+T.n+'</td><td class="num">'+_N(T.buy)+'</td><td class="num">—</td></tr></tfoot></table>';
+  _mk('rtMonth',h);
+}
+function rtExport(){
+  var rows=_jload(RT_KEY); if(!rows.length){ if(typeof toast==='function')toast('暂无数据可导出'); return; }
+  var lines=[['序号','门店','区域','商务经理','请客日期','购进(盒)','情况备注'].join(',')];
+  rows.forEach(function(r,i){ lines.push([i+1,'"'+r.store+'"',r.zone||'',r.biz||'',r.date||'',r.buy||0,'"'+(r.note||'').replace(/"/g,'""')+'"'].join(',')); });
+  var blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='圆桌会议台账_'+_today()+'.csv'; a.click();
+}
+
 // ===== 云同步（GitHub 仓库 data/ 目录 · 跨设备记忆）=====
 const GH_REPO='mizhao305/hz-workbench';
 const GH_TOKEN_B64=''; // 部署时由脚本注入（base64）
-const CLOUD_MAP={ 'hz_promo_rec':'promo_rec.json','hz_target_stores':'target_stores.json','hz_vip_stores':'vip_stores.json','hz_promo_inv':'promo_inv.json' };
+const CLOUD_MAP={ 'hz_promo_rec':'promo_rec.json','hz_round_rec':'round_rec.json','hz_target_stores':'target_stores.json','hz_vip_stores':'vip_stores.json','hz_promo_inv':'promo_inv.json' };
 function cloudToken(){ try{ if(GH_TOKEN_B64) return atob(GH_TOKEN_B64); }catch(e){} try{ return localStorage.getItem('hz_gh_oauth_token')||''; }catch(e){ return ''; } }
 async function cloudGet(file){
   if(!cloudToken()) return null; // 无云端凭证时纯本地，不发网络请求
@@ -2640,7 +3036,7 @@ async function cloudSyncAll(){
       localStorage.setItem(key,JSON.stringify(merged));
     }catch(e){}
   }
-  try{ renderPromoRecords(); renderPromoInv(); renderTargetList(); renderCrm(); renderIssues(); }catch(e){}
+  try{ renderPromoRecords(); renderPromoInv(); renderTargetList(); renderCrm(); renderIssues(); renderPm(); renderRt(); }catch(e){}
   const _hasTok=!!cloudToken();
   _cldUi(_hasTok?'✅ 云端已同步':'未连接云端');
   const _cb=document.getElementById('cloudConnBtn'); if(_cb) _cb.style.display=_hasTok?'none':'inline-block';
