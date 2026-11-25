@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>健兴医药 · ERP 客户管理系统 V1</title>
+<title>健兴医药 · ERP 客户管理系统 V2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#d2ecdb">
@@ -995,6 +995,9 @@
 .brand b{font-size:16px!important;white-space:nowrap;letter-spacing:0}
 .brand small{font-size:10.5px!important;line-height:1.35}
 .kpi-mini{grid-template-columns:repeat(5,1fr)}
+.kpi-6{grid-template-columns:repeat(6,1fr)}
+@media (max-width:1000px){.kpi-6{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.kpi-6{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:1200px){.kpi-mini{grid-template-columns:repeat(3,1fr)}}
 .sc-wrap{display:flex;gap:4px;align-items:flex-end;height:76px;padding:8px;background:rgba(15,23,42,.04);border-radius:10px}
 .sc-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;min-width:0}
@@ -1012,6 +1015,12 @@
 #briefBody{width:100%;height:340px;border-radius:10px;border:1px solid rgba(15,23,42,.12);padding:12px;font-size:13px;line-height:1.85;color:#16203a;background:#fff}
 #storeCardBody{max-height:78vh;overflow:auto}
 @media (max-width:900px){
+ #zoomBar,button[onclick="shotPage()"]{display:none!important}
+ .topbar{flex-wrap:wrap;gap:8px}
+ .nav-item{padding:9px 11px;font-size:13px;gap:6px}
+ .nav-item .ic{width:auto;font-size:14px}
+ .kpi-6{grid-template-columns:repeat(2,1fr)!important}
+ .kpi-6 .km .v{font-size:19px}
  .pf-form{grid-template-columns:1fr 1fr}
  .rt-form{grid-template-columns:1fr 1fr}
  .rt-staff{grid-template-columns:1fr 1fr}
@@ -1030,22 +1039,14 @@
     <aside class="side">
       <div class="brand">
         <div class="logo">健</div>
-        <div><b>ERP 客户管理系统</b><small>单体药店 · 进销存 · 圆桌 · 促销</small></div>
+        <div><b>ERP 客户管理系统</b><small>单体药店 · 促销 · 圆桌 · 台账</small></div>
       </div>
       <nav class="nav">
-        <div class="nav-item active" data-page="dash"><span class="ic">📊</span>工作台总览</div>
-        <div class="nav-item" data-page="zone"><span class="ic">🗺️</span>区域作战地图<small id="zm">13</small></div>
-        <div class="nav-item" data-page="crm"><span class="ic">🏪</span>客户管理 CRM<small id="cm"></small></div>
-        <div class="nav-item" data-page="board"><span class="ic">🏆</span>销售看板</div>
-        <div class="nav-item" data-page="product"><span class="ic">💊</span>产品中心<small id="pm">10</small></div>
-        <div class="nav-item" data-page="cur"><span class="ic">📅</span>当月销售</div>
-        <div class="nav-item" data-page="promo"><span class="ic">📣</span>促销管理</div>
-        <div class="nav-item" data-page="import"><span class="ic">📥</span>数据导入</div>
-        <div class="nav-item" data-page="report"><span class="ic">📋</span>工作报表</div>
-        <div class="nav-item" data-page="inv"><span class="ic">📦</span>进销存管理<small>新</small></div>
-        <div class="nav-item" data-page="promof"><span class="ic">🎯</span>促销跟进<small>新</small></div>
-        <div class="nav-item" data-page="rt"><span class="ic">🍽️</span>圆桌会议<small>新</small></div>
-        <div class="nav-item" data-page="charts"><span class="ic">📈</span>图表版<small>新</small></div>
+        <div class="nav-item active" data-page="home"><span class="ic">🏠</span>今日工作台</div>
+        <div class="nav-item" data-page="promof"><span class="ic">🎯</span>促销跟进</div>
+        <div class="nav-item" data-page="rt"><span class="ic">🍽️</span>圆桌会议</div>
+        <div class="nav-item" data-page="ledger"><span class="ic">🏪</span>客户台账<small id="cm"></small></div>
+        <div class="nav-item" data-page="sys"><span class="ic">⚙️</span>数据与设置</div>
       </nav>
     </aside>
 
@@ -1053,7 +1054,7 @@
       <div class="topbar">
         <div><h1 id="ptitle">工作台总览 <span class="sub" id="psub">全杭州 · 单体药店 · 2026年1-8月</span></h1></div>
         <div class="right">
-          <span class="badge-date" style="border-color:rgba(236,72,153,.45);background:linear-gradient(120deg,rgba(236,72,153,.16),rgba(52,211,153,.12))" title="当前线上版本">v4.5 · 2026-10-11 修复版</span>
+          <span class="badge-date" style="border-color:rgba(236,72,153,.45);background:linear-gradient(120deg,rgba(236,72,153,.16),rgba(52,211,153,.12))" title="当前线上版本">ERP v2 · 清爽版</span>
           <button class="btn" onclick="shotPage()" title="截取当前整个界面保存为图片" style="padding:6px 14px;font-size:13px;margin-right:6px">📷 一键截图</button>
           <span class="badge-date"><span class="live-dot"></span><span id="updateDate"></span></span>
         </div>
@@ -1062,7 +1063,7 @@
       <div class="content">
 
         <!-- ═══════════ 总览 DASHBOARD ═══════════ -->
-        <div class="page show" id="page-dash">
+        <div class="page" id="page-dash">
           <div class="tabs" id="yearTabs" style="margin-bottom:16px">
             <button data-y="2026" class="on" onclick="setYear('2026')">2026年 · 1-11月</button>
             <span style="font-size:11.5px;color:var(--tx3);align-self:center;margin-left:4px">全站数据口径：2026年1月1日—11月25日 · 仅本年度 · 历史年份已全部关闭</span>
@@ -1431,6 +1432,21 @@
         </div>
 
 
+        <!-- ═══════════ 今日工作台（清爽首页） ═══════════ -->
+        <div class="page show" id="page-home">
+          <div id="homeBody"></div>
+        </div>
+
+        <!-- ═══════════ 客户台账 ═══════════ -->
+        <div class="page" id="page-ledger">
+          <div id="homeBody2"></div>
+        </div>
+
+        <!-- ═══════════ 数据与设置 ═══════════ -->
+        <div class="page" id="page-sys">
+          <div id="homeBody3"></div>
+        </div>
+
         <!-- ═══════════ 进销存管理 ═══════════ -->
         <div class="page" id="page-inv">
           <div id="invBody"></div>
@@ -1446,7 +1462,7 @@
           <div id="rtBody"></div>
         </div>
 
-        <div class="footer">贵州建兴药业 杭州办事处 · ERP 客户管理系统 V1 · 单体药店 · 2026 单年口径 · <span id="footDate">数据截止 -</span> · 每日更新</div>
+        <div class="footer">贵州建兴药业 杭州办事处 · ERP 客户管理系统 V2 清爽版 · 单体药店 · 2026 单年口径 · <span id="footDate">数据截止 -</span> · 每日更新</div>
       </div>
     </main>
   </div>
@@ -1889,7 +1905,7 @@ function go(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===page));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
   $('#page-'+page).classList.add('show');
-  const TITLES={dash:['工作台总览','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['销售看板','净进货 · 金额 · 动销 · 活跃 四维洞察'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','数据每日更新 · 支持月份回看'],promo:['促销管理','商务+促销 双线作战'],import:['数据导入','真诚开单 → 自动归集 → 刷新'],report:['工作报表','导出CSV用于晨会/周报/复盘'],issues:['问题清单','自动诊断 · 短板预警 · 行动清单'],inv:['进销存管理','进货节奏 · 断货预警 · 沉默店唤醒'],promof:['促销跟进','月初选店 · 每日填写 · 达成汇总'],rt:['圆桌会议','核心终端季度会 · 参会门店 · 餐费核算']};
+  const TITLES={dash:['工作台总览','全杭州 · 单体药店 · '+ytdLabel('2026')],zone:['区域作战地图','点击横条进入区域门店明细'],crm:['客户管理 CRM',''+DATA.meta.totalStores+' 家单体药店 · 搜索定位'],board:['销售看板','净进货 · 金额 · 动销 · 活跃 四维洞察'],product:['产品中心','10款独家/专利品种 · 覆盖率'],cur:['当月销售','数据每日更新 · 支持月份回看'],promo:['促销管理','商务+促销 双线作战'],import:['数据导入','真诚开单 → 自动归集 → 刷新'],report:['工作报表','导出CSV用于晨会/周报/复盘'],issues:['问题清单','自动诊断 · 短板预警 · 行动清单'],inv:['进销存管理','进货节奏 · 断货预警 · 沉默店唤醒'],promof:['促销跟进','月初选店 · 每日填写 · 达成汇总'],rt:['圆桌会议','核心终端季度会 · 参会门店 · 餐费核算'],home:['今日工作台','本月该做什么 · 一眼看完'],ledger:['客户台账','893 家单体店 · 搜索 · 驻店参会记录'],sys:['数据与设置','导出 · 备份 · 云同步']};
   $('#ptitle').innerHTML='<span>'+TITLES[page][0]+'</span><span class="sub" id="psub">'+TITLES[page][1]+'</span>';
   if(page==='dash') renderDash();
   if(page==='zone') renderZone();
@@ -1903,6 +1919,9 @@ function go(page){
   if(page==='inv') renderInv();
   if(page==='promof') renderPF();
   if(page==='rt') renderRT();
+  if(page==='home') renderHome();
+  if(page==='ledger') renderLedger();
+  if(page==='sys') renderSys();
 }
 document.querySelectorAll('.nav-item').forEach(n=>n.addEventListener('click',()=>go(n.dataset.page)));
 
@@ -3149,8 +3168,7 @@ function toast(msg){
   const fd=document.getElementById('footDate'); if(fd) fd.textContent='数据截止 '+lastDataDate();
   const yb=document.querySelector('[data-y="2026"]'); if(yb) yb.textContent=yearLabel('2026');
   const ps=document.getElementById('psub'); if(ps) ps.textContent='全杭州 · 单体药店 · '+yearPeriod('2026');
-  document.querySelector('[data-page="dash"]').classList.add('active');
-  renderDash();
+  document.querySelector('[data-page="home"]').classList.add('active');
   cloudSyncAll();
 
   /* ===== 进化升级包：缩放 + 涟漪 ===== */
@@ -3511,7 +3529,7 @@ function importBundle(input) {
           await MediaDB.put(k, new Blob([u8], { type: (m.meta && m.meta.type) || 'application/octet-stream' }), m.meta);
         }
       }
-      renderRT(); renderPF(); toast('备份已导入');
+      renderRT(); renderPF(); try{ if(typeof window.renderHome==='function') window.renderHome(); }catch(e){} toast('备份已导入');
     } catch (e) { toast('备份文件无法解析'); }
   };
   fr.readAsText(f);
@@ -3702,7 +3720,7 @@ function pfSwitchMonth(m) { const v = stPF(); v.cur = m; lsSet('erp_pf_v1', v); 
 
 function renderPF() {
   const v = stPF();
-  let h = cloudPanel();
+  let h = '<div class="mask-tip" style="margin-bottom:12px">数据存在这台设备浏览器里，关闭页面不会丢；换设备请到「数据与设置」开启云同步或导出备份。 <a class="lk" onclick="go(\'sys\')">去设置 →</a></div>';
   h += '<div class="card" style="margin-bottom:16px"><div class="chead"><div class="ch-t"><span class="dot"></span>月度驻店计划</div>' +
     '<div class="ch-s">月初在下月计划里勾选单体店 · 选完自动可每日填写</div>' +
     '<select onchange="pfSwitchMonth(this.value)" style="margin-left:auto;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);color:#16203a;border-radius:8px;padding:6px 10px;font-size:13px">' +
@@ -3937,7 +3955,7 @@ function rtSave(v) { RT_CACHE = v; lsSet('erp_rt_v1', v); if (cloudCfg().on) syn
 function renderRT() {
   const v = stRT(), d = v.draft || {};
   const PRODS = (DATA.products || []).map(p => p.name);
-  let h = cloudPanel();
+  let h = '<div class="mask-tip" style="margin-bottom:12px">场次与现场照片视频存在本机；换设备请到「数据与设置」导出/导入备份。 <a class="lk" onclick="go(\'sys\')">去设置 →</a></div>';
   h += '<div class="card" style="margin-bottom:16px"><div class="chead"><div class="ch-t"><span class="dot"></span>新建圆桌会议场次</div>' +
     '<div class="ch-s">季度核心终端会 · 参会门店从总客户名单勾选 · 自动核算餐费与后续进货</div></div>' +
     '<div class="rt-form">' +
@@ -4069,6 +4087,258 @@ document.addEventListener('DOMContentLoaded', function () {
   if (kw) kw.addEventListener('input', () => { PICK.kw = kw.value; renderPickerList(); });
   if (zn) zn.addEventListener('change', () => { PICK.zone = zn.value; renderPickerList(); });
 });
+
+/* ============ ERP 清爽版：今日工作台 / 客户台账 / 数据与设置 ============ */
+(function () {
+  if (typeof window === 'undefined') return;
+
+  var LED = { kw: '', zone: '', grade: '', rhythm: '', gap: '', onlyActive: false, page: 1, size: 40 };
+
+  /* ---------- 小工具 ---------- */
+  function pfPlan(m) { var v = stPF(); return v.plans[m] || null; }
+  function pfStores(m) { var p = pfPlan(m); return p ? (p.stores || []) : []; }
+  function pfEntries(m) { var p = pfPlan(m); return p ? (p.entries || []) : []; }
+  function pfHits(name) {
+    var v = stPF(), n = 0;
+    Object.keys(v.plans || {}).forEach(function (m) {
+      (v.plans[m].entries || []).forEach(function (e) { if (e.store === name) n++; });
+    });
+    return n;
+  }
+  function rtHits(name) {
+    var n = 0;
+    (stRT().records || []).forEach(function (r) { if ((r.stores || []).indexOf(name) >= 0) n++; });
+    return n;
+  }
+  function curMonth() { return (stPF().cur) || CUR_MONTH; }
+  function monthQtyTotal(m) {
+    var t = 0;
+    CLIENTS.forEach(function (c) { t += (c.months[m] || 0); });
+    return t;
+  }
+  function kpiCell(k, v, u, c) {
+    return '<div class="km"><div class="k">' + k + '</div><div class="v" style="color:' + c + '">' + v +
+      '<small style="font-size:11px;color:var(--tx3)"> ' + u + '</small></div></div>';
+  }
+
+  /* ============================ 今日工作台 ============================ */
+  window.renderHome = function () {
+    var M = DATA.meta, I = DATA.inventory || {};
+    var m = curMonth();
+    var plan = pfStores(m).length, ent = pfEntries(m);
+    var todayEnt = ent.filter(function (e) { return e.date === today(); }).length;
+    var rtRecs = stRT().records || [];
+    var rtThis = rtRecs.filter(function (r) { return (r.date || '').slice(0, 7) === m; });
+
+    var h = '<div class="kpi-mini kpi-6" style="margin-bottom:16px">' +
+      kpiCell('在册单体店', fmtN(M.totalStores), '家', '#15803d') +
+      kpiCell('本年进货', fmtN(M.totalQty), '盒', '#0e7490') +
+      kpiCell('有进货', fmtN(I.activeStores || 0), '家', '#38bdf8') +
+      kpiCell('沉默店', fmtN(I.silentStores || 0), '家', '#f472b6') +
+      kpiCell('断货≥2月', fmtN(I.dropStores || 0), '家', '#f59e0b') +
+      kpiCell('复购间隔中位', I.medianReorderMonths || '-', '个月', '#7c3aed') +
+      '</div>';
+
+    /* —— 本月三件事 —— */
+    var act = [];
+    act.push('<div class="sil-chip" style="cursor:pointer;min-width:170px" onclick="go(\'promof\')"><b style="font-size:15px;color:' +
+      (plan ? '#15803d' : '#dc2626') + '">' + (plan ? plan + ' 家' : '还没选店') + '</b><i>' + m + ' 驻店计划</i></div>');
+    act.push('<div class="sil-chip" style="cursor:pointer;min-width:170px" onclick="go(\'promof\')"><b style="font-size:15px;color:#0e7490">' +
+      ent.length + ' 条</b><i>本月已填（今日 ' + todayEnt + ' 条）</i></div>');
+    act.push('<div class="sil-chip" style="cursor:pointer;min-width:170px" onclick="go(\'rt\')"><b style="font-size:15px;color:#7c3aed">' +
+      rtRecs.length + ' 场</b><i>圆桌累计（本月 ' + rtThis.length + ' 场）</i></div>');
+    act.push('<div class="sil-chip" style="cursor:pointer;min-width:170px" onclick="go(\'ledger\')"><b style="font-size:15px;color:#b45309">' +
+      (I.dropStores || 0) + ' 家</b><i>断货 ≥2 月，待排驻店</i></div>');
+
+    h += '<div class="card" style="margin-bottom:16px"><div class="chead"><div class="ch-t"><span class="dot"></span>本月三件事</div>' +
+      '<div class="ch-s">' + m + ' · 点卡片直达对应看台</div></div>' +
+      '<div class="sil-list">' + act.join('') + '</div>' +
+      '<div class="mask-tip" style="margin-top:12px">建议顺序：月初先在「促销跟进」把下月驻店门店定下来 → 促销员每天填一条（可传现场照片视频）→ 月底看达成率与圆桌 ROI 复盘。</div></div>';
+
+    /* —— 断货最久 TOP —— */
+    var top = (I.dropList || []).slice(0, 8);
+    h += '<div class="card" style="margin-bottom:16px"><div class="chead"><div class="ch-t"><span class="dot"></span>最该马上跑的 8 家</div>' +
+      '<div class="ch-s">断货最久 + 曾经走量最大 · 一键加入本月驻店</div>' +
+      '<a class="lk" style="margin-left:auto;font-size:12px" onclick="go(\'ledger\')">全部 ' + (I.dropStores || 0) + ' 家 →</a></div>' +
+      '<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>门店</th><th>区域</th><th>负责人</th><th style="text-align:right">年盒</th><th style="text-align:right">断货月</th><th>动作</th></tr></thead><tbody>';
+    h += top.map(function (x) {
+      return '<tr><td><a class="lk" onclick="showStoreCard(' + JSON.stringify(x.name).replace(/"/g, '&quot;') + ')">' + esc(x.name) + '</a></td>' +
+        '<td>' + esc(x.zone) + '</td><td>' + esc(x.manager) + '</td>' +
+        '<td style="text-align:right">' + fmtN(x.qty26) + '</td>' +
+        '<td style="text-align:right;color:' + (x.gapMonths >= 6 ? '#ef4444' : '#f59e0b') + '">' + x.gapMonths + '</td>' +
+        '<td><a class="lk" onclick="addToPromo(' + JSON.stringify(x.name).replace(/"/g, '&quot;') + ')">加入驻店</a></td></tr>';
+    }).join('');
+    h += '</tbody></table></div></div>';
+
+    /* —— 区域 + 月度走势 —— */
+    var zs = DATA.zones.slice().sort(function (a, b) { return b.qty - a.qty; });
+    var mx = zs.length ? zs[0].qty : 1;
+    h += '<div class="card" style="margin-bottom:16px"><div class="chead"><div class="ch-t"><span class="dot"></span>13 个区，钱在哪</div>' +
+      '<div class="ch-s">' + MONTHS[0] + ' ~ ' + M.months[M.months.length - 1] + ' · 按盒数排序</div></div>';
+    h += zs.map(function (z) {
+      return '<div class="ib-row" style="grid-template-columns:78px 1fr 96px 86px"><span class="ib-k">' + esc(z.zone) + '</span>' +
+        '<span class="ib-track"><i style="width:' + Math.max(2, Math.round(z.qty / mx * 100)) + '%;background:linear-gradient(90deg,#22c55e,#38bdf8)"></i></span>' +
+        '<span class="ib-v">' + fmtN(z.qty) + ' 盒</span><span class="ib-d">' + z.storeCount + ' 店 · ¥' + fmtC(z.amount) + '</span></div>';
+    }).join('') + '</div>';
+
+    h += '<div class="card"><div class="chead"><div class="ch-t"><span class="dot"></span>月度走势</div>' +
+      '<div class="ch-s">全司 11 个月 · 盒数</div>' +
+      '<a class="lk" style="margin-left:auto;font-size:12px" onclick="go(\'charts\')">看图表版 →</a></div>' +
+      '<div class="sc-wrap">' + MONTHS.map(function (mm) {
+        var q = monthQtyTotal(mm), mxq = 0;
+        MONTHS.forEach(function (x) { mxq = Math.max(mxq, monthQtyTotal(x)); });
+        return '<div class="sc-col"><i style="height:' + Math.max(4, Math.round(q / (mxq || 1) * 100)) + '%"></i><span>' + mm.slice(5) + '月</span></div>';
+      }).join('') + '</div></div>';
+
+    $('#homeBody').innerHTML = h;
+  };
+
+  /* ============================ 客户台账 ============================ */
+  function ledRows() {
+    var kw = (LED.kw || '').trim();
+    return CLIENTS.filter(function (c) {
+      if (kw && (c.name + c.zone + c.manager).indexOf(kw) < 0) return false;
+      if (LED.zone && c.zone !== LED.zone) return false;
+      if (LED.grade && c.grade !== LED.grade) return false;
+      if (LED.rhythm && c.rhythm !== LED.rhythm) return false;
+      if (LED.gap && !(c.gap >= Number(LED.gap))) return false;
+      if (LED.onlyActive && !(c.qty > 0)) return false;
+      return true;
+    }).sort(function (a, b) { return b.qty - a.qty; });
+  }
+
+  window.renderLedger = function () {
+    var rows = ledRows();
+    var totalPages = Math.max(1, Math.ceil(rows.length / LED.size));
+    if (LED.page > totalPages) LED.page = totalPages;
+    var st = (LED.page - 1) * LED.size, pgRows = rows.slice(st, st + LED.size);
+    var sumQ = rows.reduce(function (a, c) { return a + c.qty; }, 0);
+
+    var h = '<div class="card" style="margin-bottom:16px"><div class="chead"><div class="ch-t"><span class="dot"></span>找门店</div>' +
+      '<div class="ch-s">共 ' + CLIENTS.length + ' 家单体药店 + 医药公司 · 九德堂等连锁已剔除</div></div>' +
+      '<div class="pf-form" style="grid-template-columns:1fr 116px 92px 92px 114px auto auto">' +
+      '<input id="ledKw" placeholder="店名 / 区域 / 负责人" value="' + esc(LED.kw) + '" oninput="ledSet(\'kw\',this.value,1)">' +
+      '<select onchange="ledSet(\'zone\',this.value,1)"><option value="">全部区域</option>' +
+      ZONES.map(function (z) { return '<option' + (LED.zone === z ? ' selected' : '') + '>' + esc(z) + '</option>'; }).join('') + '</select>' +
+      '<select onchange="ledSet(\'grade\',this.value,1)"><option value="">全部等级</option>' +
+      ['A+', 'A', 'B', 'C', 'D'].map(function (g) { return '<option' + (LED.grade === g ? ' selected' : '') + '>' + g + '</option>'; }).join('') + '</select>' +
+      '<select onchange="ledSet(\'rhythm\',this.value,1)"><option value="">全部节奏</option>' +
+      ['稳定', '常规', '间歇', '稀疏', '沉默'].map(function (g) { return '<option' + (LED.rhythm === g ? ' selected' : '') + '>' + g + '</option>'; }).join('') + '</select>' +
+      '<select onchange="ledSet(\'gap\',this.value,1)"><option value="">断货月不限</option>' +
+      [['2', '≥2 月'], ['3', '≥3 月'], ['6', '≥6 月'], ['9', '≥9 月']].map(function (g) { return '<option value="' + g[0] + '"' + (LED.gap === g[0] ? ' selected' : '') + '>' + g[1] + '</option>'; }).join('') + '</select>' +
+      '<label style="font-size:12px;color:var(--tx3);display:flex;gap:5px;align-items:center;white-space:nowrap"><input type="checkbox"' + (LED.onlyActive ? ' checked' : '') + ' onchange="ledSet(\'onlyActive\',this.checked,1)" style="width:auto">只看有进货</label>' +
+      '<button class="btn ghost" style="font-size:12px" onclick="ledReset()">重置</button></div>' +
+      '<div class="pf-actions"><span style="font-size:12.5px;color:var(--tx3)">筛出 <b style="color:#15803d">' + rows.length +
+      '</b> 家 · 合计 <b style="color:#15803d">' + fmtN(sumQ) + '</b> 盒</span>' +
+      '<button class="btn" style="font-size:12px;margin-left:auto" onclick="ledBulkPlan()">➕ 这 ' + rows.length + ' 家全部加入本月驻店计划</button>' +
+      '<button class="btn ghost" style="font-size:12px" onclick="ledExport()">📄 导出当前筛选</button></div></div>';
+
+    h += '<div class="card"><div class="chead"><div class="ch-t"><span class="dot"></span>门店明细</div>' +
+      '<div class="ch-s">第 ' + LED.page + ' / ' + totalPages + ' 页 · 点店名看档案</div>' +
+      '<div style="margin-left:auto;display:flex;gap:6px;align-items:center">' +
+      '<button class="btn ghost" style="font-size:12px;' + (LED.page <= 1 ? 'opacity:.35;pointer-events:none' : '') + '" onclick="ledPage(-1)">← 上一页</button>' +
+      '<span style="font-size:12px;color:var(--tx3)">' + LED.page + ' / ' + totalPages + '</span>' +
+      '<button class="btn ghost" style="font-size:12px;' + (LED.page >= totalPages ? 'opacity:.35;pointer-events:none' : '') + '" onclick="ledPage(1)">下一页 →</button></div></div>' +
+      '<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>门店</th><th>区域</th><th>负责人</th><th>等级</th><th>节奏</th>' +
+      '<th style="text-align:right">年盒</th><th>最后进货</th><th style="text-align:right">断货月</th><th style="text-align:right">驻店</th><th style="text-align:right">参会</th><th>动作</th></tr></thead><tbody>';
+    h += pgRows.map(function (c) {
+      var q = JSON.stringify(c.name).replace(/"/g, '&quot;');
+      var gapC = c.gap >= 6 ? '#ef4444' : c.gap >= 2 ? '#f59e0b' : 'var(--tx3)';
+      return '<tr><td><a class="lk" onclick="showStoreCard(' + q + ')">' + esc(c.name) + '</a></td>' +
+        '<td>' + esc(c.zone) + '</td><td>' + esc(c.manager) + '</td><td>' + esc(c.grade) + '</td><td>' + esc(c.rhythm) + '</td>' +
+        '<td style="text-align:right">' + fmtN(c.qty) + '</td><td>' + (c.lastMonth || '-') + '</td>' +
+        '<td style="text-align:right;color:' + gapC + '">' + (c.gap || '-') + '</td>' +
+        '<td style="text-align:right">' + pfHits(c.name) + '</td><td style="text-align:right">' + rtHits(c.name) + '</td>' +
+        '<td><a class="lk" onclick="addToPromo(' + q + ')">驻店</a> · <a class="lk" onclick="ledToRT(' + q + ')">参会</a></td></tr>';
+    }).join('');
+    h += '</tbody></table></div></div>';
+    $('#homeBody2').innerHTML = h;
+  };
+
+  window.ledSet = function (k, v, reset) {
+    LED[k] = v; if (reset) LED.page = 1; renderLedger();
+  };
+  window.ledReset = function () {
+    LED.kw = ''; LED.zone = ''; LED.grade = ''; LED.rhythm = ''; LED.gap = ''; LED.onlyActive = false; LED.page = 1;
+    renderLedger();
+  };
+  window.ledPage = function (d) { LED.page = Math.max(1, LED.page + d); renderLedger(); };
+  window.ledExport = function () {
+    var rows = [['门店', '区域', '负责人', '等级', '节奏', '年盒数', '最后进货月', '断货月数', '驻店次数', '参会次数']];
+    ledRows().forEach(function (c) { rows.push([c.name, c.zone, c.manager, c.grade, c.rhythm, c.qty, c.lastMonth, c.gap, pfHits(c.name), rtHits(c.name)]); });
+    dlFile('客户台账_' + today() + '.csv', toCSV(rows), 'text/csv;charset=utf-8');
+    toast('已导出 ' + (rows.length - 1) + ' 家');
+  };
+  window.ledBulkPlan = function () {
+    var rows = ledRows();
+    if (!rows.length) { toast('当前没有筛出门店'); return; }
+    if (rows.length > 30 && !confirm('把当前筛选的 ' + rows.length + ' 家全部加入 ' + curMonth() + ' 驻店计划？\n（已在计划里的会跳过，不会重复）')) return;
+    var v = stPF(), p = pfCurPlan(true);
+    if (!p.stores) p.stores = [];
+    var add = 0;
+    rows.forEach(function (c) { if (p.stores.indexOf(c.name) < 0) { p.stores.push(c.name); add++; } });
+    pfSave(v); syncAll(false);
+    toast('已把 ' + add + ' 家加入 ' + p.month + ' 驻店计划（已在的跳过）');
+  };
+  window.ledToRT = function (name) {
+    PICK.mode = 'rt'; PICK.picked = [name]; openPicker('rt');
+  };
+
+  /* ============================ 数据与设置 ============================ */
+  window.renderSys = function () {
+    var M = DATA.meta, I = DATA.inventory || {};
+    var m = curMonth(), plan = pfStores(m).length, ent = pfEntries(m), rt = (stRT().records || []).length;
+    var mediaN = 0;
+    Object.keys(stPF().plans || {}).forEach(function (k) { (stPF().plans[k].entries || []).forEach(function (e) { mediaN += (e.media || []).length; }); });
+    (stRT().records || []).forEach(function (r) { mediaN += (r.media || []).length; });
+
+    var h = '<div class="kpi-mini kpi-6" style="margin-bottom:16px">' +
+      kpiCell('数据截止', I.dataThrough || '-', '', '#0e7490') +
+      kpiCell('门店', fmtN(M.totalStores), '家', '#15803d') +
+      kpiCell('本月计划', plan, '家', '#38bdf8') +
+      kpiCell('填写记录', ent.length, '条', '#f59e0b') +
+      kpiCell('圆桌场次', rt, '场', '#7c3aed') +
+      kpiCell('照片视频', mediaN, '个', '#f472b6') +
+      '</div>';
+
+    h += '<div class="card" style="margin-bottom:16px"><div class="chead"><div class="ch-t"><span class="dot"></span>导出与导入</div>' +
+      '<div class="ch-s">CSV 可直接用 Excel / WPS 打开</div></div>' +
+      '<div class="pf-actions">' +
+      '<button class="btn" onclick="ledExport()">📄 客户台账 CSV</button>' +
+      '<button class="btn" onclick="pfExport()">📄 本月促销明细 CSV</button>' +
+      '<button class="btn" onclick="rtExportCSV()">📄 圆桌场次 CSV</button>' +
+      '<button class="btn ghost" onclick="exportInvDrop()">📄 断货预警 CSV</button>' +
+      '<button class="btn ghost" onclick="exportInvSilent()">📄 沉默店 CSV</button></div>' +
+      '<div class="pf-actions">' +
+      '<button class="btn" onclick="exportFullBundle()">📦 全量备份（含照片视频）</button>' +
+      '<label class="btn ghost" style="cursor:pointer">⬆ 导入备份<input type="file" accept=".json" style="display:none" onchange="importBundle(this)"></label>' +
+      '<button class="btn ghost" onclick="pfExportJSON()">⬇ 促销备份</button>' +
+      '<button class="btn ghost" onclick="rtExportJSON()">⬇ 圆桌备份</button></div>' +
+      '<div class="mask-tip" style="margin-top:12px">换电脑、换手机时：先「全量备份」导出 JSON，在新设备上「导入备份」，台账和现场照片视频一起搬过去。</div></div>';
+
+    h += cloudPanel();
+
+    h += '<div class="card"><div class="chead"><div class="ch-t"><span class="dot"></span>系统说明</div>' +
+      '<div class="ch-s">版本与口径</div></div>' +
+      '<div class="mask-tip" style="line-height:2">' +
+      '① 数据源：珍诚开单供货明细（公司 → 门店），' + MONTHS[0] + ' 起至 ' + (I.dataThrough || '-') + '，每日 09:30 自动更新；' +
+      '九德堂连锁 9 家已剔除，只算单体药店与医药公司。<br>' +
+      '② 进销存指标为「供货视角」：有批号与有效期，但没有门店终端销售与在库库存，所以「断货月」= 距最后一次进货的月数，「卖完耗时」无法从供货数据得出。<br>' +
+      '③ 促销与圆桌数据存在你自己的浏览器里，不上传到任何服务器；开启云同步后才会在设备间共享。' +
+      '</div></div>';
+
+    $('#homeBody3').innerHTML = h;
+  };
+
+  /* 首次进入直接渲染首页（初始化时序不可靠，这里兜底） */
+  function bootHome() {
+    var ph = document.getElementById('page-home');
+    if (ph && ph.classList.contains('show')) { try { go('home'); } catch (e) { try { renderHome(); } catch (e2) { } } }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bootHome);
+  else bootHome();
+  window.addEventListener('load', bootHome);
+})();
 
 </script></body>
 </html>
