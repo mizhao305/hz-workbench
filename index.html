@@ -1977,12 +1977,12 @@ function renderKpiGoal(){
     const st=(IDX.zone26[z.zone]||{}).stores||0;
     const pct=Math.max(3,q/mx*100);
     const col=topCol[i]||'#2a3550';
-    return `<div style="display:flex;align-items:center;gap:8px;padding:5.5px 0;border-bottom:1px dashed var(--row-line,rgba(255,255,255,.07))">
-      <div style="width:20px;font-weight:800;font-size:13px;color:${col}">${i+1}</div>
-      <div style="flex:1;font-weight:700">${z.zone}</div>
-      <div style="flex:1"></div>
-      <div style="width:92px;text-align:right;font-weight:800;font-size:13px">${fmtN(q)}盒</div>
-      <div style="width:84px;text-align:right;font-size:11px;color:var(--tx3)">${st}店 · ${fmtC(amt)}</div>
+    return `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--row-line,rgba(255,255,255,.07))">
+      <div style="flex:0 0 22px;font-weight:800;font-size:13px;color:${col}">${i+1}</div>
+      <div style="flex:0 0 82px;min-width:0;font-weight:700;font-size:14px;white-space:nowrap;overflow:visible">${z.zone}</div>
+      <div style="flex:0 0 88px;text-align:right;font-weight:800;font-size:14px;white-space:nowrap">${fmtN(q)}盒</div>
+      <div style="flex:0 0 84px;text-align:right;font-size:11px;color:var(--tx3);white-space:nowrap">${st}店 · ${fmtC(amt)}</div>
+      <div style="flex:1 1 auto"></div>
     </div>`;
   }).join('');
 }
